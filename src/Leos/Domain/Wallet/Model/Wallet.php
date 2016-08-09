@@ -2,13 +2,13 @@
 
 namespace Leos\Domain\Wallet\Model;
 
-use Leos\Domain\Money\Model\Money;
+use Leos\Domain\Money\ValueObject\Money;
 
 /**
  * Class Wallet
  * @package Domain\Wallet\Model
  */
-class Wallet
+final class Wallet
 {
     /**
      * @var Credit

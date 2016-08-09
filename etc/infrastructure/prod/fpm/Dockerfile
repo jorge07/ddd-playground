@@ -1,0 +1,12 @@
+FROM jorge07/alpine-php:7
+
+ENV SYMFONY_ENV prod
+
+COPY app/app /app/app
+COPY app/bin /app/bin
+COPY app/var /app/var
+COPY app/web /app/web
+COPY app/src /app/src
+COPY app/vendor /app/vendor
+
+RUN php /app/bin/console c:w

@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Domain\Money\Model;
+namespace Leos\Domain\Money\ValueObject;
 
 
 /**
@@ -13,7 +13,7 @@ class Money
      * @var float
      */
     private $amount;
-
+    
     /**
      * @var Currency
      */

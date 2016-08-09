@@ -2,9 +2,8 @@
 
 namespace Leos\Domain\Wallet\Model;
 
-
-use Leos\Domain\Money\Model\Currency;
-use Leos\Domain\Money\Model\Money;
+use Leos\Domain\Money\ValueObject\Currency;
+use Leos\Domain\Money\ValueObject\Money;
 
 /**
  * Class WalletTest
@@ -75,17 +74,20 @@ class WalletTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group unit
+     * 
      * @expectedException Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException
      */
     public function testWalletRemoveNotEnoughCredit()
     {
         $wallet = new Wallet($real = new Credit(350), $bonus = new Credit(350));
 
-
         $wallet->removeRealMoney(new Money(8.50, $this->getTestCurrency()));
     }
 
-    private function getTestCurrency()
+    /**
+     * @return Currency
+     */
+    private function getTestCurrency(): Currency
     {
         return new Currency('EUR', 1);
     }

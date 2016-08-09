@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Leos\Domain\Money\Model;
+namespace Tests\Leos\Domain\Money\ValueObject;
 
-use Leos\Domain\Money\Model\Currency;
+use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
 
 /**
  * Class CurrencyTest
  *
- * @package Tests\Leos\Domain\Money\Model
+ * @package Tests\Leos\Domain\Money\ValueObject
  */
 class CurrencyTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,6 +27,9 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @group unit
+     */
     public function testCurrencyGetters()
     {
         $currency = new Currency('EUR', 1);
@@ -35,6 +38,9 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(1, $currency->getExchange());
     }
 
+    /**
+     * @group unit
+     */
     public function testCurrencyEqual()
     {
         $currency = new Currency('EUR', 1);

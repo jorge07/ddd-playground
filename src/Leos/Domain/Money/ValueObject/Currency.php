@@ -1,6 +1,7 @@
 <?php
 
-namespace Leos\Domain\Money\Model;
+namespace Leos\Domain\Money\ValueObject;
+
 use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
 
 
@@ -11,7 +12,7 @@ use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
 class Currency
 {
     /**
-     * @var string
+     * @var string ISO code string
      */
     private $code;
 

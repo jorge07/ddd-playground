@@ -2,7 +2,7 @@
 
 namespace Leos\Domain\Wallet\Model;
 
-use Leos\Domain\Money\Model\Money;
+use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
 /**
@@ -10,7 +10,7 @@ use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
  *
  * @package Domain\Wallet\Model
  */
-class Credit
+final class Credit
 {
     /**
      * @var int
@@ -34,11 +34,11 @@ class Credit
 
     /**
      * @param Money $money
-     * @return int
+     * @return Credit
      */
-    public static function moneyToCredit(Money $money): int
+    public static function moneyToCredit(Money $money): Credit
     {
-        return (int) number_format($money->getAmount() * 100, 0);
+        return new self((int) number_format($money->getAmount() * 100, 0));
     }
 
     /**
@@ -48,7 +48,7 @@ class Credit
      */
     public function add(Money $money): Credit
     {
-        return new self($this->amount + self::moneyToCredit($money));
+        return new self($this->amount + self::moneyToCredit($money)->getAmount());
     }
 
     /**
@@ -58,12 +58,12 @@ class Credit
      */
     public function remove(Money $money): Credit
     {
-        if ($this->amount < self::moneyToCredit($money)) {
+        if ($this->amount < self::moneyToCredit($money)->getAmount()) {
 
             throw new CreditNotEnoughException();
         }
 
-        return new self($this->amount - self::moneyToCredit($money));
+        return new self($this->amount - self::moneyToCredit($money)->getAmount());
     }
 
     /**
