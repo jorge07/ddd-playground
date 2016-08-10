@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Leos\Domain\Wallet\Model;
 
 use Leos\Domain\Money\ValueObject\Money;
+use Leos\Domain\Wallet\ValueObject\Credit;
+use Leos\Domain\Wallet\ValueObject\WalletId;
 
 /**
  * Class Wallet
@@ -10,6 +13,11 @@ use Leos\Domain\Money\ValueObject\Money;
  */
 final class Wallet
 {
+    /**
+     * @var WalletId
+     */
+    private $walletId;
+
     /**
      * @var Credit
      */
@@ -33,11 +41,13 @@ final class Wallet
     /**
      * Wallet constructor.
      *
+     * @param WalletId $walletId
      * @param Credit $real
      * @param Credit $bonus
      */
-    public function __construct(Credit $real, Credit $bonus)
+    public function __construct(WalletId $walletId, Credit $real, Credit $bonus)
     {
+        $this->walletId = $walletId;
         $this->real = $real;
         $this->bonus = $bonus;
         $this->createdAt = new \DateTime();
@@ -48,7 +58,7 @@ final class Wallet
      *
      * @return Wallet
      */
-    public function addRealMoney(Money $money): Wallet
+    public function addRealMoney(Money $money): self
     {
         $this->real = $this->real->add($money);
 
@@ -60,7 +70,7 @@ final class Wallet
      *
      * @return Wallet
      */
-    public function removeRealMoney(Money $money): Wallet
+    public function removeRealMoney(Money $money): self
     {
         $this->real = $this->real->remove($money);
 
@@ -72,7 +82,7 @@ final class Wallet
      *
      * @return Wallet
      */
-    public function addBonusMoney(Money $money): Wallet
+    public function addBonusMoney(Money $money): self
     {
         $this->bonus = $this->bonus->add($money);
 
@@ -84,7 +94,7 @@ final class Wallet
      *
      * @return Wallet
      */
-    public function removeBonusMoney(Money $money): Wallet
+    public function removeBonusMoney(Money $money): self
     {
         $this->bonus = $this->bonus->remove($money);
 
@@ -92,9 +102,17 @@ final class Wallet
     }
 
     /**
+     * @return string
+     */
+    public function id(): string
+    {
+        return (string) $this->walletId;
+    }
+
+    /**
      * @return Credit
      */
-    public function getReal(): Credit
+    public function real(): Credit
     {
         return $this->real;
     }
@@ -102,7 +120,7 @@ final class Wallet
     /**
      * @return Credit
      */
-    public function getBonus(): Credit
+    public function bonus(): Credit
     {
         return $this->bonus;
     }
@@ -110,7 +128,7 @@ final class Wallet
     /**
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function createdAt(): \DateTime
     {
         return $this->createdAt;
     }
@@ -118,7 +136,7 @@ final class Wallet
     /**
      * @return \DateTime|null
      */
-    public function getUpdatedAt()
+    public function updatedAt()
     {
         return $this->updatedAt;
     }

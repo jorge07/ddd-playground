@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Leos\Domain\Money\ValueObject;
 
@@ -39,7 +40,7 @@ class Currency
      */
     public function equals(Currency $currency): bool
     {
-        return ($currency->getCode() === $this->code && $currency->getExchange() === $this->exchange);
+        return ($currency->code() === $this->code && $currency->exchange() === $this->exchange);
     }
 
     /**
@@ -58,7 +59,7 @@ class Currency
     /**
      * @return string
      */
-    public function getCode(): string
+    public function code(): string
     {
         return $this->code;
     }
@@ -66,7 +67,7 @@ class Currency
     /**
      * @return float
      */
-    public function getExchange(): float
+    public function exchange(): float
     {
         return $this->exchange;
     }

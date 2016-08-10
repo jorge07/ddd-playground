@@ -34,8 +34,8 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
     {
         $currency = new Currency('EUR', 1);
 
-        self::assertEquals('EUR', $currency->getCode());
-        self::assertEquals(1, $currency->getExchange());
+        self::assertEquals('EUR', $currency->code());
+        self::assertEquals(1, $currency->exchange());
     }
 
     /**

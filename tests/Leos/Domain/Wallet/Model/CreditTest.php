@@ -1,6 +1,8 @@
 <?php
 
-namespace Leos\Domain\Wallet\Model;
+namespace Tests\Leos\Domain\Wallet\Model;
+
+use Leos\Domain\Wallet\ValueObject\Credit;
 
 /**
  * Class CreditTest
@@ -15,7 +17,7 @@ class CreditTest extends \PHPUnit_Framework_TestCase
     {
         $credit = new Credit(100);
 
-        self::assertEquals(100, $credit->getAmount());
-        self::assertNotNull($credit->getCreatedAt());
+        self::assertEquals(100, $credit->amount());
+        self::assertNotNull($credit->createdAt());
     }
 }

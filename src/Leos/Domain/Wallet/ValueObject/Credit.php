@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Leos\Domain\Wallet\Model;
+namespace Leos\Domain\Wallet\ValueObject;
 
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
@@ -36,9 +37,9 @@ final class Credit
      * @param Money $money
      * @return Credit
      */
-    public static function moneyToCredit(Money $money): Credit
+    public static function moneyToCredit(Money $money): self
     {
-        return new self((int) number_format($money->getAmount() * 100, 0));
+        return new self((int) number_format($money->amount() * 100, 0));
     }
 
     /**
@@ -46,9 +47,9 @@ final class Credit
      *
      * @return Credit
      */
-    public function add(Money $money): Credit
+    public function add(Money $money): self
     {
-        return new self($this->amount + self::moneyToCredit($money)->getAmount());
+        return new self($this->amount + self::moneyToCredit($money)->amount());
     }
 
     /**
@@ -56,14 +57,14 @@ final class Credit
      *
      * @return Credit
      */
-    public function remove(Money $money): Credit
+    public function remove(Money $money): self
     {
-        if ($this->amount < self::moneyToCredit($money)->getAmount()) {
+        if ($this->amount < self::moneyToCredit($money)->amount()) {
 
             throw new CreditNotEnoughException();
         }
 
-        return new self($this->amount - self::moneyToCredit($money)->getAmount());
+        return new self($this->amount - self::moneyToCredit($money)->amount());
     }
 
     /**
@@ -72,13 +73,13 @@ final class Credit
      */
     public function equals(Credit $credit): bool
     {
-        return ($this->amount === $credit->getAmount());
+        return ($this->amount === $credit->amount());
     }
 
     /**
      * @return int
      */
-    public function getAmount(): int
+    public function amount(): int
     {
         return $this->amount;
     }
@@ -86,7 +87,7 @@ final class Credit
     /**
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function createdAt(): \DateTime
     {
         return $this->createdAt;
     }

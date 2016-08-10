@@ -1,7 +1,7 @@
 <?php
+declare(strict_types=1);
 
 namespace Leos\Domain\Money\ValueObject;
-
 
 /**
  * Class Money
@@ -33,7 +33,7 @@ class Money
     /**
      * @return float
      */
-    public function getAmount(): float
+    public function amount(): float
     {
         return $this->amount;
     }
@@ -41,7 +41,7 @@ class Money
     /**
      * @return Currency
      */
-    public function getCurrency(): Currency
+    public function currency(): Currency
     {
         return $this->currency;
     }
