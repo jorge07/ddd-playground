@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
 
 class AppKernel extends Kernel
 {
@@ -15,6 +16,11 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+
+            new Leos\Application\RestBundle\LeosApplicationRestBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -46,4 +52,14 @@ class AppKernel extends Kernel
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    protected function getContainerBaseClass()
+    {
+        if ('test' === $this->environment) {
+            return MockerContainer::class;
+        }
+
+        return parent::getContainerBaseClass();
+    }
+
 }

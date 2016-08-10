@@ -1,0 +1,5 @@
+services:
+    leos.abstract.controller:
+        abstract: true
+        calls:
+          - [ setRequestStack, ["@request_stack"]]

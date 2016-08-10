@@ -1,0 +1,11 @@
+api:
+    type:   rest
+    prefix: /api/{version}
+    defaults:
+        _format: json
+        version: v1
+
+    requirements:
+        _format: "json"
+
+    resource: "@LeosApplicationRestBundle/Resources/config/routing.yml"

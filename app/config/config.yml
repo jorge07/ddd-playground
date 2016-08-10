@@ -66,3 +66,45 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+jms_serializer:
+    metadata:
+        auto_detection: true
+
+fos_rest:
+    versioning:
+        enabled: true
+        resolvers:
+            query: true
+            custom_header: true
+            media_type:
+                enabled: true
+                regex: '/(v|version)=(?P<version>[0-9\.]+)/'
+
+    serializer:
+        version: "v1"
+        serialize_null: true
+
+    body_listener:
+        array_normalizer: fos_rest.normalizer.camel_keys
+
+    routing_loader:
+        default_format: json
+
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+            xml: true
+
+        mime_types:
+            json: ['application/json', 'application/json;version=2.0']
+
+    format_listener:
+        rules:
+            - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: true }
+
+    param_fetcher_listener: force
+
+    exception:
+        enabled: true
