@@ -21,7 +21,7 @@ final class Credit
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    private $generatedAt;
 
     /**
      * Credit constructor.
@@ -30,7 +30,7 @@ final class Credit
     public function __construct(int $amount)
     {
         $this->amount = $amount;
-        $this->createdAt = new \DateTime();
+        $this->generatedAt = new \DateTime();
     }
 
     /**
@@ -87,8 +87,16 @@ final class Credit
     /**
      * @return \DateTime
      */
-    public function createdAt(): \DateTime
+    public function generatedAt(): \DateTime
     {
-        return $this->createdAt;
+        return $this->generatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string) $this->amount;
     }
 }

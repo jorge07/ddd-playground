@@ -30,7 +30,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "ramsey/uuid": "^3.5",
         "friendsofsymfony/rest-bundle": "2.1.x-dev",
-        "jms/serializer-bundle": "^1.1"
+        "jms/serializer-bundle": "^1.1",
+        "nelmio/api-doc-bundle": "^2.13"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

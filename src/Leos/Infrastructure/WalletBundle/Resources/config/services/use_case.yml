@@ -1,0 +1,9 @@
+services:
+
+    leos.use_case.wallet:
+        class: Leos\Domain\Wallet\UseCase\WalletManager
+        arguments:
+          - "@leos.repository.wallet"
+          - "@leos.factory.wallet"
+
+

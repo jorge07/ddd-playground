@@ -8,6 +8,8 @@ use Ramsey\Uuid\Uuid;
 /**
  * Class AggregateRootId
  *
+ * Its the unique identifier and will be auto-generated if not value is set.
+ *
  * @package Leos\Domain\Common\ValueObject
  */
 abstract class AggregateRootId
@@ -15,7 +17,7 @@ abstract class AggregateRootId
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * AggregateRootId constructor.
@@ -24,7 +26,7 @@ abstract class AggregateRootId
      */
     public function __construct(string $id = null)
     {
-        $this->id = Uuid::fromString($id ?: Uuid::uuid4());
+        $this->id = (string) Uuid::fromString($id ?: Uuid::uuid4());
     }
 
     /**
@@ -32,6 +34,6 @@ abstract class AggregateRootId
      */
     public function __toString(): string
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 }

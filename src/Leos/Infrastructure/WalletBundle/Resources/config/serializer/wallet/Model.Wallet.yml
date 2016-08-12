@@ -1,0 +1,24 @@
+Leos\Domain\Wallet\Model\Wallet:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: [Identifier]
+
+        real:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Wallet\ValueObject\Credit
+
+        bonus:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Wallet\ValueObject\Credit
+
+        createdAt:
+            expose: true
+            groups: [Basic]
+
+        updatedAt:
+            expose: true
+            groups: [Basic]

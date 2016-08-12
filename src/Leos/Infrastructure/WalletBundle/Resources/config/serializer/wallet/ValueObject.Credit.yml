@@ -1,0 +1,9 @@
+Leos\Domain\Wallet\ValueObject\Credit:
+    exclusion_policy: ALL
+    properties:
+        amount:
+            expose: true
+            groups: [Basic]
+        generatedAt:
+            expose: true
+            groups: [Basic]

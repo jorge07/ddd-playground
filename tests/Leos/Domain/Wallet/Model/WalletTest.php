@@ -41,7 +41,6 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     {
         $wallet = new Wallet(new WalletId(), $real = new Credit(100), $bonus = new Credit(100));
 
-
         $wallet->addRealMoney(new Money(2.50, $this->getTestCurrency()));
 
         self::assertNotSame($real, $wallet->real());
@@ -63,8 +62,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     public function testWalletRemove()
     {
         $wallet = new Wallet(new WalletId(), $real = new Credit(350), $bonus = new Credit(350));
-
-
+        
         $wallet->removeRealMoney(new Money(2.50, $this->getTestCurrency()));
 
         self::assertNotSame($real, $wallet->real());

@@ -1,7 +1,7 @@
 monitor:
     type: rest
-    resource: Leos\Application\RestBundle\Controller\Monitor\StatusController
+    resource: leos.controller.monitor
 
 wallet:
     type: rest
-    resource: Leos\Application\RestBundle\Controller\Wallet\WalletController
+    resource: leos.controller.wallet

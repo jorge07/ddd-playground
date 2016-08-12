@@ -9,14 +9,15 @@ use Leos\Domain\Wallet\ValueObject\WalletId;
 
 /**
  * Class Wallet
+ * 
  * @package Domain\Wallet\Model
  */
 final class Wallet
 {
     /**
-     * @var string
+     * @var WalletId
      */
-    private $walletId;
+    private $id;
 
     /**
      * @var Credit
@@ -47,8 +48,7 @@ final class Wallet
      */
     public function __construct(WalletId $walletId, Credit $real, Credit $bonus)
     {
-        // String until make serialization to not break tests
-        $this->walletId = (string) $walletId;
+        $this->id = $walletId;
         $this->real = $real;
         $this->bonus = $bonus;
         $this->createdAt = new \DateTime();
@@ -107,7 +107,7 @@ final class Wallet
      */
     public function id(): string
     {
-        return (string) $this->walletId;
+        return (string) $this->id;
     }
 
     /**

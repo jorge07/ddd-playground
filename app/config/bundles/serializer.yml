@@ -1,0 +1,11 @@
+jms_serializer:
+  metadata:
+    auto_detection: true
+    directories:
+      Wallet:
+        namespace_prefix: "Leos\\Domain\\Wallet"
+        path: "@LeosInfrastructureWalletBundle/Resources/config/serializer/wallet"
+
+      Money:
+        namespace_prefix: "Leos\\Domain\\Money"
+        path: "@LeosInfrastructureWalletBundle/Resources/config/serializer/money"

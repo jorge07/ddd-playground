@@ -2,9 +2,8 @@
 
 namespace Leos\Application\RestBundle\Controller;
 
-use FOS\RestBundle\Controller\ControllerTrait;
-
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\ControllerTrait;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 

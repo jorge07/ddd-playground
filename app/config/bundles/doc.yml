@@ -1,0 +1,17 @@
+nelmio_api_doc:
+    sandbox:
+        authentication:
+            delivery: header
+            name: access_token
+    cache:
+        enabled: true
+    exclude_sections: ["private", "exclusive"]
+    swagger:
+        api_base_path: /api
+        swagger_version: 1.2
+        api_version: 3.14
+        info:
+            title: DDD PlayGroud
+            description: Sandbox environment
+            contact: jorge.arcoma@gmail.com
+            license: MIT

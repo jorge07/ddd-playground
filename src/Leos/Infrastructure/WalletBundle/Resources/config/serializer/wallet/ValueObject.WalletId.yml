@@ -1,0 +1,7 @@
+Leos\Domain\Wallet\ValueObject\WalletId:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: [Identifier]
+            serialized_name: wallet_id

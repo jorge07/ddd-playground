@@ -6,3 +6,9 @@ services:
     leos.controller.monitor:
       class: Leos\Application\RestBundle\Controller\Monitor\StatusController
       parent: leos.abstract.controller
+
+    leos.controller.wallet:
+      class: Leos\Application\RestBundle\Controller\Wallet\WalletController
+      parent: leos.abstract.controller
+      arguments:
+        - "@leos.use_case.wallet"

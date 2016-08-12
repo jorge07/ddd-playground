@@ -1,0 +1,5 @@
+services:
+
+    leos.factory.wallet:
+        class: Leos\Infrastructure\WalletBundle\Factory\WalletFactory
+        parent: leos.abstract.form_factory

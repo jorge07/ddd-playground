@@ -1,9 +1,23 @@
 version: '2'
 services:
   fpm:
-      image: jorge07/alpine-php:7-dev
-      ports:
-        - "2244:22"
-        - "9000:9000"
-      volumes:
-        - "$PWD:/app"
+    image: jorge07/alpine-php:7-dev
+    ports:
+      - "2244:22"
+      - "9000:9000"
+    volumes:
+      - "$PWD:/app"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ddd
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:

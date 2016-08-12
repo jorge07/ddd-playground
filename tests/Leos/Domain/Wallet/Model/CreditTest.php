@@ -18,6 +18,5 @@ class CreditTest extends \PHPUnit_Framework_TestCase
         $credit = new Credit(100);
 
         self::assertEquals(100, $credit->amount());
-        self::assertNotNull($credit->createdAt());
     }
 }

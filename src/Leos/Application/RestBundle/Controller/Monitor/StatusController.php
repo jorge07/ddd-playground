@@ -2,6 +2,7 @@
 
 namespace Leos\Application\RestBundle\Controller\Monitor;
 
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Leos\Application\RestBundle\Controller\AbstractController;
 
@@ -16,6 +17,14 @@ class StatusController extends AbstractController
 {
     /**
      * Ping Action
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Ping status",
+     *   statusCodes = {
+     *     200 = "Returned when successful"
+     *   }
+     * )
      *
      * @return string
      */
