@@ -41,9 +41,11 @@ step docker cp building:/app tmp/build/
 
 echo -e "Create the the context"
 step cp ../prod/fpm/Dockerfile tmp/build/Dockerfile
+step cp ../prod/nginx/Dockerfile.nginx tmp/build/Dockerfile
 
-echo -e "Build the production image"
+echo -e "Build the production images"
 step docker build -t sf-prod -f tmp/build/Dockerfile tmp/build/
+step docker build -t nginx-prod -f tmp/build/Dockerfile.nginx tmp/build/
 
 # TODO Push images to registry
 
@@ -51,4 +53,4 @@ echo -e "Clean directories"
 step docker rm -f building
 rm -rf tmp
 
-echo -e "Done see you new image details: \n\n `docker images |grep sf-prod` \n\nNow move it into jenkins file or other CI."
+echo -e "Done see you new image details: \n\n `docker images |grep prod` \n\nNow move it into jenkins file or other CI."

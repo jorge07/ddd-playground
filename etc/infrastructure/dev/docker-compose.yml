@@ -1,5 +1,14 @@
 version: '2'
 services:
+  nginx:
+    build: nginx
+    depends_on:
+      - fpm
+    ports:
+      - "80:80"
+    volumes_from:
+      - fpm
+
   fpm:
     image: jorge07/alpine-php:7-dev
     ports:
