@@ -14,5 +14,3 @@ COPY tests /app/tests
 COPY phpunit.xml.dist /app/phpunit.xml.dist
 
 RUN php /app/bin/console c:c
-
-RUN phpunit

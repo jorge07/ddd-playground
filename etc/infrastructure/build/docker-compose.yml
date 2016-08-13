@@ -12,9 +12,9 @@ services:
 
   fpm:
     build:
-      context: ../../
+      context: ../../../
       dockerfile: etc/infrastructure/build/fpm/Dockerfile.test
-    container_name: sf-build
+    container_name: sf-build-${RELEASE}
     networks:
       - test
     depends_on:

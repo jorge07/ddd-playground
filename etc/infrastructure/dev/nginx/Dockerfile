@@ -1,5 +1,8 @@
 FROM nginx:1.11-alpine
 
+RUN apk --update add curl \
+    && rm -rf /var/cache/apk/*
+
 COPY ddd.conf /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p /app/var/logs/nginx \
