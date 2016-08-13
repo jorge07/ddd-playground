@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:5.7
+    networks:
+      - test
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ddd
+
+  fpm:
+    build:
+      context: ../../
+      dockerfile: etc/infrastructure/build/fpm/Dockerfile.test
+    container_name: sf-build
+    networks:
+      - test
+    depends_on:
+      - mysql
+
+networks:
+  test:
+    driver: bridge
