@@ -41,12 +41,13 @@ class WalletController extends AbstractController
 
     /**
      * @ApiDoc(
-     *   resource = true,
-     *   description = "Create a new Wallet",
-     *   output = "Leos\Domain\Wallet\Model\Wallet",
-     *   statusCodes = {
-     *     201 = "Returned when successful"
-     *   }
+     *     resource = true,
+     *     section="Wallet",
+     *     description = "Create a new Wallet",
+     *     output = "Leos\Domain\Wallet\Model\Wallet",
+     *     statusCodes = {
+     *       201 = "Returned when successful"
+     *     }
      * )
      *
      * @RequestParam(name="real", default="0", description="Initial real balance wallet")
@@ -78,14 +79,14 @@ class WalletController extends AbstractController
 
     /**
      * @ApiDoc(
-     *   resource = true,
-     *   description = "Gets a wallet for the given identifier",
-     *   output = "Leos\Domain\Wallet\Model\Wallet",
-     *   statusCodes = {
-     *     201 = "Returned when successful",
-     *     400 = "Returned when bad request",
-     *     404 = "Returned when not found"
-     *   }
+     *     resource = true,
+     *     section="Wallet",
+     *     description = "Gets a wallet for the given identifier",
+     *     output = "Leos\Domain\Wallet\Model\Wallet",
+     *     statusCodes = {
+     *       201 = "Returned when successful",
+     *       404 = "Returned when not found"
+     *     }
      * )
      *
      * @View(statusCode=200)

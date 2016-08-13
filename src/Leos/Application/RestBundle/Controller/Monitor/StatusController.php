@@ -16,14 +16,13 @@ use Leos\Application\RestBundle\Controller\AbstractController;
 class StatusController extends AbstractController
 {
     /**
-     * Ping Action
-     *
      * @ApiDoc(
-     *   resource = true,
-     *   description = "Ping status",
-     *   statusCodes = {
-     *     200 = "Returned when successful"
-     *   }
+     *     resource = true,
+     *     section="Monitor",
+     *     description = "Ping status",
+     *     statusCodes = {
+     *       200 = "Returned when successful"
+     *     }
      * )
      *
      * @return string

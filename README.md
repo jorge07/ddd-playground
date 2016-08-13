@@ -10,3 +10,8 @@ OR
 
     $ docker run -it -rm -v $PWD:/app jorge07/alpine-php:7-dev composer install
     $ docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d
+
+Test the workflow and build image:
+
+    $ cd etc/infrastructure/
+    $ ./deploy.sh
