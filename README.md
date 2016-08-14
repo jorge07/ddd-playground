@@ -14,4 +14,4 @@ OR
 Test the workflow and build image:
 
     $ cd etc/infrastructure/
-    $ ./deploy.sh
+    $ ./deploys <release>
