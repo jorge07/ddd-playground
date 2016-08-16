@@ -1,13 +1,14 @@
 <?php
 
-namespace Leos\Domain\Wallet\UseCase;
+namespace Leos\Application\UseCase\Wallet;
 
-use Leos\Domain\Money\ValueObject\Money;
+use Leos\Application\DTO\Wallet\DebitDTO;
+use Leos\Application\DTO\Wallet\CreditDTO;
+use Leos\Application\DTO\Wallet\CreateWalletDTO;
 
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 use Leos\Domain\Wallet\Factory\WalletFactoryInterface;
-use Leos\Infrastructure\WalletBundle\DTO\CreateWalletDTO;
 use Leos\Domain\Wallet\Repository\WalletRepositoryInterface;
 
 /**
@@ -41,15 +42,14 @@ final class WalletManager
 
     /**
      * @param CreateWalletDTO $dto
-     * @param bool $persist
      *
      * @return Wallet
      */
-    public function create(CreateWalletDTO $dto, bool $persist = true): Wallet
+    public function create(CreateWalletDTO $dto): Wallet
     {
         $wallet = $this->factory->create($dto->get());
 
-        if ($persist) {
+        if ($dto->hasPersistence()) {
             $this->repository->save($wallet);
         }
 
@@ -57,47 +57,35 @@ final class WalletManager
     }
 
     /**
-     * @param WalletId $uid
-     * @param Money $money
-     *
-     * @return WalletManager
+     * @param DebitDTO $dto
+     * @return Wallet
      */
-    public function debitReal(WalletId $uid, Money $money): self
+    public function debit(DebitDTO $dto): Wallet
     {
-        return $this->repository->get($uid)->removeRealMoney($money);
+        $wallet = $this->get($dto->walletId())
+            ->removeRealMoney($dto->real())
+            ->removeBonusMoney($dto->bonus())
+        ;
 
+        $this->repository->save($wallet);
+
+        return $wallet;
     }
 
     /**
-     * @param WalletId $uid
-     * @param Money $money
-     *
-     * @return WalletManager
+     * @param CreditDTO $dto
+     * @return Wallet
      */
-    public function debitBonus(WalletId $uid, Money $money): self
+    public function credit(CreditDTO $dto): Wallet
     {
-        return $this->repository->get($uid)->removeBonusMoney($money);
+        $wallet = $this->get($dto->walletId())
+            ->addRealMoney($dto->real())
+            ->addBonusMoney($dto->bonus())
+        ;
 
-    }
+        $this->repository->save($wallet);
 
-    /**
-     * @param WalletId $uid
-     * @param Money $money
-     * @return WalletManager
-     */
-    public function creditReal(WalletId $uid, Money $money): self
-    {
-        return $this->repository->get($uid)->addRealMoney($money);
-    }
-
-    /**
-     * @param WalletId $uid
-     * @param Money $money
-     * @return WalletManager
-     */
-    public function creditBonus(WalletId $uid, Money $money): self
-    {
-        return $this->repository->get($uid)->addBonusMoney($money);
+        return $wallet;
     }
 
     /**

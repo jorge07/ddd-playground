@@ -30,7 +30,7 @@ class CreditType extends AbstractType
             ->add('amount', IntegerType::class, ['constraints' => [
                 new NotBlank(),
                 new NotNull(),
-                new LessThan(['value' => 999]),
+                new LessThan(['value' => 10001]),
             ]])
         ;
     }

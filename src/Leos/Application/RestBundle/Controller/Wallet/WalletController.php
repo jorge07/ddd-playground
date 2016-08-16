@@ -2,18 +2,28 @@
 
 namespace Leos\Application\RestBundle\Controller\Wallet;
 
-use FOS\RestBundle\Controller\Annotations\RequestParam;
-use FOS\RestBundle\Request\ParamFetcher;
-use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
-use Leos\Domain\Wallet\Model\Wallet;
-use Leos\Domain\Wallet\UseCase\WalletManager;
-use Leos\Domain\Wallet\ValueObject\WalletId;
-use Leos\Infrastructure\Common\Exception\Form\FormException;
-use Leos\Infrastructure\WalletBundle\DTO\CreateWalletDTO;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Controller\Annotations\RouteResource;
+use Leos\Application\DTO\Wallet\DebitDTO;
+use Leos\Application\DTO\Wallet\CreditDTO;
+use Leos\Application\DTO\Wallet\CreateWalletDTO;
+use Leos\Application\UseCase\Wallet\WalletManager;
 use Leos\Application\RestBundle\Controller\AbstractController;
+
+use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
+use Leos\Domain\Wallet\Model\Wallet;
+use Leos\Domain\Money\ValueObject\Currency;
+use Leos\Domain\Wallet\ValueObject\WalletId;
+use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
+
+use Leos\Infrastructure\Common\Exception\Form\FormException;
+
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+use FOS\RestBundle\Controller\Annotations\RouteResource;
+
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -50,10 +60,10 @@ class WalletController extends AbstractController
      *     }
      * )
      *
-     * @RequestParam(name="real", default="0", description="Initial real balance wallet")
-     * @RequestParam(name="bonus", default="0", description="Initial bonus balance wallet")
+     * @RequestParam(name="real", default="0", description="Initial real Credit in wallet")
+     * @RequestParam(name="bonus", default="0", description="Initial bonus Credit in wallet")
      *
-     * @View(statusCode=201, serializerGroups={"Identifier", "Basic"})
+     * @View(statusCode=201)
      *
      * @param ParamFetcher $fetcher
      *
@@ -62,14 +72,14 @@ class WalletController extends AbstractController
     public function postAction(ParamFetcher $fetcher)
     {
         try {
-
             $wallet = $this->walletManager->create(
-                new CreateWalletDTO((int) $fetcher->get('real'), (int) $fetcher->get('bonus'))
+                new CreateWalletDTO(
+                    (int) $fetcher->get('real'),
+                    (int) $fetcher->get('bonus')
+                )
             );
 
-            return $this->routeRedirectView('get_wallet', [
-                'walletId' => $wallet->id()
-            ]);
+            return $this->routeRedirectView('get_wallet', [ 'walletId' => $wallet->id() ]);
 
         } catch (FormException $e) {
 
@@ -103,6 +113,92 @@ class WalletController extends AbstractController
         } catch (WalletNotFoundException $e) {
 
             throw new NotFoundHttpException($e->getMessage());
+        }
+    }
+
+    /**
+     * @ApiDoc(
+     *     resource = true,
+     *     section="Wallet",
+     *     description = "Generate a positive insertion on the given Wallet",
+     *     output = "Leos\Domain\Wallet\Model\Wallet",
+     *     statusCodes = {
+     *       202 = "Returned when successful"
+     *     }
+     * )
+     *
+     * @RequestParam(name="real", default="0", description="Real amount to credit")
+     * @RequestParam(name="bonus", default="0", description="Bonus amount to credit")
+     * @RequestParam(name="currency", default="EUR", description="Currency")
+     *
+     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
+     *
+     * @param string $uid
+     * @param ParamFetcher $fetcher
+     *
+     * @return Wallet
+     */
+    public function postCreditAction(string $uid, ParamFetcher $fetcher)
+    {
+        try {
+            return $this->walletManager->credit(
+                new CreditDTO(
+                    new WalletId($uid),
+                    new Currency($fetcher->get('currency')),
+                    (float) $fetcher->get('real'),
+                    (float) $fetcher->get('bonus')
+                )
+            );
+            
+        } catch (WalletNotFoundException $e) {
+
+            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
+
+        }
+    }
+
+    /**
+     * @ApiDoc(
+     *     resource = true,
+     *     section="Wallet",
+     *     description = "Generate a negative insertion on the given Wallet",
+     *     output = "Leos\Domain\Wallet\Model\Wallet",
+     *     statusCodes = {
+     *       202 = "Returned when successful"
+     *     }
+     * )
+     *
+     * @RequestParam(name="real", default="0", description="Real amount to credit")
+     * @RequestParam(name="bonus", default="0", description="Bonus amount to credit")
+     * @RequestParam(name="currency", default="EUR", description="Currency")
+     *
+     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
+     *
+     * @param string $uid
+     * @param ParamFetcher $fetcher
+     *
+     * @return Wallet
+     */
+    public function postDebitAction(string $uid, ParamFetcher $fetcher)
+    {
+        try {
+
+            return $this->walletManager->debit(
+                new DebitDTO(
+                    new WalletId($uid),
+                    new Currency($fetcher->get('currency')),
+                    (float) $fetcher->get('real'),
+                    (float) $fetcher->get('bonus')
+                )
+            );
+
+        } catch (WalletNotFoundException $e) {
+
+            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (CreditNotEnoughException $e) {
+
+            throw new ConflictHttpException($e->getMessage(), $e, $e->getCode());
         }
     }
 }

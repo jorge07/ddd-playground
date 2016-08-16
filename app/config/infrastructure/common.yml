@@ -1,0 +1,12 @@
+services:
+
+    leos.abstract.repository:
+        abstract: true
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+        public: false
+
+    leos.abstract.form_factory:
+        abstract: true
+        arguments: ["@form.factory"]
+
+

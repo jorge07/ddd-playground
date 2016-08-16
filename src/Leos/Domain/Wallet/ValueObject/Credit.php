@@ -39,7 +39,7 @@ final class Credit
      */
     public static function moneyToCredit(Money $money): self
     {
-        return new self((int) number_format($money->amount() * 100, 0));
+        return new self(intval($money->amount() * 100));
     }
 
     /**

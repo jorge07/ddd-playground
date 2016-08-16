@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Infrastructure\WalletBundle\DTO;
+namespace Leos\Application\DTO\Wallet;
 
 /**
  * Class CreateWalletDTO
@@ -20,15 +20,30 @@ class CreateWalletDTO
     private $initialAmountBonus;
 
     /**
+     * @var bool
+     */
+    private $persist;
+
+    /**
      * CreateWalletDTO constructor.
      *
      * @param int $initialAmountReal
      * @param int $initialAmountBonus
+     * @param bool $persist
      */
-    public function __construct(int $initialAmountReal, int $initialAmountBonus)
+    public function __construct(int $initialAmountReal, int $initialAmountBonus, bool $persist = true)
     {
         $this->initialAmountReal = $initialAmountReal;
         $this->initialAmountBonus = $initialAmountBonus;
+        $this->persist = $persist;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPersistence(): bool
+    {
+        return $this->persist;
     }
 
     /**
