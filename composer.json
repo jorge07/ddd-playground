@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Leos\\": "src/"
+            "Leos\\": "src/Leos/"
         },
         "classmap": [
             "app/AppKernel.php",
@@ -31,13 +31,19 @@
         "ramsey/uuid": "^3.5",
         "friendsofsymfony/rest-bundle": "2.1.x-dev",
         "jms/serializer-bundle": "^1.1",
-        "nelmio/api-doc-bundle": "^2.13"
+        "nelmio/api-doc-bundle": "^2.13",
+        "snc/redis-bundle": "2.x-dev",
+        "predis/predis": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "phpunit/phpunit": "^4.8",
-        "lakion/api-test-case": "^1.0"
+        "lakion/api-test-case": "^1.0",
+        "behat/symfony2-extension": "^2.1",
+        "guzzlehttp/guzzle": "^6.2",
+        "behat/behat": "^3.1",
+        "symfony/psr-http-message-bridge": "^0.2.0"
     },
     "scripts": {
         "post-install-cmd": [

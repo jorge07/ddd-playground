@@ -19,6 +19,9 @@ services:
     depends_on:
       - mysql
 
+  redis:
+    image: redis:3.2-alpine
+
   mysql:
     image: mysql:5.7
     ports:

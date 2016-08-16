@@ -1,11 +1,11 @@
 {
     "id": "@string@",
     "real": {
-        "amount": 0,
+        "amount": "@integer@",
         "generated_at": "@string@.isDateTime()"
     },
-        "bonus": {
-        "amount": 0,
+    "bonus": {
+        "amount": "@integer@",
         "generated_at": "@string@.isDateTime()"
     },
     "created_at": "@string@.isDateTime()",

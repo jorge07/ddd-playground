@@ -51,10 +51,7 @@ abstract class AbstractController
                 $parameters
             ),
             $statusCode,
-            array_merge(
-                $this->getRequest()->headers->all(),
-                $headers
-            )
+            $headers
         );
     }
 

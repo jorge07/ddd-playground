@@ -1,0 +1,15 @@
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: "redis://%redis_host%"
+
+        session:
+            type: predis
+            alias: session
+            dsn: "redis://%redis_host%"
+    session:
+        client: session
+        prefix: ddd:session:
+        ttl: "%session_ttl%"

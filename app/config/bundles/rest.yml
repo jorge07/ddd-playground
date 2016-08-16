@@ -22,7 +22,6 @@ fos_rest:
         view_response_listener: 'force'
         formats:
             json: true
-            xml: true
 
         mime_types:
             json: ['application/json', 'application/json;version=2.0']

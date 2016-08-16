@@ -39,7 +39,7 @@ sayInRed "Extract reporting"
 step docker cp sf-build-${RELEASE}:/app/report ../../report
 
 sayInRed "Remove test container directories"
-step docker-compose -f build/docker-compose.yml down -v
+step docker-compose -f build/docker-compose.yml down -v -rmi
 
 sayInRed "Create the Building container"
 step docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
@@ -50,7 +50,6 @@ step docker cp building-${RELEASE}:/app context-${RELEASE}/build/
 
 sayInRed "Remove environment"
 step docker rm -f building-${RELEASE}
-step docker-compose -f build/docker-compose.yml down -v
 
 sayInRed "Create the final container context"
 step cp -R prod/fpm context-${RELEASE}/build/fpm

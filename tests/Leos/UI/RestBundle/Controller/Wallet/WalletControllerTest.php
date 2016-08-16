@@ -14,7 +14,7 @@ class WalletControllerTest extends JsonApiTestCase
     public function setUp()
     {
         $this->setUpClient();
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/RestBundle/Response/Wallet";
+        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/Responses/Wallet";
     }
 
     /**

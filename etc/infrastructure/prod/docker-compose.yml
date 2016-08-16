@@ -5,6 +5,7 @@ services:
       context: ../context-${RELEASE}/build
       dockerfile: fpm/Dockerfile
     image: sf-prod:${RELEASE}
+
   nginx:
     build:
       context: ../context-${RELEASE}/build

@@ -1,0 +1,31 @@
+default:
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                env: "test"
+                debug: "true"
+
+    suites:
+        home:
+            paths:
+                - "%paths.base%/tests/Leos/UI/Behat/Features/Home"
+            contexts:
+                - Tests\Leos\UI\Behat\Context\Api\Home\HomeContext:
+                    path: http://nginx
+                    responsesPath: %paths.base%/tests/Leos/UI/Responses/Home
+
+        wallet:
+            paths:
+                - "%paths.base%/tests/Leos/UI/Behat/Features/Wallet"
+            contexts:
+                - Tests\Leos\UI\Behat\Context\Api\Wallet\WalletContext:
+                    path: http://nginx
+                    responsesPath: %paths.base%/tests/Leos/UI/Responses/Wallet
+
+        monitor:
+            paths:
+                - "%paths.base%/tests/Leos/UI/Behat/Features/Monitor"
+            contexts:
+                - Tests\Leos\UI\Behat\Context\Api\Monitor\MonitorContext:
+                    path: http://nginx
+                    responsesPath: %paths.base%/tests/Leos/UI/Responses/Monitor

@@ -3,6 +3,12 @@ imports:
 
 services:
 
+    leos.controller.home:
+      class: Leos\UI\RestBundle\Controller\Home\HomeController
+      parent: leos.abstract.controller
+      arguments:
+        - "@fos_rest.router"
+
     leos.controller.monitor:
       class: Leos\UI\RestBundle\Controller\Monitor\StatusController
       parent: leos.abstract.controller

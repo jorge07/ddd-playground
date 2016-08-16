@@ -1,0 +1,3 @@
+{
+  "wallet": "@string@.contains('wallet')"
+}

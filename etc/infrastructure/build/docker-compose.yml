@@ -20,6 +20,9 @@ services:
     depends_on:
       - mysql
 
+  redis:
+    image: redis:3.2-alpine
+
 networks:
   test:
     driver: bridge
