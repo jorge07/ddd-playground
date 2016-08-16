@@ -1,20 +1,20 @@
 <?php
 
-namespace Leos\Application\RestBundle\Controller\Wallet;
+namespace Tests\Leos\UI\RestBundle\Controller\Wallet;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 
 /**
  * Class WalletControllerTest
  * 
- * @package Leos\Application\RestBundle\Controller\Wallet
+ * @package Leos\UI\RestBundle\Controller\Wallet
  */
 class WalletControllerTest extends JsonApiTestCase
 {
     public function setUp()
     {
         $this->setUpClient();
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/Application/RestBundle/Response/Wallet";
+        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/RestBundle/Response/Wallet";
     }
 
     /**
@@ -145,6 +145,6 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->client->request('GET', $location);
 
-        self::assertResponse($response = $this->client->getResponse(), $responseFile, $code);
+        self::assertResponse($this->client->getResponse(), $responseFile, $code);
     }
 }

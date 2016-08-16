@@ -96,14 +96,4 @@ final class WalletManager
     {
         return $this->repository->get($uid);
     }
-
-    /**
-     * @param WalletId $uid
-     *
-     * @return null|WalletId
-     */
-    public function findOne(WalletId $uid)
-    {
-        return $this->repository->findOneById($uid);
-    }
 }

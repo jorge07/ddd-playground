@@ -1,20 +1,20 @@
 <?php
 
-namespace Leos\Application\RestBundle\Controller\Monitor;
+namespace Tests\Leos\UI\RestBundle\Controller\Monitor;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 
 /**
  * Class StatusControllerTest
  *
- * @package Leos\Application\RestBundle\Controller\Monitor
+ * @package Leos\UI\RestBundle\Controller\Monitor
  */
 class StatusControllerTest extends JsonApiTestCase
 {
     public function setUp()
     {
         $this->setUpClient();
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/Application/RestBundle/Response/Monitor";
+        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/RestBundle/Response/Monitor";
     }
 
     /**

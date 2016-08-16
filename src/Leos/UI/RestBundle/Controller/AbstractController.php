@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Application\RestBundle\Controller;
+namespace Leos\UI\RestBundle\Controller;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\ControllerTrait;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class AbstractController
  *
- * @package Leos\Application\RestBundle\Controller
+ * @package Leos\UI\RestBundle\Controller
  */
 abstract class AbstractController
 {

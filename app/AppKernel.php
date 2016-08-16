@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new FOS\RestBundle\FOSRestBundle(),
 
-            new Leos\Application\RestBundle\LeosApplicationRestBundle(),
+            new Leos\UI\RestBundle\LeosUIRestBundle(),
             new Leos\Infrastructure\WalletBundle\LeosInfrastructureWalletBundle(),
         ];
 

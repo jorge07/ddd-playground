@@ -1,15 +1,15 @@
 <?php
 
-namespace Leos\Application\RestBundle\Controller\Monitor;
+namespace Leos\UI\RestBundle\Controller\Monitor;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
-use Leos\Application\RestBundle\Controller\AbstractController;
+use Leos\UI\RestBundle\Controller\AbstractController;
 
 /**
  * Class StatusController
  *
- * @package Leos\Application\RestBundle\Controller\Monitor
+ * @package Leos\UI\RestBundle\Controller\Monitor
  *
  * @RouteResource("Monitor")
  */

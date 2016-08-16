@@ -23,7 +23,7 @@ doctrine:
             Wallet:
                 type: yml
                 prefix: Leos\Domain\Wallet\Model
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/model'
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/Model'
                 is_bundle: false
             WalletValueObject:
                 type: yml

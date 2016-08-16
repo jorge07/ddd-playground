@@ -1,12 +1,12 @@
 <?php
 
-namespace Leos\Application\RestBundle\Controller\Wallet;
+namespace Leos\UI\RestBundle\Controller\Wallet;
 
 use Leos\Application\DTO\Wallet\DebitDTO;
 use Leos\Application\DTO\Wallet\CreditDTO;
 use Leos\Application\DTO\Wallet\CreateWalletDTO;
 use Leos\Application\UseCase\Wallet\WalletManager;
-use Leos\Application\RestBundle\Controller\AbstractController;
+use Leos\UI\RestBundle\Controller\AbstractController;
 
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 use Leos\Domain\Wallet\Model\Wallet;
@@ -29,7 +29,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Class WalletController
  *
- * @package Leos\Application\RestBundle\Controller\Wallet
+ * @package Leos\UI\RestBundle\Controller\Wallet
  *
  * @RouteResource("Wallet", pluralize=false)
  */

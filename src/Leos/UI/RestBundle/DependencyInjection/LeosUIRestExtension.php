@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Application\RestBundle\DependencyInjection;
+namespace Leos\UI\RestBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class LeosApplicationRestExtension extends Extension
+class LeosUIRestExtension extends Extension
 {
     /**
      * {@inheritdoc}
