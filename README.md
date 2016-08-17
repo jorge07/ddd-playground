@@ -11,10 +11,4 @@ OR
     $ docker run -it -rm -v $PWD:/app jorge07/alpine-php:7-dev composer install
     $ docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d
 
-Test the workflow and build image:
-
-    $ cd etc/infrastructure/
-    $ ./deploys <release>
-
-
 For more info go to [doc](https://github.com/jorge07/ddd-playground/blob/master/doc/index.md)
