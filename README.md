@@ -15,3 +15,6 @@ Test the workflow and build image:
 
     $ cd etc/infrastructure/
     $ ./deploys <release>
+
+
+For more info go to [doc](https://github.com/jorge07/ddd-playground/blob/master/doc/index.md)
