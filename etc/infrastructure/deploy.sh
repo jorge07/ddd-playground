@@ -35,7 +35,7 @@ step docker exec sf-build-${RELEASE} php bin/console d:s:u --force
 
 sayInRed "Running the tests"
 step docker exec sf-build-${RELEASE} phpunit
-step docker exec sf-build-${RELEASE} ls vendor/bin
+step docker exec sf-build-${RELEASE} ./vendor/bin/behat
 
 sayInRed "Extract reporting"
 step docker cp sf-build-${RELEASE}:/app/report ../../report

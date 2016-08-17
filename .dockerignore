@@ -1,5 +1,6 @@
 app/config/parameters.yml
-etc/infrastructure/build/
+etc/infrastructure/context-*/
+doc/
 report/
 vendor/
 web/bundles/

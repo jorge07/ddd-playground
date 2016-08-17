@@ -9,7 +9,15 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=ddd
-
+  nginx:
+    build:
+      context: ../../../
+      dockerfile: etc/infrastructure/build/nginx/Dockerfile
+    container_name: nginx-${RELEASE}
+    networks:
+      - test
+    depends_on:
+      - fpm
   fpm:
     build:
       context: ../../../
