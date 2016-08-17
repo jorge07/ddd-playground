@@ -1,14 +1,13 @@
-# This file is auto-generated during the composer install
 parameters:
-    database_host:     mysql
-    database_port:     ~
-    database_name:     ddd
-    database_user:     root
+    database_host: mysql
+    database_port: null
+    database_name: ddd
+    database_user: root
     database_password: root
-
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-
-    secret: 9dd09a1d935100d81cf5135e75ba4c3a78134c89
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    redis_host: redis
+    session_ttl: 7800

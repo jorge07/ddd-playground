@@ -2,14 +2,14 @@
 
 namespace Tests\Leos\UI\Behat\Context\Api;
 
-
-use Behat\Behat\Tester\Exception\PendingException;
-use Behat\Gherkin\Node\TableNode;
 use GuzzleHttp\Client as Http;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
-use Lakion\ApiTestCase\JsonApiTestCase;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
+
+use Psr\Http\Message\ResponseInterface;
+
+use Lakion\ApiTestCase\JsonApiTestCase;
 
 use Coduo\PHPMatcher\Matcher\Matcher;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
@@ -25,6 +25,11 @@ use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
  */
 class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
 {
+
+    const
+        FIXTURES = '/tests/Leos/UI/Behat/Context/Fixtures',
+        RESPONSES = '/tests/Leos/UI/Responses/'
+    ;
     /**
      * @var Http
      */
@@ -54,10 +59,15 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
      * ApiContext constructor.
      *
      * @param string $path
+     * @param string $basePath
      * @param string $responsesPath
+     * @param string $fixturesPath
      */
-    public function __construct(string $path, string $responsesPath)
+    public function __construct(string $path, string $basePath, string $responsesPath = null, string $fixturesPath = null)
     {
+        $_SERVER['KERNEL_DIR'] = $basePath . '/app';
+        $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
+
         parent::__construct();
         $this->http = new Http([
             // Base URI is used with relative requests
@@ -67,10 +77,10 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
             'content-type' => 'application/json',
         ]);
 
-        $this->expectedResponsesPath = $responsesPath;
+        $this->dataFixturesPath = $fixturesPath ?: $basePath.self::FIXTURES;
+        $this->expectedResponsesPath = $responsesPath ?: $basePath.self::RESPONSES;
 
-        $factory = new SimpleFactory();
-        $this->matcher = $factory->createMatcher();
+        $this->matcher = (new SimpleFactory())->createMatcher();
         $this->httpFoundationFactory = new HttpFoundationFactory();
     }
 
@@ -82,7 +92,14 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
      */
     public function iSendARequestTo($method, $uri)
     {
-        $this->response = $this->http->request($method, $uri);
+        try{
+
+            $this->response = $this->http->request($method, $uri);
+            
+        } catch (ClientException $e) {
+
+            $this->response = $e->getResponse();
+        }
     }
 
     /**

@@ -14,6 +14,15 @@ use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 interface WalletRepositoryInterface
 {
     /**
+     * @param array $keys
+     * @param array $operators
+     * @param array $values
+     * @param array $sort
+     * @return mixed
+     */
+    public function findAll(array $keys = [], array $operators = [], array $values = [], array $sort = []);
+
+    /**
      * @param WalletId $uid
      *
      * @throws WalletNotFoundException

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Leos\Domain\Common\ValueObject;
 
+use Leos\Domain\Common\Exception\InvalidUUIDException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -26,7 +27,14 @@ abstract class AggregateRootId
      */
     public function __construct(string $id = null)
     {
-        $this->id = (string) Uuid::fromString($id ?: Uuid::uuid4());
+        try {
+
+            $this->id = (string) Uuid::fromString($id ?: Uuid::uuid4());
+
+        } catch (\InvalidArgumentException $e) {
+
+            throw new InvalidUUIDException();
+        }
     }
 
     /**

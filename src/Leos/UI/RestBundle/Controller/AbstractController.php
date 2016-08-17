@@ -2,8 +2,10 @@
 
 namespace Leos\UI\RestBundle\Controller;
 
+use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\ControllerTrait;
+use Leos\Application\DTO\Common\PaginationDTO;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 

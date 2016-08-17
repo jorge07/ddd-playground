@@ -15,7 +15,7 @@ class HomeControllerTest extends JsonApiTestCase
     /**
      * @group unit
      */
-    public function testPingAction()
+    public function testGetAction()
     {
         $this->client->request('GET', '/api/v1/');
 

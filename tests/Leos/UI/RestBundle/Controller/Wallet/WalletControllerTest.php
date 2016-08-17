@@ -13,8 +13,11 @@ class WalletControllerTest extends JsonApiTestCase
 {
     public function setUp()
     {
+        $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
         $this->setUpClient();
+        $this->setUpDatabase();
         $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/Responses/Wallet";
+        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/Behat/Context/Fixtures";
     }
 
     /**
@@ -74,14 +77,14 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testCredit404Action()
+    public function testCredit400Action()
     {
-        $this->client->request('POST',  '/api/wallet/404/credit.json', [
+        $this->client->request('POST',  '/api/v1/wallet/404/credit.json', [
             'real' => 5,
             'bonus' => 5
         ]);
 
-        self::assertEquals(404, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -126,14 +129,62 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
+    public function testDebit400Action()
+    {
+        $this->client->request('POST',  '/api/v1/wallet/404/debit.json', [
+            'real' => 5,
+            'bonus' => 5
+        ]);
+
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @group functional
+     */
     public function testDebit404Action()
     {
-        $this->client->request('POST',  '/api/wallet/404/debit.json', [
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/debit.json', [
             'real' => 5,
             'bonus' => 5
         ]);
 
         self::assertEquals(404, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @group functional
+     */
+    public function testCredit404Action()
+    {
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/credit.json', [
+            'real' => 5,
+            'bonus' => 5
+        ]);
+
+        self::assertEquals(404, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @group functional
+     */
+    public function testWalletCollectionAction()
+    {
+        $this->loadFixturesFromDirectory('wallet');
+        $this->client->request('GET',  '/api/v1/wallet.json');
+
+        self::assertResponse($this->client->getResponse(), "cget_wallet", 200);
+    }
+
+    /**
+     * @group functional
+     */
+    public function testWalletCollectionFilterAction()
+    {
+        $this->loadFixturesFromDirectory('wallet');
+        $this->client->request('GET',  '/api/v1/wallet.json?filterParam[]=real.amount&filterOp[]=eq&filterValue[]=50');
+
+        self::assertResponse($this->client->getResponse(), "cget_wallet_filter_50", 200);
     }
 
     /**

@@ -28,18 +28,20 @@ sayInRed "Create the deploy folder"
 mkdir -p context-${RELEASE}/build
 
 sayInRed "Up environment"
+step docker-compose -f build/docker-compose.yml build
 step docker-compose -f build/docker-compose.yml up -d
 docker exec sf-build-${RELEASE} php bin/console d:d:c
 step docker exec sf-build-${RELEASE} php bin/console d:s:u --force
 
 sayInRed "Running the tests"
 step docker exec sf-build-${RELEASE} phpunit
+step docker exec sf-build-${RELEASE} ls vendor/bin
 
 sayInRed "Extract reporting"
 step docker cp sf-build-${RELEASE}:/app/report ../../report
 
 sayInRed "Remove test container directories"
-step docker-compose -f build/docker-compose.yml down -v -rmi
+step docker-compose -f build/docker-compose.yml down
 
 sayInRed "Create the Building container"
 step docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../

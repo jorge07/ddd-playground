@@ -2,11 +2,12 @@
 
 namespace Leos\Infrastructure\WalletBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 use Leos\Domain\Wallet\Repository\WalletRepositoryInterface;
+use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
+
+use Leos\Infrastructure\Common\Doctrine\ORM\Repository\EntityRepository;
 
 /**
  * Class WalletRepository
@@ -14,6 +15,20 @@ use Leos\Domain\Wallet\Repository\WalletRepositoryInterface;
  */
 class WalletRepository extends EntityRepository implements WalletRepositoryInterface
 {
+    /**
+     * @param array $filters
+     * @param array $operators
+     * @param array $values
+     * @param array $sort
+     * @return \Pagerfanta\Pagerfanta
+     */
+    public function findAll(array $filters = [], array $operators = [], array $values = [], array $sort = [])
+    {
+
+        $queryBuilder = $this->createQueryBuilder($alias = 'wallet');
+
+        return $this->createOperatorPaginator($queryBuilder, $alias, $filters, $operators, $values, $sort);
+    }
     /**
      * @param WalletId $uid
      * @return Wallet

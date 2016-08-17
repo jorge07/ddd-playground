@@ -1,0 +1,34 @@
+{
+    "page": "@integer@",
+    "limit": "@integer@",
+    "pages": "@integer@",
+    "total": "@integer@",
+    "_links": {
+        "self": {
+            "href": "@string@.contains('api')"
+        },
+        "first": {
+            "href": "@string@.contains('api')"
+        },
+        "last": {
+            "href": "@string@.contains('api')"
+        }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "id": "@string@",
+                "real": {
+                    "amount": 50,
+                    "generated_at": "@string@.isDateTime()"
+                },
+                "bonus": {
+                    "amount": "@integer@",
+                    "generated_at": "@string@.isDateTime()"
+                },
+                "created_at": "@string@.isDateTime()",
+                "updated_at": null
+            }
+        ]
+    }
+}

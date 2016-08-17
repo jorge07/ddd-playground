@@ -1,0 +1,30 @@
+Leos\Domain\Wallet\ValueObject\Credit:
+    credit-100:
+      __construct: [100]
+    credit-50:
+      __construct: [50]
+    credit-10:
+      __construct: [10]
+
+
+Leos\Domain\Wallet\ValueObject\WalletId:
+    wallet-id-1:
+      __construct: []
+    wallet-id-2:
+      __construct: []
+    wallet-id-3:
+      __construct: []
+    wallet-id-4:
+      __construct: []
+
+
+Leos\Domain\Wallet\Model\Wallet:
+    wallet1:
+      __construct: ['@wallet-id-1', '@credit-100', '@credit-100']
+    wallet2:
+      __construct: ['@wallet-id-2', '@credit-100', '@credit-100']
+    wallet3:
+      __construct: ['@wallet-id-3', '@credit-50', '@credit-100']
+    wallet4:
+      __construct: ['@wallet-id-4', '@credit-10', '@credit-100']
+

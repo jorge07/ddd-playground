@@ -28,5 +28,5 @@ doctrine:
             WalletValueObject:
                 type: yml
                 prefix: Leos\Domain\Wallet\ValueObject
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/valueObject'
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/ValueObject'
                 is_bundle: false
