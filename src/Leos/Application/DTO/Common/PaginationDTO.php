@@ -19,10 +19,12 @@ class PaginationDTO
      * @var array
      */
     private $filters = [];
+
     /**
      * @var array
      */
     private $operators = [];
+
     /**
      * @var array
      */
@@ -91,7 +93,7 @@ class PaginationDTO
     /**
      * @return int
      */
-    public function getLimit()
+    public function getLimit(): int
     {
         return $this->limit;
     }
@@ -99,7 +101,7 @@ class PaginationDTO
     /**
      * @return int
      */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }

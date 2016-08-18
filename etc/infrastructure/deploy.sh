@@ -58,7 +58,7 @@ step cp -R prod/fpm context-${RELEASE}/build/fpm
 step cp -R prod/nginx context-${RELEASE}/build/nginx
 
 sayInRed "Build the production images"
-step docker-compose -f prod/docker-compose.yml build
+step docker-compose -f prod/docker-compose.build.yml build
 
 # TODO Push images to registry
 

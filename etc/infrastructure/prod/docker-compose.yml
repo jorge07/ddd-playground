@@ -1,13 +1,7 @@
 version: '2'
 services:
   fpm:
-    build:
-      context: ../context-${RELEASE}/build
-      dockerfile: fpm/Dockerfile
     image: sf-prod:${RELEASE}
 
   nginx:
-    build:
-      context: ../context-${RELEASE}/build
-      dockerfile: nginx/Dockerfile
     image: nginx-prod:${RELEASE}
