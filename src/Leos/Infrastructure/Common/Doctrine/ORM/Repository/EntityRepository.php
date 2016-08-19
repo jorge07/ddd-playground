@@ -94,7 +94,6 @@ class EntityRepository extends BaseEntityRepository
      */
     protected function getPaginator(QueryBuilder $queryBuilder): Pagerfanta
     {
-        // Use output walkers option in DoctrineORMAdapter should be false as it affects performance greatly (see #3775)
         return new Pagerfanta(new DoctrineORMAdapter($queryBuilder, true, false));
     }
 
@@ -116,12 +115,19 @@ class EntityRepository extends BaseEntityRepository
     protected function applyCriteria(string $alias, QueryBuilder $queryBuilder, array $criteria = [])
     {
         foreach ($criteria as $property => $value) {
+
             $name = $this->getPropertyName($alias, $property);
+
             if (null === $value) {
+
                 $queryBuilder->andWhere($queryBuilder->expr()->isNull($name));
+
             } elseif (is_array($value)) {
+
                 $queryBuilder->andWhere($queryBuilder->expr()->in($name, $value));
+
             } elseif ('' !== $value) {
+
                 $parameter = str_replace('.', '_', $property);
                 $queryBuilder
                     ->andWhere($queryBuilder->expr()->eq($name, ':'.$parameter))
@@ -148,44 +154,62 @@ class EntityRepository extends BaseEntityRepository
         array $values = []
     )
     {
-        for ($i = 0, $count = count($keys); $i < $count; $i++) {
-            if (!is_null($keys[$i])) {
-                $name = $this->getPropertyName($alias, $keys[$i]);
-                $parameter = ':' . str_replace('.', '_', $keys[$i]) . $i;
+        foreach ($keys as $position => $value) {
 
-                switch ($operators[$i]) {
-                    case static::OPERATOR_GT:
-                        $queryBuilder->andWhere($queryBuilder->expr()->gt($name, $parameter));
-                        break;
-                    case static::OPERATOR_LT:
-                        $queryBuilder->andWhere($queryBuilder->expr()->lt($name, $parameter));
-                        break;
-                    case static::OPERATOR_GTE:
-                        $queryBuilder->andWhere($queryBuilder->expr()->gte($name, $parameter));
-                        break;
-                    case static::OPERATOR_LTE:
-                        $queryBuilder->andWhere($queryBuilder->expr()->lte($name, $parameter));
-                        break;
-                    case static::OPERATOR_LIKE:
-                        $queryBuilder->andWhere($queryBuilder->expr()->like($name, $parameter));
-                        $values[$i] = "%" . $values[$i] . "%";
-                        break;
-                    case static::OPERATOR_BETWEEN:
-                        $queryBuilder->andWhere($queryBuilder->expr()->between($name, $values[0], $values[1]));
-                        break;
-                    case static::OPERATOR_EQ:
-                    default:
-                        if (null === $values[$i]) {
-                            $queryBuilder->andWhere($queryBuilder->expr()->isNull($parameter));
-                        } elseif (is_array($values[$i])) {
-                            $queryBuilder->andWhere($queryBuilder->expr()->in($name, $parameter));
-                        } elseif ('' !== $values[$i]) {
-                            $queryBuilder->andWhere($queryBuilder->expr()->eq($name, $parameter));
-                        }
-                }
+            if (null === $value) continue;
 
-                $queryBuilder->setParameter($parameter, $values[$i]);
+            $name = $this->getPropertyName($alias, $value);
+            $parameter = ':' . str_replace('.', '_', $value) . $position;
+
+            $operation = $operators[$position];
+            $parameterValue = $values[$position];
+
+
+            switch ($operation) {
+
+                case static::OPERATOR_GT:
+                    $queryBuilder->andWhere($queryBuilder->expr()->gt($name, $parameter));
+                    break;
+
+                case static::OPERATOR_LT:
+                    $queryBuilder->andWhere($queryBuilder->expr()->lt($name, $parameter));
+                    break;
+
+                case static::OPERATOR_GTE:
+                    $queryBuilder->andWhere($queryBuilder->expr()->gte($name, $parameter));
+                    break;
+
+                case static::OPERATOR_LTE:
+                    $queryBuilder->andWhere($queryBuilder->expr()->lte($name, $parameter));
+                    break;
+
+                case static::OPERATOR_LIKE:
+                    $queryBuilder->andWhere($queryBuilder->expr()->like($name, $parameter));
+                    $parameterValue = "%" . $parameterValue . "%";
+                    break;
+
+                case static::OPERATOR_BETWEEN:
+                    $queryBuilder->andWhere($queryBuilder->expr()->between($name, $values[0], $values[1]));
+                    break;
+
+                case static::OPERATOR_EQ:
+
+                default:
+                    if (null === $parameterValue) {
+
+                        $queryBuilder->andWhere($queryBuilder->expr()->isNull($parameter));
+
+                    } elseif (is_array($parameterValue)) {
+
+                        $queryBuilder->andWhere($queryBuilder->expr()->in($name, $parameter));
+
+                    } elseif ('' !== $parameterValue) {
+
+                        $queryBuilder->andWhere($queryBuilder->expr()->eq($name, $parameter));
+                    }
             }
+
+            $queryBuilder->setParameter($parameter, $parameterValue);
         }
 
         return $queryBuilder;

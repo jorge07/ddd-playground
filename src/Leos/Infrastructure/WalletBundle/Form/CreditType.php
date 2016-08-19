@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
  */
 class CreditType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -30,7 +31,7 @@ class CreditType extends AbstractType
             ->add('amount', IntegerType::class, ['constraints' => [
                 new NotBlank(),
                 new NotNull(),
-                new LessThan(['value' => 10001]),
+                new LessThan(['value' => $options['max_amount']]),
             ]])
         ;
     }
@@ -42,6 +43,7 @@ class CreditType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Credit::class,
+            'max_amount' =>  10001,
             'csrf_protection' => false,
             'empty_data' => function(FormInterface $form) {
 

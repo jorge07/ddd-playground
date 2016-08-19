@@ -1,9 +1,10 @@
 <?php
 
-namespace Leos\Application\UseCase\Wallet;
+namespace Leos\Application\UseCase\Transaction;
 
-use Leos\Application\DTO\Wallet\CreditDTO;
-use Leos\Application\DTO\Wallet\DebitDTO;
+use Leos\Application\DTO\Transaction\DebitDTO;
+use Leos\Application\DTO\Transaction\CreditDTO;
+use Leos\Application\UseCase\Wallet\WalletQuery;
 
 use Leos\Domain\Transaction\Model\Transaction;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
@@ -27,8 +28,9 @@ class TransactionCommand
 
     /**
      * TransactionCommand constructor.
-     * 
+     *
      * @param TransactionRepositoryInterface $repository
+     * @param WalletQuery $walletQuery
      */
     public function __construct(TransactionRepositoryInterface $repository, WalletQuery $walletQuery)
     {

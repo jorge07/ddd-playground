@@ -12,7 +12,7 @@ services:
           - "@leos.factory.wallet"
 
     leos.use_case.transaction_command:
-        class: Leos\Application\UseCase\Wallet\TransactionCommand
+        class: Leos\Application\UseCase\Transaction\TransactionCommand
         arguments:
           - "@leos.repository.transaction"
           - "@leos.use_case.wallet_query"

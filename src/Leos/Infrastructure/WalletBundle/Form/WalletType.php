@@ -24,8 +24,12 @@ class WalletType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('real', CreditType::class)
-            ->add('bonus', CreditType::class)
+            ->add('real', CreditType::class, [
+                'max_amount' => 10001
+            ])
+            ->add('bonus', CreditType::class, [
+                'max_amount' => 100001
+            ])
         ;
     }
 

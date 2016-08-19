@@ -2,20 +2,20 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
-use Leos\Domain\Transaction\Model\Transaction;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\DTO\Wallet\DebitDTO;
-use Leos\Application\DTO\Wallet\CreditDTO;
 use Leos\Application\DTO\Common\PaginationDTO;
+use Leos\Application\DTO\Transaction\DebitDTO;
+use Leos\Application\DTO\Transaction\CreditDTO;
 use Leos\Application\DTO\Wallet\CreateWalletDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
 use Leos\Application\UseCase\Wallet\WalletCommand;
-use Leos\Application\UseCase\Wallet\TransactionCommand;
+use Leos\Application\UseCase\Transaction\TransactionCommand;
 
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
+use Leos\Domain\Transaction\Model\Transaction;
 use Leos\Domain\Common\Exception\InvalidUUIDException;
 use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;

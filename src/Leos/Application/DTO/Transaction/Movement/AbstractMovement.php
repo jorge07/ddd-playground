@@ -1,10 +1,10 @@
 <?php
 
-namespace Leos\Application\DTO\Wallet\Movement;
+namespace Leos\Application\DTO\Transaction\Movement;
 
 
-use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\ValueObject\Money;
+use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 
 abstract class AbstractMovement
