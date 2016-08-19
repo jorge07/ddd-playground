@@ -11,8 +11,11 @@ This repo its a REST API built following more or less DDD and using few useful p
 - `nelmio/api-doc-bundle` 
 
 - `friendsofsymfony/rest-bundle`
-- `white-october/pagerfanta-bundle": "^1.0`
-- `willdurand/hateoas-bundle": "^1.2`
+
+- `white-october/pagerfanta-bundle`
+
+- `willdurand/hateoas-bundle`
+
 - `jms/serializer-bundle`
 
 And for testing proposal:
@@ -20,7 +23,9 @@ And for testing proposal:
 - `lakion/api-test-case`
 
 - `behat/symfony2-extension`
+
 - `behat/behat`
+
 - `guzzlehttp/guzzle`
 
 
