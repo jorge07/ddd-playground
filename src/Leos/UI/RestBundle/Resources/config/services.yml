@@ -17,4 +17,6 @@ services:
       class: Leos\UI\RestBundle\Controller\Wallet\WalletController
       parent: leos.abstract.controller
       arguments:
-        - "@leos.use_case.wallet"
+        - "@leos.use_case.wallet_query"
+        - "@leos.use_case.wallet_command"
+        - "@leos.use_case.transaction_command"

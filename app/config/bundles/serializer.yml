@@ -9,3 +9,7 @@ jms_serializer:
       Money:
         namespace_prefix: "Leos\\Domain\\Money"
         path: "@LeosInfrastructureWalletBundle/Resources/config/serializer/money"
+
+      Transaction:
+        namespace_prefix: "Leos\\Domain\\Transaction"
+        path: "@LeosInfrastructureTransactionBundle/Resources/config/serializer/transaction"

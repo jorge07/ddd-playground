@@ -27,6 +27,7 @@ class AppKernel extends Kernel
 
             new Leos\UI\RestBundle\LeosUIRestBundle(),
             new Leos\Infrastructure\WalletBundle\LeosInfrastructureWalletBundle(),
+            new Leos\Infrastructure\TransactionBundle\LeosInfrastructureTransactionBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -2,6 +2,8 @@
 
 namespace Leos\Domain\Transaction\ValueObject;
 
+use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
+
 /**
  * Class TransactionType
  *
@@ -36,7 +38,7 @@ class TransactionType
     {
         if (!self::isValid($type)) {
 
-            throw new \LogicException("TO MOVE INTO A CUSTOM EXCEPTION");
+            throw new InvalidTransactionTypeException();
         }
 
         $this->type = $type;

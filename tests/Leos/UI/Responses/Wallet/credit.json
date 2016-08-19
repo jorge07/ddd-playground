@@ -1,13 +1,30 @@
 {
-    "id": "@string@",
+  "id":"@string@",
+  "type":"credit",
+  "prev_real": {
+    "amount":0,
+    "generated_at":"@string@.isDateTime()"
+  },
+  "prev_bonus": {
+    "amount":0,
+    "generated_at":"@string@.isDateTime()"
+  },
+  "operation_real": 10000,
+  "operation_bonus": 0,
+  "wallet": {
+    "id":"@string@",
     "real": {
-        "amount": 10000,
-        "generated_at": "@string@.isDateTime()"
+      "amount":10000,
+      "generated_at":"@string@.isDateTime()"
     },
-        "bonus": {
-        "amount": 0,
-        "generated_at": "@string@.isDateTime()"
+    "bonus": {
+      "amount":0,
+      "generated_at":"@string@.isDateTime()"
     },
-    "created_at": "@string@.isDateTime()",
-    "updated_at": null
+    "created_at":"@string@.isDateTime()",
+    "updated_at":null
+  },
+  "referral_transaction":null,
+  "created_at":"@string@.isDateTime()",
+  "updated_at":null
 }

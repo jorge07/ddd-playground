@@ -2,20 +2,23 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
-use Leos\Domain\Common\Exception\InvalidUUIDException;
+use Leos\Domain\Transaction\Model\Transaction;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
 use Leos\Application\DTO\Wallet\DebitDTO;
 use Leos\Application\DTO\Wallet\CreditDTO;
 use Leos\Application\DTO\Common\PaginationDTO;
 use Leos\Application\DTO\Wallet\CreateWalletDTO;
-use Leos\Application\UseCase\Wallet\WalletManager;
+use Leos\Application\UseCase\Wallet\WalletQuery;
+use Leos\Application\UseCase\Wallet\WalletCommand;
+use Leos\Application\UseCase\Wallet\TransactionCommand;
 
-use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
+use Leos\Domain\Common\Exception\InvalidUUIDException;
 use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
+use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
 use Leos\Infrastructure\Common\Pagination\PagerTrait;
 use Leos\Infrastructure\Common\Exception\Form\FormException;
@@ -30,6 +33,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -46,17 +50,36 @@ class WalletController extends AbstractController
     use PagerTrait;
 
     /**
-     * @var WalletManager
+     * @var WalletCommand
      */
-    private $walletManager;
+    private $walletCommand;
+
+    /**
+     * @var WalletQuery
+     */
+    private $walletQuery;
+
+    /**
+     * @var TransactionCommand
+     */
+    private $transactionCommand;
 
     /**
      * WalletController constructor.
-     * @param WalletManager $walletManager
+     *
+     * @param WalletQuery $walletQuery
+     * @param WalletCommand $walletCommand
+     * @param TransactionCommand $transactionCommand
      */
-    public function __construct(WalletManager $walletManager)
+    public function __construct(
+        WalletQuery $walletQuery,
+        WalletCommand $walletCommand,
+        TransactionCommand $transactionCommand
+    )
     {
-        $this->walletManager = $walletManager;
+        $this->walletCommand = $walletCommand;
+        $this->walletQuery = $walletQuery;
+        $this->transactionCommand = $transactionCommand;
     }
 
     /**
@@ -134,7 +157,7 @@ class WalletController extends AbstractController
         $dto = new PaginationDTO($fetcher->all());
 
         return $this->getPagination(
-            $this->walletManager->find($dto),
+            $this->walletQuery->find($dto),
             'cget_wallet',
             [],
             $dto->getLimit(),
@@ -163,7 +186,7 @@ class WalletController extends AbstractController
     {
         try {
 
-            return $this->walletManager->get(new WalletId($walletId));
+            return $this->walletQuery->get(new WalletId($walletId));
 
         } catch (WalletNotFoundException $e) {
 
@@ -189,12 +212,12 @@ class WalletController extends AbstractController
      *
      * @param ParamFetcher $fetcher
      *
-     * @return Wallet
+     * @return \FOS\RestBundle\View\View|Form
      */
     public function postAction(ParamFetcher $fetcher)
     {
         try {
-            $wallet = $this->walletManager->create(
+            $wallet = $this->walletCommand->create(
                 new CreateWalletDTO(
                     (int) $fetcher->get('real'),
                     (int) $fetcher->get('bonus')
@@ -229,13 +252,13 @@ class WalletController extends AbstractController
      * @param string $uid
      * @param ParamFetcher $fetcher
      *
-     * @return Wallet
+     * @return Transaction
      */
-    public function postCreditAction(string $uid, ParamFetcher $fetcher)
+    public function postCreditAction(string $uid, ParamFetcher $fetcher): Transaction
     {
         try {
             
-            return $this->walletManager->credit(
+            return $this->transactionCommand->credit(
                 new CreditDTO(
                     new WalletId($uid),
                     new Currency($fetcher->get('currency')),
@@ -274,13 +297,13 @@ class WalletController extends AbstractController
      * @param string $uid
      * @param ParamFetcher $fetcher
      *
-     * @return Wallet
+     * @return Transaction
      */
-    public function postDebitAction(string $uid, ParamFetcher $fetcher)
+    public function postDebitAction(string $uid, ParamFetcher $fetcher): Transaction
     {
         try {
 
-            return $this->walletManager->debit(
+            return $this->transactionCommand->debit(
                 new DebitDTO(
                     new WalletId($uid),
                     new Currency($fetcher->get('currency')),

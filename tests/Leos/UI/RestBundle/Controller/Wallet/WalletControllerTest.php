@@ -70,7 +70,7 @@ class WalletControllerTest extends JsonApiTestCase
         $this->client->request('POST', $response->headers->get('location') . '/credit.json', [
             'real' => 100
         ]);
-
+        
         self::assertResponse($this->client->getResponse(), "credit", 202);
     }
 

@@ -2,15 +2,15 @@
   "id":"@string@",
   "type":"debit",
   "prev_real": {
-    "amount": 5000,
+    "amount": 10900,
     "generated_at":"@string@.isDateTime()"
   },
   "prev_bonus": {
-    "amount": 2500,
+    "amount": 2400,
     "generated_at":"@string@.isDateTime()"
   },
-  "operation_real": -500,
-  "operation_bonus": -500,
+  "operation_real": -6400,
+  "operation_bonus": -400,
   "wallet": {
     "id":"@string@",
     "real": {

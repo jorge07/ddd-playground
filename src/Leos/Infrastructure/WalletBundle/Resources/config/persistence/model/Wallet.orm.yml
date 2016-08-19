@@ -21,9 +21,8 @@ Leos\Domain\Wallet\Model\Wallet:
     embedded:
       real:
         class: Leos\Domain\Wallet\ValueObject\Credit
-        prefix: real_
+
       bonus:
         class: Leos\Domain\Wallet\ValueObject\Credit
-        prefix: real_bonus
 
     lifecycleCallbacks: {  }

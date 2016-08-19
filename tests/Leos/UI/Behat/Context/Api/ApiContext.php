@@ -148,11 +148,7 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
             $this->response = $this->http()->request($method, $this->resource, [
                 RequestOptions::JSON => json_decode($string->getRaw(), true)
             ]);
-        } catch (RequestException $e) {
-            if ($e->hasResponse()) {
-
-            }
-        }
+        } catch (RequestException $e) { }
     }
     
     /**

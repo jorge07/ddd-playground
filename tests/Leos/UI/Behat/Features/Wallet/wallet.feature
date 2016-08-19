@@ -5,16 +5,14 @@ Feature: Wallet endpoint
   Scenario: Create a new wallet and use it
     When I send a "POST" to "/api/v1/wallet.json" with:
     """
-    {
-      "real": 100
-    }
+    {}
     """
     Then I should be redirected to resource
     And the response body match with file "get_wallet" and status code is "200"
     Then I send a "POST" to resource "/credit.json" with:
     """
     {
-      "real": 99
+      "real": 100
     }
     """
     And the response body match with file "credit" and status code is "202"
@@ -33,7 +31,7 @@ Feature: Wallet endpoint
       "bonus": 4
     }
     """
-    And the response body match with file "debit" and status code is "202"
+    And the response body match with file "debit_final_behat" and status code is "202"
 
 
   Scenario: Try to get a non existent wallet
