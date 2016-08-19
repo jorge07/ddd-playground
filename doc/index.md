@@ -49,7 +49,7 @@ The tests follow the same structure and the *phpunit* tests are tagged with grou
 The PHPUnit test don't need nginx to run.
 
 The *aceptation tests* are inside the test UI layer and attack the application form outside the fpm container using Guzzle.
-That simulate external connections and at the same time I'm able to test the connexion.
+That simulate external connections and at the same time it's possible to test the connection with nginx.
 
 ###The Environment
 
@@ -60,7 +60,7 @@ Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compo
 ###The deployment
 
 The deployment script is `etc/infrastructure/deploy.sh` and require the releaseId as argument to work.
-The deploy file is a shit write in bash, yes, but have all the steps that you have to follow (except git logic) to deploy following a common sense container based system.
+The deploy file is a shit write in bash, yes, but has all the steps that you have to follow (except git logic) to deploy following a common sense container based system.
 
 To test the pipeline:
 
