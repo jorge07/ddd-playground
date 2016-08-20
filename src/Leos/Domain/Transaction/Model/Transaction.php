@@ -86,7 +86,6 @@ class Transaction
         $this->id = $transactionId;
         $this->type = $type;
         $this->wallet = $wallet;
-        $this->wallet = $wallet;
         $this->prevReal = $wallet->real();
         $this->prevBonus = $wallet->bonus();
         $this->process($real, $bonus);
