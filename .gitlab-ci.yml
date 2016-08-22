@@ -14,8 +14,7 @@ before_script:
 test:
   stage: test
   script:
-    - curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > /usr/local/bin/docker-compose
-    - chmod +x /usr/local/bin/docker-compose
+    - curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-Linux-x86_64" && chmod +x /usr/local/bin/docker-compose
     - echo `/usr/local/bin/docker-compose --version`
     - cd etc/infrastructure
     - mkdir -p context-${RELEASE}/build
