@@ -11,6 +11,7 @@ before_script:
 test:
   stage: test
   script:
+    - connect
     - cd etc/infrastructure
     - mkdir -p context-${RELEASE}/build
     - docker-compose -f build/docker-compose.yml build
@@ -29,6 +30,7 @@ test:
 build:
   stage: build
   script:
+    - connect
     - cd etc/infrastructure
     - docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
     - docker run -d --name building-${RELEASE} sf-build-${RELEASE}
@@ -41,6 +43,7 @@ release:latest:
     - latest
     - tags
   script:
+    - connect
     - cp -R prod/fpm context-${RELEASE}/build/fpm
     - cp -R prod/nginx context-${RELEASE}/build/nginx
     - docker-compose -f prod/docker-compose.build.yml build
