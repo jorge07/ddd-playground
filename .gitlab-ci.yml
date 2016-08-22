@@ -1,5 +1,4 @@
 stages:
-  - test
   - build
   - release
 
@@ -7,9 +6,8 @@ before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
   - echo $PWD
 
-
-test:
-  stage: test
+build:
+  stage: build
   script:
     - connect
     - cd etc/infrastructure
@@ -25,24 +23,19 @@ test:
     - docker cp sf-build-${RELEASE}:/app/report ../../report
     - docker-compose -f build/docker-compose.yml down --rmi local --volumes
 
+    - mkdir -p context-${RELEASE}/build
+    - docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
 
-build:
-  stage: build
+release:tags:
+  stage: release
+  only:
+    - tags
+
   script:
     - connect
-    - cd etc/infrastructure
-    - docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
     - docker run -d --name building-${RELEASE} sf-build-${RELEASE}
     - docker cp building-${RELEASE}:/app context-${RELEASE}/build/
     - docker rm -f building-${RELEASE}
-
-release:latest:
-  stage: release
-  only:
-    - latest
-    - tags
-  script:
-    - connect
     - cp -R prod/fpm context-${RELEASE}/build/fpm
     - cp -R prod/nginx context-${RELEASE}/build/nginx
     - docker-compose -f prod/docker-compose.build.yml build
