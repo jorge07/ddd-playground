@@ -20,8 +20,6 @@ test:
     - cd etc/infrastructure
     - mkdir -p context-${RELEASE}/build
     - /usr/local/bin/docker-compose -f build/docker-compose.yml build
-  script:
-    - cd etc/infrastructure
     - /usr/local/bin/docker-compose -f build/docker-compose.yml up -d
     - sleep 15
     - docker exec sf-build-${RELEASE} php bin/console d:d:c
