@@ -2,7 +2,6 @@ stages:
   - test
   - build
   - release
-  - cleanup
 
 before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
@@ -46,8 +45,3 @@ release:latest:
     - cp -R prod/nginx context-${RELEASE}/build/nginx
     - docker-compose -f prod/docker-compose.build.yml build
     - docker-compose -f prod/docker-compose.build.yml push
-
-cleanup:
-  stage: cleanup
-  script:
-    - rm -rf context-${RELEASE}
