@@ -5,11 +5,13 @@ stages:
 
 before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
+  - echo $PWD
 
 
 test:
   stage: test
   script:
+    - curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-Linux-x86_64" && chmod +x /usr/local/bin/docker-compose
     - cd etc/infrastructure
     - mkdir -p context-${RELEASE}/build
     - docker-compose -f build/docker-compose.yml build
