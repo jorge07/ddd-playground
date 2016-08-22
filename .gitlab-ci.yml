@@ -1,0 +1,53 @@
+stages:
+  - test
+  - build
+  - release
+  - cleanup
+
+before_script:
+  - export RELEASE=${CI_BUILD_REF_NAME}
+
+test:
+  stage: test
+  script:
+    - cd etc/infrastructure
+    - mkdir -p context-${RELEASE}/build
+    - docker-compose -f build/docker-compose.yml build
+  script:
+    - cd etc/infrastructure
+    - docker-compose -f build/docker-compose.yml up -d
+    - sleep 15
+    - docker exec sf-build-${RELEASE} php bin/console d:d:c
+    - docker exec sf-build-${RELEASE} php bin/console d:s:u --force
+
+    - docker exec sf-build-${RELEASE} phpunit
+    - docker exec sf-build-${RELEASE} ./vendor/bin/behat
+
+    - docker cp sf-build-${RELEASE}:/app/report ../../report
+    - docker-compose -f build/docker-compose.yml down --rmi local --volumes
+
+
+build:
+  stage: build
+  script:
+    - cd etc/infrastructure
+    - docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
+    - docker run -d --name building-${RELEASE} sf-build-${RELEASE}
+    - docker cp building-${RELEASE}:/app context-${RELEASE}/build/
+    - docker rm -f building-${RELEASE}
+
+release:latest:
+  stage: release
+  only:
+    - latest
+    - tags
+  script:
+    - cp -R prod/fpm context-${RELEASE}/build/fpm
+    - cp -R prod/nginx context-${RELEASE}/build/nginx
+    - docker-compose -f prod/docker-compose.build.yml build
+    - docker-compose -f prod/docker-compose.build.yml push
+
+cleanup:
+  stage: cleanup
+  script:
+    - rm -rf context-${RELEASE}
