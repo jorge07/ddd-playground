@@ -17,7 +17,7 @@ build:
     - sleep 15
     - docker exec sf-build-${RELEASE} php bin/console d:s:u --force
 
-    - docker exec sf-build-${RELEASE} phpunit
+    - docker exec sf-build-${RELEASE} phpunit --colors=never
     - docker exec sf-build-${RELEASE} ./vendor/bin/behat
 
     - docker cp sf-build-${RELEASE}:/app/report ../../report
