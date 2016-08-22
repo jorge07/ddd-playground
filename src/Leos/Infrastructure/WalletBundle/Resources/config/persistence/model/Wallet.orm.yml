@@ -2,6 +2,7 @@ Leos\Domain\Wallet\Model\Wallet:
     type: entity
     table: wallet
     repositoryClass: Leos\Infrastructure\WalletBundle\Repository\WalletRepository
+
     id:
       id:
         type: string
