@@ -19,8 +19,6 @@ build:
 
     - docker exec sf-build-${RELEASE} phpunit --colors=never
     - docker exec sf-build-${RELEASE} ./vendor/bin/behat
-
-    - docker cp sf-build-${RELEASE}:/app/report ../../report
     - docker-compose -f build/docker-compose.yml down --rmi local --volumes
 
     - mkdir -p context-${RELEASE}/build
