@@ -14,7 +14,7 @@ build:
     - mkdir -p context-${RELEASE}/build
     - docker-compose -f build/docker-compose.yml build
     - docker-compose -f build/docker-compose.yml up -d
-    - sleep 15
+    - sleep 4
     - docker exec sf-build-${RELEASE} php bin/console d:s:u --force
 
     - docker exec sf-build-${RELEASE} phpunit --colors=never
