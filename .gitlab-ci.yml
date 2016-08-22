@@ -9,13 +9,14 @@ stages:
 
 before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
-  - curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > /usr/local/bin/docker-compose
-  - chmod +x /usr/local/bin/docker-compose
-  - echo `/usr/local/bin/docker-compose --version`
+
 
 test:
   stage: test
   script:
+    - curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > /usr/local/bin/docker-compose
+    - chmod +x /usr/local/bin/docker-compose
+    - echo `/usr/local/bin/docker-compose --version`
     - cd etc/infrastructure
     - mkdir -p context-${RELEASE}/build
     - /usr/local/bin/docker-compose -f build/docker-compose.yml build
