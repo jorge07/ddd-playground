@@ -5,6 +5,7 @@ stages:
 
 before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
+  - export COMPOSE_VERSION=1.8.0
   - echo $PWD
 
 
