@@ -4,6 +4,11 @@ namespace Tests\Leos\Application\DTO\Wallet;
 
 use Leos\Application\DTO\Wallet\CreateWalletDTO;
 
+/**
+ * Class CreateWalletDTOTest
+ *
+ * @package Tests\Leos\Application\DTO\Wallet
+ */
 class CreateWalletDTOTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -11,20 +16,11 @@ class CreateWalletDTOTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetters()
     {
-        $dto = new CreateWalletDTO(100, 100);
+        $dto = new CreateWalletDTO('EUR', 100, 100);
 
-        self::assertEquals(
-            [
-                'real' => [
-                    'amount'=> 100
-                ],
-                'bonus' => [
-                    'amount'=> 100
-                ]
-            ],
-            $dto->get()
-        );
+        self::assertEquals(100, $dto->initialAmountReal()->amount());
+        self::assertEquals(100, $dto->initialAmountBonus()->amount());
 
-        self::assertTrue($dto->hasPersistence());
+        self::assertEquals('EUR', $dto->currency()->code());
     }
 }

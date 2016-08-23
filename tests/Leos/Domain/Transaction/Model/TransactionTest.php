@@ -23,10 +23,12 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
     {
         $wallet = new Wallet(new WalletId(), new Credit(0), new Credit(0));
 
+        $currency = new Currency('EUR', 1);
+
         $transaction = Transaction::credit(
             $wallet,
-            new Money(50.00, new Currency('EUR', 1)),
-            new Money(25.00, new Currency('EUR', 1))
+            new Money(50.00, $currency),
+            new Money(25.00, $currency)
         );
 
         $referral = Transaction::debit(
@@ -45,6 +47,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         self::assertNull($transaction->referralTransaction());
         self::assertNotNull($transaction->createdAt());
         self::assertNull($transaction->updatedAt());
+        self::assertNull($currency, $transaction->currency());
 
         $transaction->setReferralTransaction($referral);
 

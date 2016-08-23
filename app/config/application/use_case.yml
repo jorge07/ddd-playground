@@ -2,19 +2,10 @@ services:
 
     leos.use_case.wallet_query:
         class: Leos\Application\UseCase\Wallet\WalletQuery
-        arguments:
-          - "@leos.repository.wallet"
-
-    leos.use_case.wallet_command:
-        class: Leos\Application\UseCase\Wallet\WalletCommand
-        arguments:
-          - "@leos.repository.wallet"
-          - "@leos.factory.wallet"
+        autowire: true
 
     leos.use_case.transaction_command:
         class: Leos\Application\UseCase\Transaction\TransactionCommand
-        arguments:
-          - "@leos.repository.transaction"
-          - "@leos.use_case.wallet_query"
+        autowire: true
 
 

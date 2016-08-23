@@ -11,6 +11,7 @@ use Leos\Domain\Transaction\Model\Transaction;
  */
 interface TransactionRepositoryInterface
 {
+
     /**
      * @param Transaction $transaction
      * @return void

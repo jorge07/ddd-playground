@@ -1,30 +1,39 @@
-Leos\Domain\Wallet\ValueObject\Credit:
-    credit-100:
-      __construct: [100]
-    credit-50:
-      __construct: [50]
-    credit-10:
-      __construct: [10]
+Leos\Domain\Money\ValueObject\Currency:
+    EUR:
+      __construct: ['EUR']
+
+Leos\Domain\Money\ValueObject\Money:
+    money-0:
+      __construct: [0, '@EUR']
+    money-05:
+      __construct: [0.5, '@EUR']
+    money-10:
+      __construct: [10, '@EUR']
+    money-50:
+      __construct: [50, '@EUR']
+    money-100:
+      __construct: [100, '@EUR']
 
 
 Leos\Domain\Wallet\ValueObject\WalletId:
     wallet-id-1:
-      __construct: []
+      __construct: [null]
     wallet-id-2:
-      __construct: []
+      __construct: [null]
     wallet-id-3:
-      __construct: []
+      __construct: [null]
     wallet-id-4:
-      __construct: []
+      __construct: [null]
 
 
 Leos\Domain\Wallet\Model\Wallet:
     wallet1:
-      __construct: ['@wallet-id-1', '@credit-100', '@credit-100']
+      __construct: ['@wallet-id-1']
+      addRealmoney: ['@money-05']
     wallet2:
-      __construct: ['@wallet-id-2', '@credit-100', '@credit-100']
+      __construct: ['@wallet-id-2']
+      addRealmoney: ['@money-50']
+      addBonusmoney: ['@money-50']
     wallet3:
-      __construct: ['@wallet-id-3', '@credit-50', '@credit-100']
-    wallet4:
-      __construct: ['@wallet-id-4', '@credit-10', '@credit-100']
-
+      __construct: ['@wallet-id-3']
+      addBonusmoney: ['@money-100']

@@ -10,5 +10,8 @@ use Leos\Domain\Common\ValueObject\AggregateRootId;
  */
 class WalletId extends AggregateRootId
 {
-    
+    /**
+     * @var string
+     */
+    protected $uuid;
 }

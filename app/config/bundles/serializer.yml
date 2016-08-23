@@ -2,13 +2,16 @@ jms_serializer:
   metadata:
     auto_detection: true
     directories:
+      Common:
+        namespace_prefix: "Leos\\Domain\\Common"
+        path: "src/Leos/Infrastructure/Resources/config/serializer/common"
       Wallet:
         namespace_prefix: "Leos\\Domain\\Wallet"
         path: "@LeosInfrastructureWalletBundle/Resources/config/serializer/wallet"
 
       Money:
         namespace_prefix: "Leos\\Domain\\Money"
-        path: "@LeosInfrastructureWalletBundle/Resources/config/serializer/money"
+        path: "@LeosInfrastructureMoneyBundle/Resources/config/serializer/money"
 
       Transaction:
         namespace_prefix: "Leos\\Domain\\Transaction"

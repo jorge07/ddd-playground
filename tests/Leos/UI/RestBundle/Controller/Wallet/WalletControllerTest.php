@@ -23,7 +23,7 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testPostWalletAction()
+    public function testCreateWalletAction()
     {
         $this->client->request('POST', '/api/v1/wallet.json');
 
@@ -37,15 +37,16 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testPostWalletErrorAction()
+    public function testCreateWalletWithWrongCurrencyAction()
     {
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 99999
+            'real' => 50,
+            'bonus' => 25,
+            'currency' => 'EURAZO'
         ]);
 
-        $response = $this->client->getResponse();
-
-        self::assertEquals($response->getStatusCode(), 400);
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertContains('currency', $this->client->getResponse()->getContent());
     }
 
     /**
@@ -90,11 +91,27 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
+    public function testCredit400WrongCurrencyAction()
+    {
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/credit.json', [
+            'real' => 5,
+            'bonus' => 5,
+            'currency' => 'LIBRAS'
+        ]);
+
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertContains('currency', $this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @group functional
+     */
     public function testDebitAction()
     {
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 5000,
-            'bonus' => 2500,
+            'real' => 50,
+            'bonus' => 25,
+            'currency' => 'EUR'
         ]);
 
         $response = $this->client->getResponse();
@@ -106,14 +123,31 @@ class WalletControllerTest extends JsonApiTestCase
 
         self::assertResponse($this->client->getResponse(), "debit", 202);
     }
+
+    /**
+     * @group functional
+     */
+    public function testDebit400WrongCurrencyAction()
+    {
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/debit.json', [
+            'real' => 5,
+            'bonus' => 5,
+            'currency' => 'LIBRAS'
+        ]);
+
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertContains('currency', $this->client->getResponse()->getContent());
+    }
+
     /**
      * @group functional
      */
     public function testDebit409Action()
     {
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 5000,
-            'bonus' => 2500,
+            'real' => 50,
+            'bonus' => 25,
+            'currency' => 'EUR'
         ]);
 
         $response = $this->client->getResponse();

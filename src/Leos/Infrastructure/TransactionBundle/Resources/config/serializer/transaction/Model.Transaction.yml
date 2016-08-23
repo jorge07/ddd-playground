@@ -37,7 +37,7 @@ Leos\Domain\Transaction\Model\Transaction:
 
         wallet:
             expose: true
-            groups: [Basic]
+            groups: [Identifier, Basic]
             type: Leos\Domain\Wallet\Model\Wallet
 
         referralTransaction:

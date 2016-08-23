@@ -34,12 +34,17 @@ Leos\Domain\Transaction\Model\Transaction:
       prevBonus:
         class: Leos\Domain\Wallet\ValueObject\Credit
 
+      currency:
+        class: Leos\Domain\Money\ValueObject\Currency
+
     manyToOne:
         wallet:
           targetEntity: Leos\Domain\Wallet\Model\Wallet
           joinColumn:
             name: wallet_id
             referencedColumnName: id
+          cascade:
+            - persist
 
         referralTransaction:
           targetEntity: Leos\Domain\Transaction\Model\Transaction

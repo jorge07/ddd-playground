@@ -4,8 +4,11 @@ declare(strict_types=1);
 namespace Leos\Domain\Transaction\Model;
 
 use Leos\Domain\Wallet\Model\Wallet;
-use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Wallet\ValueObject\Credit;
+use Leos\Domain\Money\ValueObject\Currency;
+
+use Leos\Domain\Money\ValueObject\Money;
+
 use Leos\Domain\Transaction\ValueObject\TransactionId;
 use Leos\Domain\Transaction\ValueObject\TransactionType;
 
@@ -52,6 +55,11 @@ class Transaction
     private $wallet;
 
     /**
+     * @var Currency
+     */
+    private $currency;
+
+    /**
      * @var null|Transaction
      */
     private $referralTransaction;
@@ -88,6 +96,7 @@ class Transaction
         $this->wallet = $wallet;
         $this->prevReal = $wallet->real();
         $this->prevBonus = $wallet->bonus();
+        $this->currency = $real->currency();
         $this->process($real, $bonus);
         $this->createdAt = new \DateTime();
     }
@@ -114,6 +123,15 @@ class Transaction
     public static function credit(Wallet $wallet, Money $real, Money $bonus): Transaction
     {
         return self::getInstance(TransactionType::CREDIT, $wallet, $real, $bonus);
+    }
+
+    /**
+     * @param Currency $currency
+     * @return Transaction
+     */
+    public static function createWallet(Currency $currency): Transaction
+    {
+        return self::getInstance(TransactionType::CREATE_WALLET, new Wallet(), new Money(0, $currency), new Money(0, $currency));
     }
 
     /**
@@ -158,6 +176,13 @@ class Transaction
 
                 $this->operationReal = Credit::moneyToCredit($real)->amount();
                 $this->operationBonus = Credit::moneyToCredit($bonus)->amount();
+
+                break;
+
+            case TransactionType::CREATE_WALLET:
+
+                $this->operationReal = 0;
+                $this->operationBonus = 0;
 
                 break;
 
@@ -220,6 +245,14 @@ class Transaction
     public function wallet(): Wallet
     {
         return $this->wallet;
+    }
+
+    /**
+     * @return Currency
+     */
+    public function currency(): Currency
+    {
+        return $this->currency;
     }
 
     /**

@@ -5,7 +5,9 @@ Feature: Wallet endpoint
   Scenario: Create a new wallet and use it
     When I send a "POST" to "/api/v1/wallet.json" with:
     """
-    {}
+    {
+      "currency": "EUR"
+    }
     """
     Then I should be redirected to resource
     And the response body match with file "get_wallet" and status code is "200"

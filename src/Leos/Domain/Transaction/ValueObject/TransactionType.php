@@ -12,6 +12,7 @@ use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 class TransactionType
 {
     const
+        CREATE_WALLET = 'create_wallet',
         DEBIT = 'debit',
         CREDIT = 'credit'
     ;
@@ -50,6 +51,7 @@ class TransactionType
     public static function types(): array
     {
         return [
+            self::CREATE_WALLET,
             self::CREDIT,
             self::DEBIT
         ];

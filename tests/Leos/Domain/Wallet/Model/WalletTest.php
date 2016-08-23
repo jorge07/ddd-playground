@@ -25,8 +25,15 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function testWalletGetters()
     {
-        $wallet = new Wallet(new WalletId($id = Uuid::uuid4()), new Credit(100), new Credit(100));
+        $wallet = new Wallet(new WalletId($id = Uuid::uuid4()));
 
+        $real = new Credit(100);
+        $bonus = new Credit(100);
+
+        $currency = new Currency('EUR', 1);
+
+        $wallet->addRealMoney($real->toMoney($currency));
+        $wallet->addBonusMoney($bonus->toMoney($currency));
         self::assertEquals(100, $wallet->real()->amount());
         self::assertEquals(100, $wallet->bonus()->amount());
         self::assertNotNull($wallet->createdAt());
@@ -39,8 +46,15 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function testWalletAdd()
     {
-        $wallet = new Wallet(new WalletId(), $real = new Credit(100), $bonus = new Credit(100));
+        $wallet = new Wallet(new WalletId());
 
+        $real = new Credit(100);
+        $bonus = new Credit(100);
+
+        $currency = new Currency('EUR', 1);
+
+        $wallet->addRealMoney($real->toMoney($currency));
+        $wallet->addBonusMoney($bonus->toMoney($currency));
         $wallet->addRealMoney(new Money(2.50, $this->getTestCurrency()));
 
         self::assertNotSame($real, $wallet->real());
@@ -61,8 +75,16 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function testWalletRemove()
     {
-        $wallet = new Wallet(new WalletId(), $real = new Credit(350), $bonus = new Credit(350));
-        
+        $wallet = new Wallet(new WalletId());
+
+        $real = new Credit(350);
+        $bonus = new Credit(350);
+
+        $currency = new Currency('EUR', 1);
+
+        $wallet->addRealMoney($real->toMoney($currency));
+        $wallet->addBonusMoney($bonus->toMoney($currency));
+
         $wallet->removeRealMoney(new Money(2.50, $this->getTestCurrency()));
 
         self::assertNotSame($real, $wallet->real());
@@ -85,7 +107,14 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     {
         try {
 
-            $wallet = new Wallet(new WalletId(), $real = new Credit(350), $bonus = new Credit(350));
+            $wallet = new Wallet(new WalletId());
+
+            $real = new Credit(350);
+            $bonus = new Credit(350);
+            $currency = new Currency('EUR', 1);
+
+            $wallet->addRealMoney($real->toMoney($currency));
+            $wallet->addBonusMoney($bonus->toMoney($currency));
 
             $wallet->removeRealMoney(new Money(8.50, $this->getTestCurrency()));
 

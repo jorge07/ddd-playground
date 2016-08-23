@@ -1,5 +1,4 @@
-Leos\Domain\Wallet\ValueObject\WalletId:
-    exclusion_policy: ALL
+Leos\Domain\Common\ValueObject\AggregateRootId:
     properties:
         uuid:
             expose: true

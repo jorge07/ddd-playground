@@ -4,8 +4,11 @@ namespace Leos\Application\UseCase\Transaction;
 
 use Leos\Application\DTO\Transaction\DebitDTO;
 use Leos\Application\DTO\Transaction\CreditDTO;
+use Leos\Application\DTO\Wallet\CreateWalletDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
 
+use Leos\Domain\Money\ValueObject\Currency;
+use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Transaction\Model\Transaction;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
 
@@ -64,4 +67,24 @@ class TransactionCommand
         return $transaction;
     }
 
+    /**
+     * @param CreateWalletDTO $dto
+     * @return Wallet
+     */
+    public function createWallet(CreateWalletDTO $dto): Wallet
+    {
+        $transaction = Transaction::createWallet($currency = $dto->currency());
+
+        $this->repository->save($transaction);
+
+        if ($dto->hasInitialAmount()) {
+
+            $this->repository->save(
+                $transaction = $this->credit($dto->toCreditDTO($transaction->wallet()->walletId()))
+            );
+        }
+
+
+        return $transaction->wallet();
+    }
 }

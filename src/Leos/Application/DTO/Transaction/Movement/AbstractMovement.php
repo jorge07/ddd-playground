@@ -7,6 +7,11 @@ use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 
+/**
+ * Class AbstractMovement
+ * 
+ * @package Leos\Application\DTO\Transaction\Movement
+ */
 abstract class AbstractMovement
 {
     /**
