@@ -21,7 +21,6 @@ use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
 use Leos\Infrastructure\Common\Pagination\PagerTrait;
-use Leos\Infrastructure\Common\Exception\Form\FormException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -161,7 +160,7 @@ class WalletController extends AbstractController
      *     description = "Gets a wallet for the given identifier",
      *     output = "Leos\Domain\Wallet\Model\Wallet",
      *     statusCodes = {
-     *       201 = "Returned when successful",
+     *       200 = "Returned when successful",
      *       404 = "Returned when not found"
      *     }
      * )

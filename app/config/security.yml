@@ -2,10 +2,14 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    encoders:
+        harsh:
+            algorithm: bcrypt
+            cost: 15
+
     providers:
-        in_memory:
-            memory: ~
+        customers:
+            entity: { class: Leos\Infrastructure\SecurityBundle\Security\Model\Auth, property: username }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,6 +17,17 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
             stateless:  true
+
+        login_firewall:
+            pattern:   ^/login$
+            anonymous: ~
+
+        secured_area:
+            provider: customers
+            pattern:    ^/api/*/user
+            form_login:
+                login_path: login
+                check_path: login
 
         main:
             anonymous: ~
