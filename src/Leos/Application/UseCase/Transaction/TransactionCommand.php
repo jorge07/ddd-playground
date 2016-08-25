@@ -73,7 +73,7 @@ class TransactionCommand
      */
     public function createWallet(CreateWalletDTO $dto): Wallet
     {
-        $transaction = Transaction::createWallet($currency = $dto->currency());
+        $transaction = Transaction::createWallet($dto->currency());
 
         $this->repository->save($transaction);
 
@@ -83,7 +83,6 @@ class TransactionCommand
                 $transaction = $this->credit($dto->toCreditDTO($transaction->wallet()->walletId()))
             );
         }
-
 
         return $transaction->wallet();
     }

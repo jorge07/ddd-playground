@@ -2,10 +2,8 @@
 
 namespace Leos\UI\RestBundle\Controller;
 
-use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\ControllerTrait;
-use Leos\Application\DTO\Common\PaginationDTO;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -70,7 +68,7 @@ abstract class AbstractController
      */
     public function getVersion(): string
     {
-        return $this->getRequest()->attributes->get('version');
+        return $this->getRequest()->attributes->get('version') ?: 'v1';
     }
 
     /**

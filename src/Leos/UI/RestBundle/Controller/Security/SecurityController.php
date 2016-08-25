@@ -2,12 +2,23 @@
 
 namespace Leos\UI\RestBundle\Controller\Security;
 
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+
+use Leos\Application\DTO\Security\LoginDTO;
+use Leos\Application\UseCase\Security\SecurityCommand;
+
+use Leos\Domain\Security\Exception\AuthenticationException;
+
+use Leos\UI\RestBundle\Controller\AbstractController;
+
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**
  * Class SecurityController
@@ -16,21 +27,21 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  *
  * @RouteResource("Auth", pluralize=false)
  */
-class SecurityController
+class SecurityController extends AbstractController
 {
     /**
-     * @var AuthenticationUtils
+     * @var SecurityCommand
      */
-    private $authenticationUtils;
+    private $securityCommand;
 
     /**
      * SecurityController constructor.
-     * 
-     * @param AuthenticationUtils $authenticationUtils
+     *
+     * @param SecurityCommand $securityCommand
      */
-    public function __construct(AuthenticationUtils $authenticationUtils)
+    public function __construct(SecurityCommand $securityCommand)
     {
-        $this->authenticationUtils = $authenticationUtils;
+        $this->securityCommand = $securityCommand;
     }
 
     /**
@@ -38,22 +49,36 @@ class SecurityController
      *     resource = true,
      *     section="Wallet",
      *     description = "Login a user on the system",
-     *     output = "Leos\Domain\Wallet\Model\Wallet",
      *     statusCodes = {
-     *       200 = "Returned when successful",
-     *       400 = "Returned when not found"
+     *       200 = "Returned when successful"
      *     }
      * )
      *
+     * @RequestParam(name="_username", description="Unique username identifier")
+     * @RequestParam(name="_password", description="User plain password")
+     *
      * @View(statusCode=200)
+     *
+     * @param ParamFetcher $fetcher
      *
      * @return array
      */
-    public function loginAction()
+    public function postLoginAction(ParamFetcher $fetcher)
     {
-        return [
-            'errors' => $this->authenticationUtils->getLastAuthenticationError(),
-            'last_username' => $this->authenticationUtils->getLastUsername()
-        ];
+        try {
+
+            return [
+                'token' => $this->securityCommand->login(
+                    new LoginDTO(
+                        $fetcher->get('_username'),
+                        $fetcher->get('_password')
+                    )
+                )
+            ];
+
+        }catch (AuthenticationException $e) {
+
+            throw new UnauthorizedHttpException('login', $e->getMessage(), $e);
+        }
     }
 }

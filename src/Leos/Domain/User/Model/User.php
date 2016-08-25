@@ -2,8 +2,9 @@
 
 namespace Leos\Domain\User\Model;
 
-use Leos\Domain\Security\Model\AuthUser;
 use Leos\Domain\User\ValueObject\UserId;
+use Leos\Domain\Security\ValueObject\AuthUser;
+use Leos\Domain\Security\ValueObject\EncodedPasswordInterface;
 
 /**
  * Class User
@@ -15,13 +16,16 @@ class User
     /**
      * @var UserId
      */
-    private $userId;
+    private $uuid;
 
     /**
      * @var string
      */
     private $email;
 
+    /**
+     * @var AuthUser
+     */
     private $auth;
 
     /**
@@ -36,20 +40,17 @@ class User
 
     /**
      * User constructor.
-     *
+     * 
      * @param UserId $userId
+     * @param string $username
      * @param string $email
-     * @param AuthUser $auth
+     * @param EncodedPasswordInterface $encodedPassword
      */
-    public function __construct(
-        UserId $userId,
-        string $email,
-        AuthUser $auth
-    )
+    public function __construct(UserId $userId, string $username, string $email, EncodedPasswordInterface $encodedPassword)
     {
-        $this->userId = $userId;
+        $this->uuid = $userId;
+        $this->auth = new AuthUser($username, $encodedPassword);
         $this->email = $email;
-        $this->auth = $auth;
         $this->createdAt = new \DateTime();
     }
 
@@ -58,7 +59,7 @@ class User
      */
     public function id(): UserId
     {
-        return $this->userId;
+        return $this->uuid;
     }
 
     /**

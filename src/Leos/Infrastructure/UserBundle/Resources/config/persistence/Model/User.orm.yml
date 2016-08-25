@@ -1,0 +1,26 @@
+Leos\Domain\User\Model\User:
+    type: entity
+    table: user
+    repositoryClass: Leos\Infrastructure\UserBundle\Repository\UserRepository
+    id:
+      uuid:
+        type: userId
+        nullable: false
+
+    fields:
+      email:
+        type: string
+        nullable: false
+
+      createdAt:
+        type: datetime
+
+      updatedAt:
+        type: datetime
+        nullable: true
+
+    embedded:
+      auth:
+        class: Leos\Domain\Security\ValueObject\AuthUser
+
+    lifecycleCallbacks: {  }

@@ -9,4 +9,4 @@ COPY app/web /app/web
 RUN rm -rf /app/web/app_dev.php
 
 HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -f http://localhost/api/v1/monitor/ping || exit 1
+  CMD curl -f http://localhost/monitor/ping || exit 1

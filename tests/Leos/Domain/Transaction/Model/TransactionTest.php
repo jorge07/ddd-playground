@@ -45,9 +45,9 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(5000, $transaction->operationReal());
         self::assertEquals(2500, $transaction->operationBonus());
         self::assertNull($transaction->referralTransaction());
+        self::assertEquals($currency->code(), $transaction->currency()->code());
         self::assertNotNull($transaction->createdAt());
         self::assertNull($transaction->updatedAt());
-        self::assertNull($currency, $transaction->currency());
 
         $transaction->setReferralTransaction($referral);
 

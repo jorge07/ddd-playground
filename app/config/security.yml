@@ -5,11 +5,11 @@ security:
     encoders:
         harsh:
             algorithm: bcrypt
-            cost: 15
+            cost: 12
 
     providers:
         customers:
-            entity: { class: Leos\Infrastructure\SecurityBundle\Security\Model\Auth, property: username }
+            id: leos.security.user_provider
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -18,24 +18,27 @@ security:
             security: false
             stateless:  true
 
-        login_firewall:
-            pattern:   ^/login$
-            anonymous: ~
-
         secured_area:
+            pattern:    ^/api
+            stateless: true
             provider: customers
-            pattern:    ^/api/*/user
-            form_login:
-                login_path: login
-                check_path: login
+            lexik_jwt:
+                authorization_header:
+                    enabled: true
+                    prefix:  Bearer
+                    name:    Authorization
+                cookie:
+                    enabled: true
+                    name:    BEARER
+                query_parameter:
+                    enabled: false
+                    name:    bearer
+        public:
+            pattern:  ^/
+            stateless: true
+            anonymous: true
 
-        main:
-            anonymous: ~
-            stateless:  true
-            # activate different ways to authenticate
+    access_control:
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        - { path: ^/,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,  roles: IS_AUTHENTICATED_FULLY       }

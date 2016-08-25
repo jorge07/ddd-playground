@@ -15,6 +15,7 @@ class WalletContext extends ApiContext
         static::createSharedKernel();
         $this->setUpDatabase();
         $this->loadFixturesFromDirectory('wallet');
+        $this->loadFixturesFromDirectory('user');
     }
 
 }

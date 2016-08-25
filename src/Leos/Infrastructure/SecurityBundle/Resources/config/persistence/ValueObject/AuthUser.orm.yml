@@ -1,0 +1,8 @@
+Leos\Domain\Security\ValueObject\AuthUser:
+  type: embeddable
+  fields:
+    username:
+      type: string
+
+    passwordHash:
+      type: string

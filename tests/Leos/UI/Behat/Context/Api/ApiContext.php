@@ -3,9 +3,8 @@
 namespace Tests\Leos\UI\Behat\Context\Api;
 
 use GuzzleHttp\Client as Http;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
 
 use Psr\Http\Message\ResponseInterface;
 
@@ -25,15 +24,20 @@ use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
  */
 class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
 {
-
     const
         FIXTURES = '/tests/Leos/UI/Behat/Context/Fixtures',
         RESPONSES = '/tests/Leos/UI/Responses/'
     ;
+
     /**
      * @var Http
      */
     private $http;
+
+    /**
+     * @var array
+     */
+    private $options = [];
 
     /**
      * @var ResponseInterface
@@ -69,6 +73,7 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
         $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
 
         parent::__construct();
+
         $this->http = new Http([
             // Base URI is used with relative requests
             'base_uri' => $path,
@@ -92,14 +97,7 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
      */
     public function iSendARequestTo($method, $uri)
     {
-        try{
-
-            $this->response = $this->http->request($method, $uri);
-            
-        } catch (ClientException $e) {
-
-            $this->response = $e->getResponse();
-        }
+        $this->request($method, $uri);
     }
 
     /**
@@ -111,15 +109,10 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
      */
     public function iSendAToWith($method, $uri, PyStringNode $string)
     {
-        try{
-            $this->response = $this->http()->request($method, $uri, [
-                RequestOptions::JSON => json_decode($string->getRaw(), true)
-            ]);
-        } catch (RequestException $e) {
-            if ($e->hasResponse()) {
+        $this->request($method, $uri, [
+            RequestOptions::JSON => json_decode($string->getRaw(), true)
+        ]);
 
-            }
-        }
     }
 
     /**
@@ -131,7 +124,7 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
      */
     public function iSendAToResourceWith($method, $uri, PyStringNode $string)
     {
-        $this->response = $this->http()->request($method, $this->resource . $uri, [
+        $this->request($method, $this->resource . $uri, [
             RequestOptions::JSON => json_decode($string->getRaw(), true)
         ]);
     }
@@ -144,13 +137,11 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
      */
     public function iSendAToTheResourceWith($method, PyStringNode $string)
     {
-        try{
-            $this->response = $this->http()->request($method, $this->resource, [
-                RequestOptions::JSON => json_decode($string->getRaw(), true)
-            ]);
-        } catch (RequestException $e) { }
+        $this->request($method, $this->resource, [
+            RequestOptions::JSON => json_decode($string->getRaw(), true)
+        ]);
     }
-    
+
     /**
      * @Given /^the response should match with:$/
      *
@@ -168,14 +159,6 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     }
 
     /**
-     * @return Http
-     */
-    public function http(): Http
-    {
-        return $this->http;
-    }
-
-    /**
      * @Then /^I should be redirected to resource$/
      */
     public function iShouldBeRedirectedToResource()
@@ -183,7 +166,7 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
         self::assertNotNull($this->response->getHeaderLine('location'));
 
         $this->resource = $this->response->getHeaderLine('location');
-        $this->response = $this->http()->request('GET', $this->resource);
+        $this->request('GET', $this->resource);
     }
 
     /**
@@ -209,6 +192,56 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     public function theResponseCodeIs(int $code)
     {
         self::assertEquals($this->response->getStatusCode(),$code);
+    }
+
+    /**
+     * @Given /^a user "([^"]*)" logged with password "([^"]*)"$/
+     *
+     * @param string $user
+     * @param string $pass
+     */
+    public function aUserLoggedWithPassword(string $user, string $pass)
+    {
+        $this->request('POST', '/auth/login', [
+            RequestOptions::JSON => [
+                '_username' => $user,
+                '_password' => $pass
+            ]
+        ]);
+
+        self::assertEquals(200, $this->response->getStatusCode(), 'User cannot be logged due to credentials error');
+
+        $this->options[RequestOptions::HEADERS] = ['Authorization' =>  'Bearer ' . json_decode($this->response->getBody(), true)['token']];
+    }
+
+    /**
+     * @return Http
+     */
+    public function http(): Http
+    {
+        return $this->http;
+    }
+
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array $options
+     */
+    protected function request(string $method, string $uri, array $options = [])
+    {
+        try{
+
+            $options = array_merge($this->options, $options);
+
+            $this->response = $this->http->request($method, $uri, $options);
+
+        } catch (ClientException $e) {
+
+            if ($e->hasResponse()) {
+
+                $this->response = $e->getResponse();
+            }
+        }
     }
 
 }

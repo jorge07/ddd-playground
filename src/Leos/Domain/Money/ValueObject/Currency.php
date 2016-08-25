@@ -13,6 +13,7 @@ use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
 class Currency
 {
     const DEFAULT = 'EUR';
+    
     /**
      * @var string ISO code string
      */

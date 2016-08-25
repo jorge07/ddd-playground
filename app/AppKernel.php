@@ -24,12 +24,14 @@ class AppKernel extends Kernel
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 
             new Snc\RedisBundle\SncRedisBundle(),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
 
             new Leos\UI\RestBundle\LeosUIRestBundle(),
             new Leos\Infrastructure\WalletBundle\LeosInfrastructureWalletBundle(),
             new Leos\Infrastructure\TransactionBundle\LeosInfrastructureTransactionBundle(),
             new Leos\Infrastructure\MoneyBundle\LeosInfrastructureMoneyBundle(),
             new Leos\Infrastructure\SecurityBundle\LeosInfrastructureSecurityBundle(),
+            new Leos\Infrastructure\UserBundle\LeosInfrastructureUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -3,6 +3,7 @@
 namespace Tests\Leos\UI\RestBundle\Controller\Wallet;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
+use Tests\Leos\UI\RestBundle\Controller\Security\SecurityTrait;
 
 /**
  * Class WalletControllerTest
@@ -11,11 +12,15 @@ use Lakion\ApiTestCase\JsonApiTestCase;
  */
 class WalletControllerTest extends JsonApiTestCase
 {
+    use SecurityTrait;
+
     public function setUp()
     {
         $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
+
         $this->setUpClient();
         $this->setUpDatabase();
+
         $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/Responses/Wallet";
         $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/Behat/Context/Fixtures";
     }
@@ -25,6 +30,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testCreateWalletAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST', '/api/v1/wallet.json');
 
         $response = $this->client->getResponse();
@@ -39,6 +46,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testCreateWalletWithWrongCurrencyAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST', '/api/v1/wallet.json', [
             'real' => 50,
             'bonus' => 25,
@@ -54,6 +63,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testGetWalletActionNotFound()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('GET', '/api/v1/wallet/0.json');
 
         self::assertEquals($this->client->getResponse()->getStatusCode(), 404);
@@ -64,6 +75,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testCreditAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST', '/api/v1/wallet.json');
 
         $response = $this->client->getResponse();
@@ -80,10 +93,13 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testCredit400Action()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST',  '/api/v1/wallet/404/credit.json', [
             'real' => 5,
             'bonus' => 5
         ]);
+
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
     }
@@ -93,6 +109,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testCredit400WrongCurrencyAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/credit.json', [
             'real' => 5,
             'bonus' => 5,
@@ -108,6 +126,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testDebitAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST', '/api/v1/wallet.json', [
             'real' => 50,
             'bonus' => 25,
@@ -129,6 +149,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testDebit400WrongCurrencyAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/debit.json', [
             'real' => 5,
             'bonus' => 5,
@@ -144,6 +166,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testDebit409Action()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST', '/api/v1/wallet.json', [
             'real' => 50,
             'bonus' => 25,
@@ -165,6 +189,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testDebit400Action()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->client->request('POST',  '/api/v1/wallet/404/debit.json', [
             'real' => 5,
             'bonus' => 5
@@ -178,6 +204,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testDebit404Action()
     {
+        $this->loginClient('jorge', 'iyoque123');
+        
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/debit.json', [
             'real' => 5,
             'bonus' => 5
@@ -191,6 +219,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testCredit404Action()
     {
+        $this->loginClient('jorge', 'iyoque123');
+        
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/credit.json', [
             'real' => 5,
             'bonus' => 5
@@ -204,7 +234,10 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testWalletCollectionAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+        
         $this->loadFixturesFromDirectory('wallet');
+
         $this->client->request('GET',  '/api/v1/wallet.json');
 
         self::assertResponse($this->client->getResponse(), "cget_wallet", 200);
@@ -215,6 +248,8 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testWalletCollectionFilterAction()
     {
+        $this->loginClient('jorge', 'iyoque123');
+
         $this->loadFixturesFromDirectory('wallet');
         $this->client->request('GET',  '/api/v1/wallet.json?filterParam[]=real.amount&filterOp[]=eq&filterValue[]=50');
 

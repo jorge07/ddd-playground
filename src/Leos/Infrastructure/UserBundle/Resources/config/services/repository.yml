@@ -1,0 +1,6 @@
+services:
+    leos.repository.user:
+        parent: leos.abstract.repository
+        class: Leos\Infrastructure\UserBundle\Repository\UserRepository
+        arguments:
+            - Leos\Domain\User\Model\User

@@ -1,5 +1,8 @@
 stages:
   - build
+  - test
+  - aceptation
+  - clean
   - release
 
 before_script:
@@ -17,12 +20,25 @@ build:
     - sleep 8
     - docker exec sf-build-${RELEASE} php bin/console d:s:u --force
 
-    - docker exec sf-build-${RELEASE} phpunit --colors=never
-    - docker exec sf-build-${RELEASE} ./vendor/bin/behat
-    - docker-compose -f build/docker-compose.yml down --rmi local --volumes
+test-mess-detector:
+  stage: test
+  script:
+    - docker exec sf-build-${RELEASE} ./vendor/bin/phpmd src text unusedcode
 
-    - mkdir -p context-${RELEASE}/build
-    - docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
+test-coverage:
+  stage: test
+  script:
+    - docker exec sf-build-${RELEASE} phpunit --colors=never
+
+aceptation:
+  stage: aceptation
+  script:
+    - docker exec sf-build-${RELEASE} ./vendor/bin/behat
+
+clean-build:
+  stage: clean
+  script:
+    - docker-compose -f build/docker-compose.yml down --rmi local --volumes
 
 release:tags:
   stage: release
@@ -30,7 +46,7 @@ release:tags:
     - tags
 
   script:
-    - connect
+    - docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
     - docker run -d --name building-${RELEASE} sf-build-${RELEASE}
     - docker cp building-${RELEASE}:/app context-${RELEASE}/build/
     - docker rm -f building-${RELEASE}

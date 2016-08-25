@@ -2,16 +2,33 @@
 
 namespace Leos\Infrastructure\SecurityBundle\Security\Model;
 
-use Leos\Domain\Security\Model\AuthUser;
+use Leos\Domain\Security\ValueObject\AuthUser;
+
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 
 /**
  * Class Auth
  *
  * @package Leos\Infrastructure\SecurityBundle\Security\Model
  */
-class Auth extends AuthUser implements UserInterface
+class Auth implements UserInterface, EncoderAwareInterface
 {
+    /**
+     * @var AuthUser
+     */
+    private $authUser;
+
+    /**
+     * Auth constructor.
+     *
+     * @param AuthUser $authUser
+     */
+    public function __construct(AuthUser $authUser)
+    {
+        $this->authUser = $authUser;
+    }
+
     /**
      * Returns the roles granted to the user.
      *
@@ -30,7 +47,7 @@ class Auth extends AuthUser implements UserInterface
      */
     public function getRoles()
     {
-        return $this->roles;
+        return $this->authUser->roles();
     }
 
     /**
@@ -43,7 +60,7 @@ class Auth extends AuthUser implements UserInterface
      */
     public function getPassword()
     {
-        return $this->passwordHash;
+        return $this->authUser->password();
     }
 
     /**
@@ -65,7 +82,7 @@ class Auth extends AuthUser implements UserInterface
      */
     public function getUsername()
     {
-        return $this->username;
+        return $this->authUser->username();
     }
 
     /**
@@ -76,6 +93,19 @@ class Auth extends AuthUser implements UserInterface
      */
     public function eraseCredentials()
     {
-        $this->plainPassword = null;
+
+    }
+
+    /**
+     * Gets the name of the encoder used to encode the password.
+     *
+     * If the method returns null, the standard way to retrieve the encoder
+     * will be used instead.
+     *
+     * @return string
+     */
+    public function getEncoderName()
+    {
+        return 'harsh';
     }
 }

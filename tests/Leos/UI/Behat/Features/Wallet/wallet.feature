@@ -2,6 +2,10 @@ Feature: Wallet endpoint
   As a user
   I want test the wallet workflow
 
+  Background:
+    Given a list of wallets persisted
+    And a user "jorge" logged with password "iyoque123"
+
   Scenario: Create a new wallet and use it
     When I send a "POST" to "/api/v1/wallet.json" with:
     """
@@ -9,6 +13,7 @@ Feature: Wallet endpoint
       "currency": "EUR"
     }
     """
+    And the response code is "201"
     Then I should be redirected to resource
     And the response body match with file "get_wallet" and status code is "200"
     Then I send a "POST" to resource "/credit.json" with:
@@ -42,12 +47,10 @@ Feature: Wallet endpoint
 
 
   Scenario: List the wallets
-    Given a list of wallets persisted
     When I send a "GET" request to "/api/v1/wallet.json"
     And the response body match with file "cget_wallet" and status code is "200"
 
 
   Scenario: Filter the wallets
-    Given a list of wallets persisted
     When I send a "GET" request to "/api/v1/wallet.json?filterParam[]=real.amount&filterOp[]=eq&filterValue[]=50"
     And the response body match with file "cget_wallet_filter_50" and status code is "200"

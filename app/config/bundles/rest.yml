@@ -12,9 +12,6 @@ fos_rest:
         version: "v1"
         serialize_null: true
 
-    body_listener:
-        array_normalizer: fos_rest.normalizer.camel_keys
-
     routing_loader:
         default_format: json
 
@@ -28,7 +25,7 @@ fos_rest:
 
     format_listener:
         rules:
-            - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: true }
+            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: true }
 
     param_fetcher_listener: force
 
