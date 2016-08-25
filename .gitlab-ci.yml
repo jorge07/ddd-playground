@@ -22,7 +22,8 @@ build:
 test-mess-detector:
   stage: test
   script:
-    - docker exec sf-build-${RELEASE} ./vendor/bin/phpmd src text unusedcode
+    - docker exec sf-build-${RELEASE} ./vendor/bin/phpmd src text cleancode, codesize, controversial, design, naming, unusedcode
+  allow_failure: true
 
 test-coverage:
   stage: test
