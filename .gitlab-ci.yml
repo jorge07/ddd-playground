@@ -7,13 +7,12 @@ stages:
 
 before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
-  - echo $PWD
+  - connect
+  - cd etc/infrastructure
 
 build:
   stage: build
   script:
-    - connect
-    - cd etc/infrastructure
     - mkdir -p context-${RELEASE}/build
     - docker-compose -f build/docker-compose.yml build
     - docker-compose -f build/docker-compose.yml up -d
