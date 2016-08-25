@@ -14,12 +14,22 @@ class WalletControllerTest extends JsonApiTestCase
 {
     use SecurityTrait;
 
+    private $databaseLoaded = false;
+
     public function setUp()
     {
         $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
 
-        $this->setUpClient();
-        $this->setUpDatabase();
+        if (!$this->client) {
+
+            $this->setUpClient();
+        }
+
+        if (!$this->databaseLoaded) {
+
+            $this->setUpDatabase();
+            $this->databaseLoaded = true;
+        }
 
         $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/Responses/Wallet";
         $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/Leos/UI/Behat/Context/Fixtures";
