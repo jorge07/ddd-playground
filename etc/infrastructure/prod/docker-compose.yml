@@ -1,7 +1,7 @@
 version: '2'
 services:
   fpm:
-    image: sf-prod:${RELEASE}
+    image: registry.gitlab.com/jorge07/leos-sf-prod:${RELEASE}
 
   nginx:
-    image: nginx-prod:${RELEASE}
+    image: registry.gitlab.com/jorge07/leos-nginx-prod:${RELEASE}
