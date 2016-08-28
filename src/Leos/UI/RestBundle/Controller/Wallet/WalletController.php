@@ -2,6 +2,8 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
+use Leos\Application\DTO\Deposit\DepositDTO;
+use Leos\Domain\Deposit\Exception\MinDepositAmountException;
 use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
@@ -229,7 +231,7 @@ class WalletController extends AbstractController
      *     resource = true,
      *     section="Wallet",
      *     description = "Generate a positive insertion on the given Wallet",
-     *     output = "Leos\Domain\Wallet\Model\Wallet",
+     *     output = "Leos\Domain\Transaction\Model\Transaction",
      *     statusCodes = {
      *       202 = "Returned when successful"
      *     }
@@ -277,8 +279,59 @@ class WalletController extends AbstractController
      * @ApiDoc(
      *     resource = true,
      *     section="Wallet",
+     *     description = "Generate a positive insertion on the given Wallet",
+     *     output = "Leos\Domain\Transaction\Model\Transaction",
+     *     statusCodes = {
+     *       202 = "Returned when successful"
+     *     }
+     * )
+     *
+     * @RequestParam(name="real",       default="0",    description="Deposit amount")
+     * @RequestParam(name="currency",   default="EUR",  description="Currency")
+     *
+     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
+     *
+     * @param string $uid
+     * @param ParamFetcher $fetcher
+     *
+     * @return Transaction
+     */
+    public function postDepositAction(string $uid, ParamFetcher $fetcher): Transaction
+    {
+        try {
+
+            return $this->transactionCommand->deposit(
+                new DepositDTO(
+                    new WalletId($uid),
+                    new Currency($fetcher->get('currency')),
+                    (float) $fetcher->get('real')
+                )
+            );
+
+        } catch (InvalidUUIDException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (WalletNotFoundException $e) {
+
+            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (CurrencyWrongCodeException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (MinDepositAmountException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+        }
+    }
+
+    /**
+     * @ApiDoc(
+     *     resource = true,
+     *     section="Wallet",
      *     description = "Generate a negative insertion on the given Wallet",
-     *     output = "Leos\Domain\Wallet\Model\Wallet",
+     *     output = "Leos\Domain\Transaction\Model\Transaction",
      *     statusCodes = {
      *       202 = "Returned when successful"
      *     }

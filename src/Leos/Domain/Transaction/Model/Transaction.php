@@ -142,7 +142,7 @@ class Transaction
      *
      * @return Transaction
      */
-    private static function getInstance(string $type, Wallet $wallet, Money $real, Money $bonus): Transaction
+    final protected static function getInstance(string $type, Wallet $wallet, Money $real, Money $bonus): Transaction
     {
         return new self(new TransactionId(), new TransactionType($type), $wallet, $real, $bonus);
     }
@@ -153,9 +153,9 @@ class Transaction
      */
     private function process(Money $real, Money $bonus)
     {
-        switch ((string) $this->type()){
+        switch (true){
 
-            case TransactionType::DEBIT:
+            case $this->type()->isDebit():
 
                 $this->wallet
                     ->removeRealMoney($real)
@@ -167,7 +167,7 @@ class Transaction
 
                 break;
 
-            case TransactionType::CREDIT:
+            case $this->type()->isCredit():
 
                 $this->wallet
                     ->addRealMoney($real)
@@ -179,7 +179,7 @@ class Transaction
 
                 break;
 
-            case TransactionType::CREATE_WALLET:
+            case (string) $this->type() === TransactionType::CREATE_WALLET:
 
                 $this->operationReal = 0;
                 $this->operationBonus = 0;

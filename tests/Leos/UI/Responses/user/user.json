@@ -1,0 +1,12 @@
+{
+  "uuid":{
+    "uuid": "@string@"
+  },
+  "email": "paco@gmail.com",
+  "auth": {
+    "username": "paco",
+    "roles": "@array@"
+  },
+  "created_at": "@string@.isDateTime()",
+  "updated_at": null
+}

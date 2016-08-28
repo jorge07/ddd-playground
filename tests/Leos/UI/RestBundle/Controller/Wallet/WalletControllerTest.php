@@ -90,6 +90,7 @@ class WalletControllerTest extends JsonApiTestCase
         $this->client->request('POST', '/api/v1/wallet.json');
 
         $response = $this->client->getResponse();
+        self::assertEquals(201, $response->getStatusCode());
 
         $this->client->request('POST', $response->headers->get('location') . '/credit.json', [
             'real' => 100
@@ -101,7 +102,7 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testCredit400Action()
+    public function testCreditBadUUIDAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
@@ -145,6 +146,7 @@ class WalletControllerTest extends JsonApiTestCase
         ]);
 
         $response = $this->client->getResponse();
+        self::assertEquals(201, $response->getStatusCode());
 
         $this->client->request('POST', $response->headers->get('location') . '/debit.json', [
             'real' => 5,
@@ -153,6 +155,107 @@ class WalletControllerTest extends JsonApiTestCase
 
         self::assertResponse($this->client->getResponse(), "debit", 202);
     }
+
+    /**
+     * @group functional
+     */
+    public function testDepositAction()
+    {
+        $this->loginClient('jorge', 'iyoque123');
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'currency' => 'EUR'
+        ]);
+
+        $response = $this->client->getResponse();
+
+        self::assertEquals(201, $response->getStatusCode());
+
+        $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
+            'real' => 50
+        ]);
+
+        self::assertResponse($this->client->getResponse(), "deposit", 202);
+    }
+
+    /**
+     * @group functional
+     */
+    public function testDepositWrongCurrencyAction()
+    {
+        $this->loginClient('jorge', 'iyoque123');
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'currency' => 'EUR'
+        ]);
+
+        $response = $this->client->getResponse();
+
+        self::assertEquals(201, $response->getStatusCode());
+
+        $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
+            'real' => 50,
+            'currency' => 'LIBRAS'
+        ]);
+
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertContains('currency', $this->client->getResponse()->getContent());
+    }
+
+
+    /**
+     * @group functional
+     */
+    public function testDepositWrongAmountAction()
+    {
+        $this->loginClient('jorge', 'iyoque123');
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'currency' => 'EUR'
+        ]);
+
+        $response = $this->client->getResponse();
+
+        self::assertEquals(201, $response->getStatusCode());
+
+        $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
+            'real' => 0,
+            'currency' => 'EUR'
+        ]);
+
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertContains('amount', $this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @group functional
+     */
+    public function testDepositBadUUIDAction()
+    {
+        $this->loginClient('jorge', 'iyoque123');
+
+        $this->client->request('POST',  '/api/v1/wallet/404/deposit.json', [
+            'real' => 5
+        ]);
+
+
+        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @group functional
+     */
+    public function testDeposit404Action()
+    {
+        $this->loginClient('jorge', 'iyoque123');
+
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/deposit.json', [
+            'real' => 5
+        ]);
+
+        self::assertEquals(404, $this->client->getResponse()->getStatusCode());
+    }
+
 
     /**
      * @group functional
@@ -197,7 +300,7 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testDebit400Action()
+    public function testDebitBadUUIDAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 

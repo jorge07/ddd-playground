@@ -3,6 +3,9 @@ Leos\Domain\Security\ValueObject\AuthUser:
   fields:
     username:
       type: string
+      unique: true
+      nullable: false
 
     passwordHash:
       type: string
+      nullable: false

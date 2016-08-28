@@ -1,3 +1,7 @@
+user:
+    type: rest
+    resource: leos.controller.user
+
 wallet:
     type: rest
     resource: leos.controller.wallet

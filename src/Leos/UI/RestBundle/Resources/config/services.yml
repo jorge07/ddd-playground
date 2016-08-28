@@ -25,3 +25,10 @@ services:
       arguments:
         - "@leos.use_case.wallet_query"
         - "@leos.use_case.transaction_command"
+
+    leos.controller.user:
+      class: Leos\UI\RestBundle\Controller\User\UserController
+      parent: leos.abstract.controller
+      arguments:
+        - "@leos.use_case.user_command"
+        - "@leos.use_case.user_query"

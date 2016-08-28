@@ -1,0 +1,24 @@
+Leos\Domain\User\Model\User:
+    exclusion_policy: ALL
+    properties:
+        uuid:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\User\ValueObject\UserId
+
+        email:
+            expose: true
+            groups: [Basic]
+
+        auth:
+            expose: true
+            groups: [Auth]
+            type: Leos\Domain\Security\ValueObject\AuthUser
+
+        createdAt:
+            expose: true
+            groups: [Basic]
+
+        updatedAt:
+            expose: true
+            groups: [Basic]

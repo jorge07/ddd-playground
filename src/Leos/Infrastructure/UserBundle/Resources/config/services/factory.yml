@@ -1,0 +1,4 @@
+services:
+    leos.factory.user:
+        class: Leos\Infrastructure\UserBundle\Factory\UserFactory
+        parent: leos.abstract.form_factory

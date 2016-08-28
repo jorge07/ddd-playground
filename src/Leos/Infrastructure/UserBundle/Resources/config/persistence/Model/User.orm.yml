@@ -6,10 +6,19 @@ Leos\Domain\User\Model\User:
       uuid:
         type: userId
         nullable: false
+    indexes:
+      email_index:
+        columns: [ email ]
+
+    uniqueConstraints:
+        search_idx:
+          columns: [ auth_username ]
 
     fields:
       email:
         type: string
+        unique: true
+        length: 32
         nullable: false
 
       createdAt:

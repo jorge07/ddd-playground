@@ -1,0 +1,10 @@
+Leos\Domain\Security\ValueObject\AuthUser:
+    exclusion_policy: ALL
+    properties:
+        username:
+            expose: true
+            groups: [Auth]
+
+        roles:
+            expose: true
+            groups: [Auth]

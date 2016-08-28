@@ -5,6 +5,7 @@ jms_serializer:
       Common:
         namespace_prefix: "Leos\\Domain\\Common"
         path: "src/Leos/Infrastructure/Resources/config/serializer/common"
+
       Wallet:
         namespace_prefix: "Leos\\Domain\\Wallet"
         path: "@LeosInfrastructureWalletBundle/Resources/config/serializer/wallet"
@@ -16,3 +17,11 @@ jms_serializer:
       Transaction:
         namespace_prefix: "Leos\\Domain\\Transaction"
         path: "@LeosInfrastructureTransactionBundle/Resources/config/serializer/transaction"
+
+      Security:
+        namespace_prefix: "Leos\\Domain\\Security"
+        path: "@LeosInfrastructureSecurityBundle/Resources/config/serializer/auth"
+
+      User:
+        namespace_prefix: "Leos\\Domain\\User"
+        path: "@LeosInfrastructureUserBundle/Resources/config/serializer/user"

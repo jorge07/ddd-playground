@@ -1,7 +1,6 @@
 <?php
 
 namespace Tests\Leos\UI\RestBundle\Controller\Security;
-use Symfony\Component\BrowserKit\Client;
 
 /**
  * Class SecurityTrait
