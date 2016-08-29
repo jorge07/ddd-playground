@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Leos\Domain\Wallet\Model;
+namespace Tests\Leos\Domain\Wallet\ValueObject;
 
 use Leos\Domain\Wallet\ValueObject\Credit;
 

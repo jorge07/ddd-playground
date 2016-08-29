@@ -97,6 +97,16 @@ final class Credit
     }
 
     /**
+     * @param Credit $credit
+     * 
+     * @return int
+     */
+    public function diff(Credit $credit): int
+    {
+        return $this->amount - $credit->amount();
+    }
+
+    /**
      * @return \DateTime
      */
     public function generatedAt(): \DateTime

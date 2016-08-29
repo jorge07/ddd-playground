@@ -36,7 +36,7 @@ class UserControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testCreateUser()
     {
@@ -56,11 +56,11 @@ class UserControllerTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, "user", 200);
+        self::assertResponse($response, "new_user", 200);
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testCreateUserWithWrongPassword()
     {
@@ -79,7 +79,7 @@ class UserControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testCreateUserWithWrongEmail()
     {
@@ -98,7 +98,7 @@ class UserControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testCreateUserWithEmptyParams()
     {
@@ -116,7 +116,7 @@ class UserControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testCreateUserWithWrongUsername()
     {
@@ -135,7 +135,7 @@ class UserControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testFindUserWithWrongUUIDFormat()
     {
@@ -149,7 +149,7 @@ class UserControllerTest extends JsonApiTestCase
         self::assertContains('uuid', $response->getContent());
     }
     /**
-     * @group unit
+     * @group functional
      */
     public function testFindUserWithNotExistingUUID()
     {

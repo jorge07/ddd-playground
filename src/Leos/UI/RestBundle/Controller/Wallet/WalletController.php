@@ -3,13 +3,13 @@
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
 use Leos\Application\DTO\Deposit\DepositDTO;
+use Leos\Application\DTO\Withdrawal\WithdrawalDTO;
 use Leos\Domain\Deposit\Exception\MinDepositAmountException;
 use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
+use Leos\Domain\Transaction\Model\AbstractTransaction;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
 use Leos\Application\DTO\Common\PaginationDTO;
-use Leos\Application\DTO\Transaction\DebitDTO;
-use Leos\Application\DTO\Transaction\CreditDTO;
 use Leos\Application\DTO\Wallet\CreateWalletDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
 use Leos\Application\UseCase\Transaction\TransactionCommand;
@@ -17,7 +17,6 @@ use Leos\Application\UseCase\Transaction\TransactionCommand;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
-use Leos\Domain\Transaction\Model\Transaction;
 use Leos\Domain\Common\Exception\InvalidUUIDException;
 use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
@@ -175,7 +174,6 @@ class WalletController extends AbstractController
     public function getAction(string $walletId): Wallet
     {
         try {
-
             return $this->walletQuery->get(new WalletId($walletId));
 
         } catch (WalletNotFoundException $e) {
@@ -196,8 +194,6 @@ class WalletController extends AbstractController
      * )
      *
      * @RequestParam(name="currency",   default="EUR",  description="The currency of the wallet")
-     * @RequestParam(name="real",       default="0",    description="Initial real Credit in wallet")
-     * @RequestParam(name="bonus",      default="0",    description="Initial bonus Credit in wallet")
      *
      * @View(statusCode=201)
      *
@@ -211,9 +207,7 @@ class WalletController extends AbstractController
 
             $wallet = $this->transactionCommand->createWallet(
                 new CreateWalletDTO(
-                    $fetcher->get('currency'),
-                    (int) $fetcher->get('real'),
-                    (int) $fetcher->get('bonus')
+                    $fetcher->get('currency')
                 )
             );
 
@@ -231,72 +225,25 @@ class WalletController extends AbstractController
      *     resource = true,
      *     section="Wallet",
      *     description = "Generate a positive insertion on the given Wallet",
-     *     output = "Leos\Domain\Transaction\Model\Transaction",
+     *     output = "Leos\Domain\Debit\Model\Debit",
      *     statusCodes = {
-     *       202 = "Returned when successful"
+     *       202 = "Returned when successful",
+     *       400 = "Returned when bad request",
+     *       404 = "Returned when wallet not found"
      *     }
      * )
      *
-     * @RequestParam(name="real",       default="0",    description="Real amount to credit")
-     * @RequestParam(name="bonus",      default="0",    description="Bonus amount to credit")
-     * @RequestParam(name="currency",   default="EUR",  description="Currency")
+     * @RequestParam(name="real",     default="0",   description="Deposit amount")
+     * @RequestParam(name="currency", default="EUR", description="Currency")
      *
      * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
      * @param string $uid
      * @param ParamFetcher $fetcher
      *
-     * @return Transaction
+     * @return AbstractTransaction
      */
-    public function postCreditAction(string $uid, ParamFetcher $fetcher): Transaction
-    {
-        try {
-            
-            return $this->transactionCommand->credit(
-                new CreditDTO(
-                    new WalletId($uid),
-                    new Currency($fetcher->get('currency')),
-                    (float) $fetcher->get('real'),
-                    (float) $fetcher->get('bonus')
-                )
-            );
-            
-        } catch (InvalidUUIDException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (WalletNotFoundException $e) {
-
-            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (CurrencyWrongCodeException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-        }
-    }
-
-    /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Wallet",
-     *     description = "Generate a positive insertion on the given Wallet",
-     *     output = "Leos\Domain\Transaction\Model\Transaction",
-     *     statusCodes = {
-     *       202 = "Returned when successful"
-     *     }
-     * )
-     *
-     * @RequestParam(name="real",       default="0",    description="Deposit amount")
-     * @RequestParam(name="currency",   default="EUR",  description="Currency")
-     *
-     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
-     *
-     * @param string $uid
-     * @param ParamFetcher $fetcher
-     *
-     * @return Transaction
-     */
-    public function postDepositAction(string $uid, ParamFetcher $fetcher): Transaction
+    public function postDepositAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
         try {
 
@@ -325,39 +272,40 @@ class WalletController extends AbstractController
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
         }
     }
-
+    
     /**
      * @ApiDoc(
      *     resource = true,
      *     section="Wallet",
      *     description = "Generate a negative insertion on the given Wallet",
-     *     output = "Leos\Domain\Transaction\Model\Transaction",
+     *     output = "Leos\Domain\Withdrawal\Model\Withdrawal",
      *     statusCodes = {
-     *       202 = "Returned when successful"
+     *       202 = "Returned when successful",
+     *       400 = "Returned when bad request",
+     *       404 = "Returned when wallet not found",
+     *       409 = "Returned when not enough founds"
      *     }
      * )
      *
-     * @RequestParam(name="real",       default="0",    description="Real amount to credit")
-     * @RequestParam(name="bonus",      default="0",    description="Bonus amount to credit")
-     * @RequestParam(name="currency",   default="EUR",  description="Currency")
+     * @RequestParam(name="real",     default="0",  description="Withdrawal amount")
+     * @RequestParam(name="currency", default="EUR", description="Currency")
      *
      * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
      * @param string $uid
      * @param ParamFetcher $fetcher
      *
-     * @return Transaction
+     * @return AbstractTransaction
      */
-    public function postDebitAction(string $uid, ParamFetcher $fetcher): Transaction
+    public function postWithdrawalAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
         try {
 
-            return $this->transactionCommand->debit(
-                new DebitDTO(
+            return $this->transactionCommand->withdrawal(
+                new WithdrawalDTO(
                     new WalletId($uid),
                     new Currency($fetcher->get('currency')),
-                    (float) $fetcher->get('real'),
-                    (float) $fetcher->get('bonus')
+                    (float) $fetcher->get('real')
                 )
             );
 
@@ -369,13 +317,13 @@ class WalletController extends AbstractController
 
             throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
 
-        } catch (CreditNotEnoughException $e) {
-
-            throw new ConflictHttpException($e->getMessage(), $e, $e->getCode());
-
         } catch (CurrencyWrongCodeException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (CreditNotEnoughException $e) {
+
+            throw new ConflictHttpException($e->getMessage(), $e, $e->getCode());
         }
     }
 }

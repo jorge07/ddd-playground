@@ -32,6 +32,8 @@ class AppKernel extends Kernel
             new Leos\Infrastructure\MoneyBundle\LeosInfrastructureMoneyBundle(),
             new Leos\Infrastructure\SecurityBundle\LeosInfrastructureSecurityBundle(),
             new Leos\Infrastructure\UserBundle\LeosInfrastructureUserBundle(),
+            new Leos\Infrastructure\DepositBundle\LeosInfrastructureDepositBundle(),
+            new Leos\Infrastructure\WithdrawalBundle\LeosInfrastructureWithdrawalBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

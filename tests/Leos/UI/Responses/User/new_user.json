@@ -2,9 +2,9 @@
   "uuid":{
     "uuid": "@string@"
   },
-  "email": "paco@gmail.com",
+  "email": "@string@",
   "auth": {
-    "username": "paco",
+    "username": "@string@",
     "roles": "@array@"
   },
   "created_at": "@string@.isDateTime()",

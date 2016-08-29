@@ -1,26 +1,26 @@
 {
   "id":"@string@",
-  "type":"credit",
+  "type":"withdrawal",
   "prev_real": {
-    "amount":0,
+    "amount": 10900,
     "generated_at":"@string@.isDateTime()"
   },
   "prev_bonus": {
-    "amount":0,
+    "amount": 0,
     "generated_at":"@string@.isDateTime()"
   },
-  "operation_real": 10000,
-  "operation_bonus": 0,
+  "operation_real": -6400,
+  "operation_bonus":0,
   "wallet": {
     "id": {
       "uuid": "@string@"
     },
     "real": {
-      "amount":10000,
+      "amount": 4500,
       "generated_at":"@string@.isDateTime()"
     },
     "bonus": {
-      "amount":0,
+      "amount": 0,
       "generated_at":"@string@.isDateTime()"
     },
     "created_at":"@string@.isDateTime()",

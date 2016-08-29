@@ -17,8 +17,8 @@ class TransactionTypeTest extends \PHPUnit_Framework_TestCase
     public function testTypes()
     {
         self::assertTrue(is_array(TransactionType::types()));
-        self::assertTrue(in_array('debit', TransactionType::types()));
-        self::assertTrue(in_array('credit', TransactionType::types()));
+        self::assertTrue(in_array('deposit', TransactionType::types()));
+        self::assertTrue(in_array('withdrawal', TransactionType::types()));
     }
 
     /**
@@ -26,9 +26,9 @@ class TransactionTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetters()
     {
-        $type = new TransactionType(TransactionType::DEBIT);
+        $type = new TransactionType(TransactionType::WITHDRAWAL);
 
-        self::assertEquals(TransactionType::DEBIT, (string) $type);
+        self::assertEquals(TransactionType::WITHDRAWAL, (string) $type);
     }
 
     /**

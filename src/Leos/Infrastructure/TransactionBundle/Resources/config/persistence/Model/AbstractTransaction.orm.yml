@@ -1,7 +1,17 @@
-Leos\Domain\Transaction\Model\Transaction:
+Leos\Domain\Transaction\Model\AbstractTransaction:
     type: entity
     table: transaction
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+      name: discriminator
+      type: string
+    discriminatorMap:
+      deposit: Leos\Domain\Deposit\Model\Deposit
+      withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
+      create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
+
     repositoryClass: Leos\Infrastructure\TransactionBundle\Repository\TransactionRepository
+
     id:
       id:
         type: string
@@ -11,9 +21,6 @@ Leos\Domain\Transaction\Model\Transaction:
           strategy: UUID
 
     fields:
-      type:
-        type: string
-
       createdAt:
         type: datetime
 
@@ -47,9 +54,9 @@ Leos\Domain\Transaction\Model\Transaction:
             - persist
 
         referralTransaction:
-          targetEntity: Leos\Domain\Transaction\Model\Transaction
+          targetEntity: Leos\Domain\Transaction\Model\AbstractTransaction
           joinColumn:
-            name: transaction_id
+            name: referral_transaction_id
             referencedColumnName: id
             nullble: true
 

@@ -18,6 +18,14 @@ jms_serializer:
         namespace_prefix: "Leos\\Domain\\Transaction"
         path: "@LeosInfrastructureTransactionBundle/Resources/config/serializer/transaction"
 
+      Deposit:
+        namespace_prefix: "Leos\\Domain\\Deposit"
+        path: "@LeosInfrastructureDepositBundle/Resources/config/serializer/deposit"
+
+      Withdrawal:
+        namespace_prefix: "Leos\\Domain\\Withdrawal"
+        path: "@LeosInfrastructureWithdrawalBundle/Resources/config/serializer/withdrawal"
+
       Security:
         namespace_prefix: "Leos\\Domain\\Security"
         path: "@LeosInfrastructureSecurityBundle/Resources/config/serializer/auth"

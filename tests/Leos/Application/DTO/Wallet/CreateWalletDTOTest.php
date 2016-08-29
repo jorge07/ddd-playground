@@ -16,11 +16,18 @@ class CreateWalletDTOTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetters()
     {
-        $dto = new CreateWalletDTO('EUR', 100, 100);
-
-        self::assertEquals(100, $dto->initialAmountReal()->amount());
-        self::assertEquals(100, $dto->initialAmountBonus()->amount());
+        $dto = new CreateWalletDTO('EUR');
 
         self::assertEquals('EUR', $dto->currency()->code());
+    }
+
+    /**
+     * @group unit
+     *
+     * @expectedException Leos\Domain\Money\Exception\CurrencyWrongCodeException
+     */
+    public function testConstructWrongCurrency()
+    {
+        new CreateWalletDTO('EURAZO');
     }
 }

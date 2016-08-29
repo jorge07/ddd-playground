@@ -30,15 +30,17 @@ class WalletTest extends \PHPUnit_Framework_TestCase
         $real = new Credit(100);
         $bonus = new Credit(100);
 
-        $currency = new Currency('EUR', 1);
+        $currency = $this->getTestCurrency();
 
         $wallet->addRealMoney($real->toMoney($currency));
         $wallet->addBonusMoney($bonus->toMoney($currency));
+
         self::assertEquals(100, $wallet->real()->amount());
         self::assertEquals(100, $wallet->bonus()->amount());
         self::assertNotNull($wallet->createdAt());
         self::assertNull($wallet->updatedAt());
         self::assertEquals($id, $wallet->id());
+        self::assertEquals($id, $wallet->walletId()->__toString());
     }
 
     /**
@@ -51,7 +53,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
         $real = new Credit(100);
         $bonus = new Credit(100);
 
-        $currency = new Currency('EUR', 1);
+        $currency = $this->getTestCurrency();
 
         $wallet->addRealMoney($real->toMoney($currency));
         $wallet->addBonusMoney($bonus->toMoney($currency));
@@ -80,7 +82,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
         $real = new Credit(350);
         $bonus = new Credit(350);
 
-        $currency = new Currency('EUR', 1);
+        $currency = $this->getTestCurrency();
 
         $wallet->addRealMoney($real->toMoney($currency));
         $wallet->addBonusMoney($bonus->toMoney($currency));
@@ -111,14 +113,14 @@ class WalletTest extends \PHPUnit_Framework_TestCase
 
             $real = new Credit(350);
             $bonus = new Credit(350);
-            $currency = new Currency('EUR', 1);
+            $currency = $this->getTestCurrency();
 
             $wallet->addRealMoney($real->toMoney($currency));
             $wallet->addBonusMoney($bonus->toMoney($currency));
 
             $wallet->removeRealMoney(new Money(8.50, $this->getTestCurrency()));
 
-            self::assertEquals(true, false);
+            self::assertEquals(true, false, "Remove money with not enough credit should throw an exception");
 
         } catch (\Exception $e) {
 

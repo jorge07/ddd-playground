@@ -27,6 +27,24 @@ doctrine:
                 dir: '%kernel.root_dir%/../src/Leos/Infrastructure/TransactionBundle/Resources/config/persistence/Model'
                 is_bundle: false
 
+            Deposit:
+                type: yml
+                prefix: Leos\Domain\Deposit\Model
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/DepositBundle/Resources/config/persistence/Model'
+                is_bundle: false
+
+            Withdrawal:
+                type: yml
+                prefix: Leos\Domain\Withdrawal\Model
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WithdrawalBundle/Resources/config/persistence/Model'
+                is_bundle: false
+
+            WalletFactory:
+                type: yml
+                prefix: Leos\Domain\Wallet\Factory
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/Factory'
+                is_bundle: false
+
             Wallet:
                 type: yml
                 prefix: Leos\Domain\Wallet\Model

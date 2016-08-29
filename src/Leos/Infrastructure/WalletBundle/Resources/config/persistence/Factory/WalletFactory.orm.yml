@@ -1,0 +1,2 @@
+Leos\Domain\Wallet\Factory\WalletFactory:
+    type: entity

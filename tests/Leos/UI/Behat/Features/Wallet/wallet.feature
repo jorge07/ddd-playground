@@ -16,29 +16,27 @@ Feature: Wallet endpoint
     And the response code is "201"
     Then I should be redirected to resource
     And the response body match with file "get_wallet" and status code is "200"
-    Then I send a "POST" to resource "/credit.json" with:
+    Then I send a "POST" to resource "/deposit.json" with:
     """
     {
       "real": 100
     }
     """
-    And the response body match with file "credit" and status code is "202"
-    Then I send a "POST" to resource "/credit.json" with:
+    And the response body match with file "deposit" and status code is "202"
+    Then I send a "POST" to resource "/deposit.json" with:
     """
     {
-      "real": 9,
-      "bonus": 24
+      "real": 9
     }
     """
     And the response code is "202"
-    Then I send a "POST" to resource "/debit.json" with:
+    Then I send a "POST" to resource "/withdrawal.json" with:
     """
     {
-      "real": 64,
-      "bonus": 4
+      "real": 64
     }
     """
-    And the response body match with file "debit_final_behat" and status code is "202"
+    And the response body match with file "withdrawal_final_behat" and status code is "202"
 
 
   Scenario: Try to get a non existent wallet

@@ -1,16 +1,16 @@
 {
   "id":"@string@",
-  "type":"debit",
+  "type":"withdrawal",
   "prev_real": {
     "amount": 5000,
     "generated_at":"@string@.isDateTime()"
   },
   "prev_bonus": {
-    "amount": 2500,
+    "amount": 0,
     "generated_at":"@string@.isDateTime()"
   },
   "operation_real": -500,
-  "operation_bonus": -500,
+  "operation_bonus": 0,
   "wallet": {
     "id": {
       "uuid": "@string@"
@@ -20,7 +20,7 @@
       "generated_at":"@string@.isDateTime()"
     },
     "bonus": {
-      "amount": 2000,
+      "amount": 0,
       "generated_at":"@string@.isDateTime()"
     },
     "created_at":"@string@.isDateTime()",

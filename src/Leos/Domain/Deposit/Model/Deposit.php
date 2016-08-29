@@ -4,7 +4,7 @@ namespace Leos\Domain\Deposit\Model;
 
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
-use Leos\Domain\Transaction\Model\Transaction;
+use Leos\Domain\Transaction\Model\AbstractTransaction;
 use Leos\Domain\Transaction\ValueObject\TransactionType;
 
 /**
@@ -12,16 +12,18 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  *
  * @package Leos\Domain\Deposit\Model
  */
-class Deposit extends Transaction
+class Deposit extends AbstractTransaction
 {
     /**
+     * A positive Real money only insertion on user wallet
+     * 
      * @param Wallet $wallet
      * @param Money $real
      *
      * @return Deposit
      */
-    public static function deposit(Wallet $wallet, Money $real)
+    public static function create(Wallet $wallet, Money $real): Deposit
     {
-        return self::getInstance(TransactionType::DEPOSIT, $wallet, $real, new Money(0, $real->currency()));
+        return self::getInstance(TransactionType::DEPOSIT, $wallet, $real);
     }
 }

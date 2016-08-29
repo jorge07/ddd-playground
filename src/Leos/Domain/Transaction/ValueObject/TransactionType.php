@@ -13,10 +13,10 @@ class TransactionType
 {
     const
         CREATE_WALLET = 'create_wallet',
-        DEBIT = 'debit',
-        CREDIT = 'credit',
         DEPOSIT = 'deposit',
-        ROLLBACK_DEPOSIT = 'rollback_deposit'
+        WITHDRAWAL = 'withdrawal',
+        ROLLBACK_DEPOSIT = 'rollback_deposit',
+        ROLLBACK_WITHDRAWAL = 'rollback_withdrawal'
     ;
 
     /**
@@ -54,10 +54,10 @@ class TransactionType
     {
         return [
             self::CREATE_WALLET,
-            self::CREDIT,
-            self::DEBIT,
             self::DEPOSIT,
-            self::ROLLBACK_DEPOSIT
+            self::ROLLBACK_DEPOSIT,
+            self::WITHDRAWAL,
+            self::ROLLBACK_WITHDRAWAL
         ];
     }
 
@@ -67,8 +67,8 @@ class TransactionType
     public function isCredit(): bool
     {
         return in_array($this->type, [
-            self::CREDIT,
-            self::DEPOSIT
+            self::DEPOSIT,
+            self::ROLLBACK_WITHDRAWAL
         ]);
     }
 
@@ -78,8 +78,8 @@ class TransactionType
     public function isDebit(): bool
     {
         return in_array($this->type, [
-            self::DEBIT,
-            self::ROLLBACK_DEPOSIT
+            self::ROLLBACK_DEPOSIT,
+            self::WITHDRAWAL
         ]);
     }
 

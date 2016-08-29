@@ -1,5 +1,12 @@
-Leos\Domain\Transaction\Model\Transaction:
+Leos\Domain\Transaction\Model\AbstractTransaction:
     exclusion_policy: ALL
+    discriminator:
+      field_name: discriminator
+      map:
+        deposit: Leos\Domain\Deposit\Model\Deposit
+        withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
+        create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
+
     properties:
         id:
             expose: true
@@ -8,6 +15,8 @@ Leos\Domain\Transaction\Model\Transaction:
         type:
             expose: true
             groups: [Basic]
+            inline: true
+            type: Leos\Domain\Transaction\ValueObject\TransactionType
 
         operationReal:
             expose: true
@@ -43,4 +52,4 @@ Leos\Domain\Transaction\Model\Transaction:
         referralTransaction:
             expose: true
             groups: [Basic]
-            type: Leos\Domain\Transaction\Model\Transaction
+            type: Leos\Domain\Transaction\Model\AbstractTransaction

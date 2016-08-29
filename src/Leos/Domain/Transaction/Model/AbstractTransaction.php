@@ -17,62 +17,64 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  *
  * @package Leos\Domain\Transaction\Model
  */
-class Transaction
+abstract class AbstractTransaction
 {
     /**
      * @var TransactionId
      */
-    private $id;
+    protected $id;
 
     /**
      * @var TransactionType
+     *
+     * @internal
      */
     private $type;
 
     /**
      * @var Credit
      */
-    private $prevReal;
+    protected $prevReal;
 
     /**
      * @var Credit
      */
-    private $prevBonus;
+    protected $prevBonus;
 
     /**
      * @var int
      */
-    private $operationReal;
+    protected $operationReal = 0;
 
     /**
      * @var int
      */
-    private $operationBonus;
+    protected $operationBonus = 0;
 
     /**
      * @var Wallet
      */
-    private $wallet;
+    protected $wallet;
 
     /**
      * @var Currency
      */
-    private $currency;
+    protected $currency;
 
     /**
-     * @var null|Transaction
+     * @var null|AbstractTransaction
      */
-    private $referralTransaction;
+    protected $referralTransaction;
 
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var null|\DateTime
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * Transaction constructor.
@@ -102,49 +104,16 @@ class Transaction
     }
 
     /**
-     * @param Wallet $wallet
-     * @param Money $real
-     * @param Money $bonus
-     *
-     * @return Transaction
-     */
-    public static function debit(Wallet $wallet, Money $real, Money $bonus): Transaction
-    {
-        return self::getInstance(TransactionType::DEBIT, $wallet, $real, $bonus);
-    }
-
-    /**
-     * @param Wallet $wallet
-     * @param Money $real
-     * @param Money $bonus
-     *
-     * @return Transaction
-     */
-    public static function credit(Wallet $wallet, Money $real, Money $bonus): Transaction
-    {
-        return self::getInstance(TransactionType::CREDIT, $wallet, $real, $bonus);
-    }
-
-    /**
-     * @param Currency $currency
-     * @return Transaction
-     */
-    public static function createWallet(Currency $currency): Transaction
-    {
-        return self::getInstance(TransactionType::CREATE_WALLET, new Wallet(), new Money(0, $currency), new Money(0, $currency));
-    }
-
-    /**
      * @param string $type
      * @param Wallet $wallet
      * @param Money $real
-     * @param Money $bonus
+     * @param Money|null $bonus
      *
-     * @return Transaction
+     * @return AbstractTransaction
      */
-    final protected static function getInstance(string $type, Wallet $wallet, Money $real, Money $bonus): Transaction
+    final protected static function getInstance(string $type, Wallet $wallet, Money $real, Money $bonus = null): AbstractTransaction
     {
-        return new self(new TransactionId(), new TransactionType($type), $wallet, $real, $bonus);
+        return new static(new TransactionId(), new TransactionType($type), $wallet, $real, $bonus ?: new Money(0, $real->currency()));
     }
 
     /**
@@ -162,9 +131,6 @@ class Transaction
                     ->removeBonusMoney($bonus)
                 ;
 
-                $this->operationReal = - Credit::moneyToCredit($real)->amount();
-                $this->operationBonus = - Credit::moneyToCredit($bonus)->amount();
-
                 break;
 
             case $this->type()->isCredit():
@@ -174,21 +140,17 @@ class Transaction
                     ->addBonusMoney($bonus)
                 ;
 
-                $this->operationReal = Credit::moneyToCredit($real)->amount();
-                $this->operationBonus = Credit::moneyToCredit($bonus)->amount();
-
                 break;
-
             case (string) $this->type() === TransactionType::CREATE_WALLET:
-
-                $this->operationReal = 0;
-                $this->operationBonus = 0;
 
                 break;
 
             default:
                 throw new \LogicException('transaction.exception.unknown_type');
         }
+
+        $this->operationReal = $this->wallet->real()->diff($this->prevReal);
+        $this->operationBonus = $this->wallet->bonus()->diff($this->prevBonus);
     }
 
     /**
@@ -272,7 +234,7 @@ class Transaction
     }
 
     /**
-     * @return Transaction
+     * @return null|AbstractTransaction
      */
     public function referralTransaction()
     {
@@ -280,11 +242,11 @@ class Transaction
     }
 
     /**
-     * @param Transaction $referralTransaction
+     * @param AbstractTransaction $referralTransaction
      *
-     * @return Transaction
+     * @return AbstractTransaction
      */
-    public function setReferralTransaction(Transaction $referralTransaction): self
+    public function setReferralTransaction(AbstractTransaction $referralTransaction): self
     {
         $this->referralTransaction = $referralTransaction;
 

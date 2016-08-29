@@ -83,7 +83,7 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testCreditAction()
+    public function testDepositAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
@@ -92,25 +92,25 @@ class WalletControllerTest extends JsonApiTestCase
         $response = $this->client->getResponse();
         self::assertEquals(201, $response->getStatusCode());
 
-        $this->client->request('POST', $response->headers->get('location') . '/credit.json', [
+        $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
             'real' => 100
         ]);
-        
-        self::assertResponse($this->client->getResponse(), "credit", 202);
+
+        $response = $this->client->getResponse();
+        self::assertResponse($response, "deposit", 202);
     }
 
     /**
      * @group functional
      */
-    public function testCreditBadUUIDAction()
+    public function testDepositBadUUIDAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST',  '/api/v1/wallet/404/credit.json', [
+        $this->client->request('POST',  '/api/v1/wallet/404/deposit.json', [
             'real' => 5,
             'bonus' => 5
         ]);
-
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
     }
@@ -118,11 +118,11 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testCredit400WrongCurrencyAction()
+    public function testDeposit400WrongCurrencyAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/credit.json', [
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/deposit.json', [
             'real' => 5,
             'bonus' => 5,
             'currency' => 'LIBRAS'
@@ -135,31 +135,7 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testDebitAction()
-    {
-        $this->loginClient('jorge', 'iyoque123');
-
-        $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 50,
-            'bonus' => 25,
-            'currency' => 'EUR'
-        ]);
-
-        $response = $this->client->getResponse();
-        self::assertEquals(201, $response->getStatusCode());
-
-        $this->client->request('POST', $response->headers->get('location') . '/debit.json', [
-            'real' => 5,
-            'bonus' => 5
-        ]);
-
-        self::assertResponse($this->client->getResponse(), "debit", 202);
-    }
-
-    /**
-     * @group functional
-     */
-    public function testDepositAction()
+    public function testWithdrawalAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
@@ -168,14 +144,17 @@ class WalletControllerTest extends JsonApiTestCase
         ]);
 
         $response = $this->client->getResponse();
-
         self::assertEquals(201, $response->getStatusCode());
 
         $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
             'real' => 50
         ]);
 
-        self::assertResponse($this->client->getResponse(), "deposit", 202);
+        $this->client->request('POST', $response->headers->get('location') . '/withdrawal.json', [
+            'real' => 5
+        ]);
+
+        self::assertResponse($this->client->getResponse(), "withdrawal", 202);
     }
 
     /**
@@ -227,20 +206,6 @@ class WalletControllerTest extends JsonApiTestCase
         self::assertContains('amount', $this->client->getResponse()->getContent());
     }
 
-    /**
-     * @group functional
-     */
-    public function testDepositBadUUIDAction()
-    {
-        $this->loginClient('jorge', 'iyoque123');
-
-        $this->client->request('POST',  '/api/v1/wallet/404/deposit.json', [
-            'real' => 5
-        ]);
-
-
-        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
-    }
 
     /**
      * @group functional
@@ -260,11 +225,11 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testDebit400WrongCurrencyAction()
+    public function testWithdrawal400WrongCurrencyAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/debit.json', [
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/withdrawal.json', [
             'real' => 5,
             'bonus' => 5,
             'currency' => 'LIBRAS'
@@ -277,7 +242,7 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testDebit409Action()
+    public function testWithdrawal409Action()
     {
         $this->loginClient('jorge', 'iyoque123');
 
@@ -289,7 +254,7 @@ class WalletControllerTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        $this->client->request('POST', $response->headers->get('location') . '/debit.json', [
+        $this->client->request('POST', $response->headers->get('location') . '/withdrawal.json', [
             'real' => 60,
             'bonus' => 5
         ]);
@@ -300,11 +265,11 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testDebitBadUUIDAction()
+    public function testWithdrawalBadUUIDAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST',  '/api/v1/wallet/404/debit.json', [
+        $this->client->request('POST',  '/api/v1/wallet/404/withdrawal.json', [
             'real' => 5,
             'bonus' => 5
         ]);
@@ -315,11 +280,11 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
-    public function testDebit404Action()
+    public function testWithdrawal404Action()
     {
         $this->loginClient('jorge', 'iyoque123');
         
-        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/debit.json', [
+        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/withdrawal.json', [
             'real' => 5,
             'bonus' => 5
         ]);
@@ -327,20 +292,6 @@ class WalletControllerTest extends JsonApiTestCase
         self::assertEquals(404, $this->client->getResponse()->getStatusCode());
     }
 
-    /**
-     * @group functional
-     */
-    public function testCredit404Action()
-    {
-        $this->loginClient('jorge', 'iyoque123');
-        
-        $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/credit.json', [
-            'real' => 5,
-            'bonus' => 5
-        ]);
-
-        self::assertEquals(404, $this->client->getResponse()->getStatusCode());
-    }
 
     /**
      * @group functional
