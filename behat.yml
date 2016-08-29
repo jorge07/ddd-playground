@@ -15,6 +15,15 @@ default:
                     basePath: %paths.base%
                     responsesPath: %paths.base%/tests/Leos/UI/Responses/Home
 
+        security:
+            paths:
+                - "%paths.base%/tests/Leos/UI/Behat/Features/Security"
+            contexts:
+                - Tests\Leos\UI\Behat\Context\Api\Security\SecurityContext:
+                    path: http://nginx
+                    basePath: %paths.base%
+                    responsesPath: %paths.base%/tests/Leos/UI/Responses/Security
+
         wallet:
             paths:
                 - "%paths.base%/tests/Leos/UI/Behat/Features/Wallet"

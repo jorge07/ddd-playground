@@ -9,6 +9,12 @@ services:
       arguments:
         - "@fos_rest.router"
 
+    leos.controller.security:
+      class: Leos\UI\RestBundle\Controller\Security\SecurityController
+      parent: leos.abstract.controller
+      arguments:
+        - "@leos.use_case.security_command"
+
     leos.controller.monitor:
       class: Leos\UI\RestBundle\Controller\Monitor\StatusController
       parent: leos.abstract.controller
@@ -18,5 +24,11 @@ services:
       parent: leos.abstract.controller
       arguments:
         - "@leos.use_case.wallet_query"
-        - "@leos.use_case.wallet_command"
         - "@leos.use_case.transaction_command"
+
+    leos.controller.user:
+      class: Leos\UI\RestBundle\Controller\User\UserController
+      parent: leos.abstract.controller
+      arguments:
+        - "@leos.use_case.user_command"
+        - "@leos.use_case.user_query"

@@ -1,0 +1,11 @@
+Leos\Domain\Money\ValueObject\Currency:
+  type: embeddable
+  fields:
+    code:
+      type: string
+      length: 3
+
+    exchange:
+      type: decimal
+      precision: 10
+      scale: 4

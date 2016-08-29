@@ -4,10 +4,14 @@ parameters:
     database_name: ddd
     database_user: root
     database_password: root
+    redis_host: redis
+    session_ttl: 7800
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-    redis_host: redis
-    session_ttl: 7800
+    jwt_private_key_path: %kernel.root_dir%/security/jwt/private.pem   # ssh private key path
+    jwt_public_key_path:  %kernel.root_dir%/security/jwt/public.pem
+    jwt_key_pass_phrase:  'leonardo'
+    jwt_token_ttl:        86400

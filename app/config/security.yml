@@ -2,10 +2,14 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    encoders:
+        harsh:
+            algorithm: bcrypt
+            cost: 12
+
     providers:
-        in_memory:
-            memory: ~
+        customers:
+            id: leos.security.user_provider
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,13 +18,27 @@ security:
             security: false
             stateless:  true
 
-        main:
-            anonymous: ~
-            stateless:  true
-            # activate different ways to authenticate
+        secured_area:
+            pattern:    ^/api
+            stateless: true
+            provider: customers
+            lexik_jwt:
+                authorization_header:
+                    enabled: true
+                    prefix:  Bearer
+                    name:    Authorization
+                cookie:
+                    enabled: true
+                    name:    BEARER
+                query_parameter:
+                    enabled: false
+                    name:    bearer
+        public:
+            pattern:  ^/
+            stateless: true
+            anonymous: true
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+    access_control:
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        - { path: ^/,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,  roles: IS_AUTHENTICATED_FULLY       }

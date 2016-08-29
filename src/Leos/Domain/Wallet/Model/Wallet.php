@@ -39,18 +39,16 @@ final class Wallet
      */
     private $updatedAt;
 
-    /**
+    /** 
      * Wallet constructor.
      *
      * @param WalletId $walletId
-     * @param Credit $real
-     * @param Credit $bonus
      */
-    public function __construct(WalletId $walletId, Credit $real, Credit $bonus)
+    public function __construct(WalletId $walletId = null)
     {
-        $this->id = $walletId;
-        $this->real = $real;
-        $this->bonus = $bonus;
+        $this->id = $walletId ?: new WalletId();
+        $this->real = new Credit(0);
+        $this->bonus = new Credit(0);
         $this->createdAt = new \DateTime();
     }
 
@@ -107,7 +105,15 @@ final class Wallet
      */
     public function id(): string
     {
-        return (string) $this->id;
+        return $this->id->__toString();
+    }
+
+    /**
+     * @return WalletId
+     */
+    public function walletId(): WalletId
+    {
+        return $this->id;
     }
 
     /**

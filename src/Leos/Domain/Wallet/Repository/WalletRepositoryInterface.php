@@ -38,10 +38,4 @@ interface WalletRepositoryInterface
      */
     public function findOneById(WalletId $uid);
 
-    /**
-     * @param Wallet $wallet
-     * @return void
-     */
-    public function save(Wallet $wallet);
-
 }

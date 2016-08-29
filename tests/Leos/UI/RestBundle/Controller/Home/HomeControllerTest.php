@@ -13,11 +13,11 @@ class HomeControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testGetAction()
     {
-        $this->client->request('GET', '/api/v1/');
+        $this->client->request('GET', '/');
 
         self::assertResponse($this->client->getResponse(), "home");
     }

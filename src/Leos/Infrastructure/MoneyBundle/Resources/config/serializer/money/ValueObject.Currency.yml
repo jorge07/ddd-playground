@@ -1,0 +1,13 @@
+Leos\Domain\Money\ValueObject\Currency:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            groups: [Basic]
+            serialized_name: code
+
+        exchange:
+            expose: true
+            groups: [Basic]
+            serialized_name: echange
+

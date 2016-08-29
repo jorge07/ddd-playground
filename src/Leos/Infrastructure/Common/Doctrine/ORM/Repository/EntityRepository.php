@@ -24,44 +24,6 @@ class EntityRepository extends BaseEntityRepository
     const OPERATOR_LIKE = "like" ;
     const OPERATOR_BETWEEN = "between";
 
-
-    /**
-     * @param string $alias
-     * @param array $criteria
-     * @param array $sorting
-     *
-     * @return Pagerfanta
-     */
-    public function createPaginator(string $alias, array $criteria = [], array $sorting = []): Pagerfanta
-    {
-        $queryBuilder = $this->createQueryBuilder($alias);
-
-        $this->applyCriteria($alias, $queryBuilder, $criteria);
-        $this->applySorting($alias, $queryBuilder, $sorting);
-        
-        return $this->getPaginator($queryBuilder);
-    }
-
-    /**
-     * @param QueryBuilder $queryBuilder
-     * @param string $alias
-     * @param array $criteria
-     * @param array $sorting
-     * 
-     * @return Pagerfanta
-     */
-    public function createAdvancedPaginator(
-        QueryBuilder $queryBuilder,
-        string $alias,
-        array $criteria = [],
-        array $sorting = []): Pagerfanta
-    {
-        $this->applyCriteria($alias, $queryBuilder, $criteria);
-        $this->applySorting($alias, $queryBuilder, $sorting);
-
-        return $this->getPaginator($queryBuilder);
-    }
-
     /**
      * @param QueryBuilder $queryBuilder
      * @param string $alias
@@ -105,37 +67,6 @@ class EntityRepository extends BaseEntityRepository
     protected function getArrayPaginator($objects): Pagerfanta
     {
         return new Pagerfanta(new ArrayAdapter($objects));
-    }
-
-    /**
-     * @param string $alias
-     * @param QueryBuilder $queryBuilder
-     * @param array $criteria
-     */
-    protected function applyCriteria(string $alias, QueryBuilder $queryBuilder, array $criteria = [])
-    {
-        foreach ($criteria as $property => $value) {
-
-            $name = $this->getPropertyName($alias, $property);
-
-            if (null === $value) {
-
-                $queryBuilder->andWhere($queryBuilder->expr()->isNull($name));
-
-            } elseif (is_array($value)) {
-
-                $queryBuilder->andWhere($queryBuilder->expr()->in($name, $value));
-
-            } elseif ('' !== $value) {
-
-                $parameter = str_replace('.', '_', $property);
-                $queryBuilder
-                    ->andWhere($queryBuilder->expr()->eq($name, ':'.$parameter))
-                    ->setParameter($parameter, $value)
-                ;
-            }
-        }
-
     }
 
     /**

@@ -13,3 +13,13 @@ api:
         _format: "json"
 
     resource: "@LeosUIRestBundle/Resources/config/routing.yml"
+
+public:
+    type:   rest
+    prefix: /
+    defaults:
+        _format: json
+    requirements:
+        _format: "json"
+
+    resource: "@LeosUIRestBundle/Resources/config/routing_public.yml"

@@ -2,36 +2,41 @@ Feature: Wallet endpoint
   As a user
   I want test the wallet workflow
 
+  Background:
+    Given a list of wallets persisted
+    And a user "jorge" logged with password "iyoque123"
+
   Scenario: Create a new wallet and use it
     When I send a "POST" to "/api/v1/wallet.json" with:
     """
-    {}
+    {
+      "currency": "EUR"
+    }
     """
+    And the response code is "201"
     Then I should be redirected to resource
     And the response body match with file "get_wallet" and status code is "200"
-    Then I send a "POST" to resource "/credit.json" with:
+    Then I send a "POST" to resource "/deposit.json" with:
     """
     {
       "real": 100
     }
     """
-    And the response body match with file "credit" and status code is "202"
-    Then I send a "POST" to resource "/credit.json" with:
+    And the response body match with file "deposit" and status code is "202"
+    Then I send a "POST" to resource "/deposit.json" with:
     """
     {
-      "real": 9,
-      "bonus": 24
+      "real": 9
     }
     """
     And the response code is "202"
-    Then I send a "POST" to resource "/debit.json" with:
+    Then I send a "POST" to resource "/withdrawal.json" with:
     """
     {
-      "real": 64,
-      "bonus": 4
+      "real": 64
     }
     """
-    And the response body match with file "debit_final_behat" and status code is "202"
+    And the response body match with file "withdrawal_final_behat" and status code is "202"
 
 
   Scenario: Try to get a non existent wallet
@@ -40,12 +45,10 @@ Feature: Wallet endpoint
 
 
   Scenario: List the wallets
-    Given a list of wallets persisted
     When I send a "GET" request to "/api/v1/wallet.json"
     And the response body match with file "cget_wallet" and status code is "200"
 
 
   Scenario: Filter the wallets
-    Given a list of wallets persisted
     When I send a "GET" request to "/api/v1/wallet.json?filterParam[]=real.amount&filterOp[]=eq&filterValue[]=50"
     And the response body match with file "cget_wallet_filter_50" and status code is "200"

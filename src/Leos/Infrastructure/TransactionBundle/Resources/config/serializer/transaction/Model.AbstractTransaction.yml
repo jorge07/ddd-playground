@@ -1,0 +1,55 @@
+Leos\Domain\Transaction\Model\AbstractTransaction:
+    exclusion_policy: ALL
+    discriminator:
+      field_name: discriminator
+      map:
+        deposit: Leos\Domain\Deposit\Model\Deposit
+        withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
+        create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
+
+    properties:
+        id:
+            expose: true
+            groups: [Identifier]
+
+        type:
+            expose: true
+            groups: [Basic]
+            inline: true
+            type: Leos\Domain\Transaction\ValueObject\TransactionType
+
+        operationReal:
+            expose: true
+            groups: [Basic]
+
+        operationBonus:
+            expose: true
+            groups: [Basic]
+
+        prevReal:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Wallet\ValueObject\Credit
+
+        prevBonus:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Wallet\ValueObject\Credit
+
+        createdAt:
+            expose: true
+            groups: [Basic]
+
+        updatedAt:
+            expose: true
+            groups: [Basic]
+
+        wallet:
+            expose: true
+            groups: [Identifier, Basic]
+            type: Leos\Domain\Wallet\Model\Wallet
+
+        referralTransaction:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Transaction\Model\AbstractTransaction

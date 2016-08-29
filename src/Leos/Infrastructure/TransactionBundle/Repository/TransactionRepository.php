@@ -2,10 +2,8 @@
 
 namespace Leos\Infrastructure\TransactionBundle\Repository;
 
-use Leos\Domain\Transaction\Model\Transaction;
-use Leos\Domain\Transaction\ValueObject\TransactionId;
+use Leos\Domain\Transaction\Model\AbstractTransaction;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
-use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 
 use Leos\Infrastructure\Common\Doctrine\ORM\Repository\EntityRepository;
 
@@ -17,9 +15,9 @@ use Leos\Infrastructure\Common\Doctrine\ORM\Repository\EntityRepository;
 class TransactionRepository extends EntityRepository implements TransactionRepositoryInterface
 {
     /**
-     * @param Transaction $transaction
+     * @param AbstractTransaction $transaction
      */
-    public function save(Transaction $transaction)
+    public function save(AbstractTransaction $transaction)
     {
         $this->_em->persist($transaction);
         $this->_em->flush();

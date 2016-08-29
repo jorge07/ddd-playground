@@ -30,6 +30,7 @@ class Money
         $this->currency = $currency;
     }
 
+
     /**
      * @return float
      */

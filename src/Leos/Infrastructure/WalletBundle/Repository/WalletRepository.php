@@ -60,14 +60,4 @@ class WalletRepository extends EntityRepository implements WalletRepositoryInter
             ->getOneOrNullResult()
         ;
     }
-
-    /**
-     * @param Wallet $wallet
-     * @return void
-     */
-    public function save(Wallet $wallet)
-    {
-        $this->_em->persist($wallet);
-        $this->_em->flush();
-    }
 }

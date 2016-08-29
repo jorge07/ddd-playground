@@ -1,10 +1,6 @@
-home:
+user:
     type: rest
-    resource: leos.controller.home
-
-monitor:
-    type: rest
-    resource: leos.controller.monitor
+    resource: leos.controller.user
 
 wallet:
     type: rest

@@ -1,0 +1,25 @@
+Leos\Domain\Wallet\Model\Wallet:
+    type: entity
+    table: wallet
+    repositoryClass: Leos\Infrastructure\WalletBundle\Repository\WalletRepository
+    id:
+      id:
+        type: walletId
+        nullable: false
+
+    fields:
+      createdAt:
+        type: datetime
+
+      updatedAt:
+        type: datetime
+        nullable: true
+
+    embedded:
+      real:
+        class: Leos\Domain\Wallet\ValueObject\Credit
+
+      bonus:
+        class: Leos\Domain\Wallet\ValueObject\Credit
+
+    lifecycleCallbacks: {  }

@@ -12,8 +12,11 @@ use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 class TransactionType
 {
     const
-        DEBIT = 'debit',
-        CREDIT = 'credit'
+        CREATE_WALLET = 'create_wallet',
+        DEPOSIT = 'deposit',
+        WITHDRAWAL = 'withdrawal',
+        ROLLBACK_DEPOSIT = 'rollback_deposit',
+        ROLLBACK_WITHDRAWAL = 'rollback_withdrawal'
     ;
 
     /**
@@ -50,9 +53,34 @@ class TransactionType
     public static function types(): array
     {
         return [
-            self::CREDIT,
-            self::DEBIT
+            self::CREATE_WALLET,
+            self::DEPOSIT,
+            self::ROLLBACK_DEPOSIT,
+            self::WITHDRAWAL,
+            self::ROLLBACK_WITHDRAWAL
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCredit(): bool
+    {
+        return in_array($this->type, [
+            self::DEPOSIT,
+            self::ROLLBACK_WITHDRAWAL
+        ]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebit(): bool
+    {
+        return in_array($this->type, [
+            self::ROLLBACK_DEPOSIT,
+            self::WITHDRAWAL
+        ]);
     }
 
     /**

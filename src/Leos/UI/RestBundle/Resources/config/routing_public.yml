@@ -1,0 +1,11 @@
+home:
+    type: rest
+    resource: leos.controller.home
+
+monitor:
+    type: rest
+    resource: leos.controller.monitor
+
+security:
+    type: rest
+    resource: leos.controller.security

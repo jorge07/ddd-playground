@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Leos\Domain\Wallet\ValueObject;
 
+use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
@@ -35,11 +36,22 @@ final class Credit
 
     /**
      * @param Money $money
+     * 
      * @return Credit
      */
     public static function moneyToCredit(Money $money): self
     {
         return new self(intval($money->amount() * 100));
+    }
+
+
+    /**
+     * @param Currency $currency
+     * @return Money
+     */
+    public function toMoney(Currency $currency): Money
+    {
+        return new Money(floatval($this->amount() / 100), $currency);
     }
 
     /**
@@ -82,6 +94,16 @@ final class Credit
     public function amount(): int
     {
         return $this->amount;
+    }
+
+    /**
+     * @param Credit $credit
+     * 
+     * @return int
+     */
+    public function diff(Credit $credit): int
+    {
+        return $this->amount - $credit->amount();
     }
 
     /**

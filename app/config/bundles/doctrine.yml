@@ -20,18 +20,57 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
+
             Transaction:
                 type: yml
                 prefix: Leos\Domain\Transaction\Model
                 dir: '%kernel.root_dir%/../src/Leos/Infrastructure/TransactionBundle/Resources/config/persistence/Model'
                 is_bundle: false
+
+            Deposit:
+                type: yml
+                prefix: Leos\Domain\Deposit\Model
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/DepositBundle/Resources/config/persistence/Model'
+                is_bundle: false
+
+            Withdrawal:
+                type: yml
+                prefix: Leos\Domain\Withdrawal\Model
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WithdrawalBundle/Resources/config/persistence/Model'
+                is_bundle: false
+
+            WalletFactory:
+                type: yml
+                prefix: Leos\Domain\Wallet\Factory
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/Factory'
+                is_bundle: false
+
             Wallet:
                 type: yml
                 prefix: Leos\Domain\Wallet\Model
                 dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/Model'
                 is_bundle: false
+
+            Money:
+                type: yml
+                prefix: Leos\Domain\Money\ValueObject
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/MoneyBundle/Resources/config/persistence/ValueObject'
+                is_bundle: false
+
             WalletValueObject:
                 type: yml
                 prefix: Leos\Domain\Wallet\ValueObject
                 dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/ValueObject'
+                is_bundle: false
+
+            User:
+                type: yml
+                prefix: Leos\Domain\User\Model
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/UserBundle/Resources/config/persistence/Model'
+                is_bundle: false
+
+            Security:
+                type: yml
+                prefix: Leos\Domain\Security\ValueObject
+                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/SecurityBundle/Resources/config/persistence/ValueObject'
                 is_bundle: false

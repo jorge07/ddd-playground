@@ -18,7 +18,7 @@ abstract class AggregateRootId
     /**
      * @var string
      */
-    protected $id;
+    protected $uuid;
 
     /**
      * AggregateRootId constructor.
@@ -29,7 +29,7 @@ abstract class AggregateRootId
     {
         try {
 
-            $this->id = (string) Uuid::fromString($id ?: Uuid::uuid4());
+            $this->uuid = Uuid::fromString($id ?: Uuid::uuid4())->toString();
 
         } catch (\InvalidArgumentException $e) {
 
@@ -38,10 +38,19 @@ abstract class AggregateRootId
     }
 
     /**
+     * @param AggregateRootId $aggregateRootId
+     * @return bool
+     */
+    public function equals(AggregateRootId $aggregateRootId)
+    {
+        return $this->uuid === $aggregateRootId->__toString();
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
     {
-        return (string) $this->id;
+        return (string) $this->uuid;
     }
 }

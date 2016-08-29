@@ -2,7 +2,7 @@
 
 namespace Leos\Domain\Transaction\Repository;
 
-use Leos\Domain\Transaction\Model\Transaction;
+use Leos\Domain\Transaction\Model\AbstractTransaction;
 
 /**
  * Interface TransactionRepository
@@ -11,9 +11,10 @@ use Leos\Domain\Transaction\Model\Transaction;
  */
 interface TransactionRepositoryInterface
 {
+
     /**
-     * @param Transaction $transaction
+     * @param AbstractTransaction $transaction
      * @return void
      */
-    public function save(Transaction $transaction);
+    public function save(AbstractTransaction $transaction);
 }

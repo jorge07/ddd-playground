@@ -1,0 +1,57 @@
+stages:
+  - build
+  - test
+  - aceptation
+  - clean
+  - release
+
+before_script:
+  - export RELEASE=${CI_BUILD_REF_NAME}
+  - connect
+  - cd etc/infrastructure
+
+build:
+  stage: build
+  script:
+    - mkdir -p context-${RELEASE}/build
+    - docker-compose -f build/docker-compose.yml build
+    - docker-compose -f build/docker-compose.yml up -d
+    - sleep 8
+    - docker exec sf-build-${RELEASE} php bin/console d:s:u --force
+
+test-mess-detector:
+  stage: test
+  script:
+    - docker exec sf-build-${RELEASE} ./vendor/bin/phpmd src text cleancode, codesize, controversial, design, naming, unusedcode
+  allow_failure: true
+
+test-coverage:
+  stage: test
+  script:
+    - docker exec sf-build-${RELEASE} phpunit --colors=never
+
+aceptation:
+  stage: aceptation
+  script:
+    - docker exec sf-build-${RELEASE} ./vendor/bin/behat
+
+clean-build:
+  stage: clean
+  script:
+    - docker-compose -f build/docker-compose.yml down --rmi local --volumes
+
+release:tags:
+  stage: release
+  only:
+    - tags
+
+  script:
+    - docker build -t sf-build-${RELEASE} -f build/fpm/Dockerfile ../../
+    - docker run -d --name building-${RELEASE} sf-build-${RELEASE}
+    - docker cp building-${RELEASE}:/app context-${RELEASE}/build/
+    - docker rm -f building-${RELEASE}
+    - cp -R prod/fpm context-${RELEASE}/build/fpm
+    - cp -R prod/nginx context-${RELEASE}/build/nginx
+    - docker login -u jorge07 -p ${GITLAB_PASSWORD} registry.gitlab.com
+    - docker-compose -f prod/docker-compose.build.yml build
+    - docker-compose -f prod/docker-compose.build.yml push

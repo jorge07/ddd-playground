@@ -1,0 +1,4 @@
+services:
+#    leos_infrastructure_deposit.example:
+#        class: Leos\Infrastructure\DepositBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

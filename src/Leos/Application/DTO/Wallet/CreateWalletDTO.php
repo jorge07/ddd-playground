@@ -2,6 +2,8 @@
 
 namespace Leos\Application\DTO\Wallet;
 
+use Leos\Domain\Money\ValueObject\Currency;
+
 /**
  * Class CreateWalletDTO
  *
@@ -9,51 +11,28 @@ namespace Leos\Application\DTO\Wallet;
  */
 class CreateWalletDTO
 {
-    /**
-     * @var int
-     */
-    private $initialAmountReal;
 
     /**
-     * @var int
+     * @var Currency
      */
-    private $initialAmountBonus;
-
-    /**
-     * @var bool
-     */
-    private $persist;
+    private $currency;
 
     /**
      * CreateWalletDTO constructor.
      *
-     * @param int $initialAmountReal
-     * @param int $initialAmountBonus
-     * @param bool $persist
+     * @param string $currency
      */
-    public function __construct(int $initialAmountReal, int $initialAmountBonus, bool $persist = true)
+    public function __construct(string $currency = Currency::DEFAULT)
     {
-        $this->initialAmountReal = $initialAmountReal;
-        $this->initialAmountBonus = $initialAmountBonus;
-        $this->persist = $persist;
+        $this->currency = new Currency($currency);
     }
 
     /**
-     * @return bool
+     * @return Currency
      */
-    public function hasPersistence(): bool
+    public function currency(): Currency
     {
-        return $this->persist;
+       return $this->currency;
     }
 
-    /**
-     * @return array
-     */
-    public function get(): array
-    {
-        return [
-            'real'  => [ 'amount' => $this->initialAmountReal ],
-            'bonus' => [ 'amount' => $this->initialAmountBonus ]
-        ];
-    }
 }

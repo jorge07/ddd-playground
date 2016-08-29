@@ -18,11 +18,11 @@ class StatusControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testPingAction()
     {
-        $this->client->request('GET', '/api/v1/monitor/ping.json');
+        $this->client->request('GET', '/monitor/ping.json');
 
         self::assertResponse($this->client->getResponse(), "ping");
     }

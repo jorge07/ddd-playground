@@ -1,0 +1,6 @@
+Leos\Domain\Transaction\ValueObject\TransactionType:
+    exclusion_policy: ALL
+    properties:
+      type:
+          type: string
+          groups: [Basic]

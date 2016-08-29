@@ -3,7 +3,8 @@ Leos\Domain\Wallet\Model\Wallet:
     properties:
         id:
             expose: true
-            groups: [Identifier]
+            groups: [Basic]
+            type: Leos\Domain\Wallet\ValueObject\WalletId
 
         real:
             expose: true

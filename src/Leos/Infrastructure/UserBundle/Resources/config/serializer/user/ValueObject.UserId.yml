@@ -1,0 +1,6 @@
+Leos\Domain\User\ValueObject\UserId:
+    exclusion_policy: ALL
+    properties:
+        uuid:
+            expose: true
+            groups: [Basic]
