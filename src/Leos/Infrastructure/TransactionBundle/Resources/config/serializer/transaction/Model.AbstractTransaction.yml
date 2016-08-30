@@ -4,7 +4,9 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
       field_name: discriminator
       map:
         deposit: Leos\Domain\Deposit\Model\Deposit
+        rollback_deposit: Leos\Domain\Deposit\Model\RollbackDeposit
         withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
+        rollback_withdrawal: Leos\Domain\Withdrawal\Model\RollbackWithdrawal
         create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
 
     properties:

@@ -7,6 +7,8 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
       type: string
     discriminatorMap:
       deposit: Leos\Domain\Deposit\Model\Deposit
+      rollback_deposit: Leos\Domain\Deposit\Model\RollbackDeposit
+      rollback_withdrawal: Leos\Domain\Withdrawal\Model\RollbackWithdrawal
       withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
       create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
 
@@ -50,8 +52,9 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
           joinColumn:
             name: wallet_id
             referencedColumnName: id
+            onDelete: CASCADE
           cascade:
-            - persist
+            - all
 
         referralTransaction:
           targetEntity: Leos\Domain\Transaction\Model\AbstractTransaction
@@ -59,5 +62,8 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
             name: referral_transaction_id
             referencedColumnName: id
             nullble: true
+            onDelete: CASCADE
+          cascade:
+            - all
 
     lifecycleCallbacks: {  }

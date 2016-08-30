@@ -15,14 +15,13 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  */
 class WalletFactory extends AbstractTransaction
 {
-
     /**
-     * @param Currency $currency
+     * WalletFactory constructor.
      *
-     * @return AbstractTransaction
+     * @param Currency $currency
      */
-    public static function create(Currency $currency): AbstractTransaction
+    public function __construct(Currency $currency)
     {
-        return self::getInstance(TransactionType::CREATE_WALLET, new Wallet(), new Money(0, $currency), new Money(0, $currency));
+        parent::__construct(TransactionType::CREATE_WALLET, new Wallet(), new Money(0, $currency), new Money(0, $currency));
     }
 }

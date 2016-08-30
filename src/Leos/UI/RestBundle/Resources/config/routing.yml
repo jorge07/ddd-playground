@@ -5,3 +5,7 @@ user:
 wallet:
     type: rest
     resource: leos.controller.wallet
+
+rollback:
+    type: rest
+    resource: leos.controller.wallet_rollback

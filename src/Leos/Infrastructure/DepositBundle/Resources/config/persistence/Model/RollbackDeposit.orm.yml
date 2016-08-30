@@ -1,0 +1,2 @@
+Leos\Domain\Deposit\Model\RollbackDeposit:
+    type: entity
