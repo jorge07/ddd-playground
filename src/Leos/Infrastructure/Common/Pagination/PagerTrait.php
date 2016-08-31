@@ -28,7 +28,7 @@ Trait PagerTrait
         Pagerfanta $pager,
         string $route,
         array $params  = [],
-        int $limit = PaginationDTO::LIMIT, // I dont like have application inside infastructure... T
+        int $limit = PaginationDTO::LIMIT, // I dont like have application inside infrastructure... T
         int $page = PaginationDTO::PAGE): PaginatedRepresentation
     {
         $pager
