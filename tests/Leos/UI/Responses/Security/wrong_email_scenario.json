@@ -1,0 +1,15 @@
+{
+  "code":400,
+  "message": "Validation Failed",
+  "errors": {
+    "children": {
+      "email": {
+        "errors":[
+          "user.exception.email.not_valid"
+        ]
+      },
+      "username":{},
+      "password":{}
+    }
+  }
+}
