@@ -5,6 +5,7 @@ namespace Tests\Leos\Domain\Withdrawal\Model;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
+use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
 use Leos\Domain\Withdrawal\Model\Withdrawal;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
 
@@ -28,5 +29,6 @@ class WithdrawalTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(AbstractTransaction::class, $transaction);
         self::assertEquals(0, $transaction->wallet()->real()->amount());
+        self::assertInstanceOf(RollbackWithdrawal::class, $transaction->rollback());
     }
 }

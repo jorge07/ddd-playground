@@ -22,8 +22,8 @@ class RollbackDeposit extends AbstractTransaction
         parent::__construct(
             TransactionType::ROLLBACK_DEPOSIT,
             $deposit->wallet(),
-            $deposit->realRollback(),
-            $deposit->bonusRollback()
+            $deposit->realMoney(),
+            $deposit->bonusMoney()
         );
 
         $this->setReferralTransaction($deposit);

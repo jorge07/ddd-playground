@@ -39,6 +39,64 @@ Feature: Wallet endpoint
     And the response body match with file "withdrawal_final_behat" and status code is "202"
 
 
+  Scenario: I will rollback deposit
+    When I send a "POST" to "/api/v1/wallet.json" with:
+    """
+    {
+      "currency": "EUR"
+    }
+    """
+    And the response code is "201"
+    Then I should be redirected to resource
+    And the response body match with file "get_wallet" and status code is "200"
+    Then I send a "POST" to resource "/deposit.json" with:
+    """
+    {
+      "real": 100
+    }
+    """
+    And the response body match with file "deposit" and status code is "202"
+
+    And I store the transaction
+
+    Then I rollback the deposit
+    And the response code is "202"
+
+    Then I send a "GET" to resource ".json" with:
+    """
+    """
+    And the response body match with file "get_wallet" and status code is "200"
+
+  Scenario: I will rollback withdrawal
+    When I send a "POST" to "/api/v1/wallet.json" with:
+    """
+    {
+      "currency": "EUR"
+    }
+    """
+    And the response code is "201"
+    Then I should be redirected to resource
+    And the response body match with file "get_wallet" and status code is "200"
+    Then I send a "POST" to resource "/deposit.json" with:
+    """
+    {
+      "real": 50
+    }
+    """
+    And the response code is "202"
+
+    Then I send a "POST" to resource "/withdrawal.json" with:
+    """
+    {
+      "real": 50
+    }
+    """
+    And the response code is "202"
+    And I store the transaction
+
+    Then I rollback the withdrawal
+    And the response body match with file "rollback_withdrawal_scenario" and status code is "202"
+
   Scenario: Try to get a non existent wallet
     When I send a "GET" request to "/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000.json"
     And the response code is "404"
