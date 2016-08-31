@@ -2,18 +2,18 @@
 
 namespace Leos\UI\RestBundle\Controller\Security;
 
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Leos\Application\DTO\User\RegisterDTO;
-use Leos\Application\UseCase\User\UserCommand;
-use Leos\Domain\Security\Exception\InvalidPasswordException;
-use Leos\Domain\User\Model\User;
-use Leos\Infrastructure\Common\Exception\Form\FormException;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
+use Leos\Application\DTO\User\RegisterDTO;
 use Leos\Application\DTO\Security\LoginDTO;
+use Leos\Application\UseCase\User\UserCommand;
 use Leos\Application\UseCase\Security\SecurityCommand;
 
+use Leos\Domain\User\Model\User;
+use Leos\Domain\Security\Exception\InvalidPasswordException;
 use Leos\Domain\Security\Exception\AuthenticationException;
+
+use Leos\Infrastructure\Common\Exception\Form\FormException;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -21,6 +21,8 @@ use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
