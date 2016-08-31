@@ -2,9 +2,10 @@
 
 namespace Leos\UI\RestBundle\Controller\Monitor;
 
+use Leos\UI\RestBundle\Controller\AbstractController;
+
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
-use Leos\UI\RestBundle\Controller\AbstractController;
 
 /**
  * Class StatusController
