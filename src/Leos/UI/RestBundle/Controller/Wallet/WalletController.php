@@ -2,22 +2,22 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
-use Leos\Application\DTO\Deposit\DepositDTO;
-use Leos\Application\DTO\Withdrawal\WithdrawalDTO;
-use Leos\Domain\Deposit\Exception\MinDepositAmountException;
-use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
-use Leos\Domain\Transaction\Model\AbstractTransaction;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
+use Leos\Application\DTO\Deposit\DepositDTO;
 use Leos\Application\DTO\Common\PaginationDTO;
 use Leos\Application\DTO\Wallet\CreateWalletDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
+use Leos\Application\DTO\Withdrawal\WithdrawalDTO;
 use Leos\Application\UseCase\Transaction\TransactionCommand;
 
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 use Leos\Domain\Common\Exception\InvalidUUIDException;
+use Leos\Domain\Transaction\Model\AbstractTransaction;
+use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
+use Leos\Domain\Deposit\Exception\MinDepositAmountException;
 use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
@@ -169,6 +169,7 @@ class WalletController extends AbstractController
      * @View(statusCode=200, serializerGroups={"Identifier", "Basic"})
      *
      * @param string $walletId
+     *
      * @return Wallet
      */
     public function getAction(string $walletId): Wallet
