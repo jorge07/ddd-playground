@@ -32,7 +32,6 @@ class UserCommand
      */
     public function __construct(UserRepositoryInterface $repository, UserFactoryInterface $factory)
     {
-
         $this->repository = $repository;
         $this->factory = $factory;
     }

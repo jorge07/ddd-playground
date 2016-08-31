@@ -40,9 +40,7 @@ class UserControllerTest extends JsonApiTestCase
      */
     public function testCreateUser()
     {
-        $this->loginClient('jorge', 'iyoque123');
-
-        $this->client->request('POST', '/api/v1/user.json', [
+        $this->client->request('POST', '/auth/register', [
             'username' => 'paco',
             'email' => 'paco@gmail.com',
             'password' => 'qweqwe1234567890'
@@ -51,6 +49,8 @@ class UserControllerTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         self::assertEquals(201, $response->getStatusCode());
+
+        $this->loginClient('paco', 'qweqwe1234567890');
 
         $this->client->request('GET', $response->headers->get('location'));
 
@@ -64,9 +64,7 @@ class UserControllerTest extends JsonApiTestCase
      */
     public function testCreateUserWithWrongPassword()
     {
-        $this->loginClient('jorge', 'iyoque123');
-
-        $this->client->request('POST', '/api/v1/user.json', [
+        $this->client->request('POST', '/auth/register', [
             'username' => 'paco',
             'email' => 'paco@gmail.com',
             'password' => 'qwe'
@@ -83,9 +81,7 @@ class UserControllerTest extends JsonApiTestCase
      */
     public function testCreateUserWithWrongEmail()
     {
-        $this->loginClient('jorge', 'iyoque123');
-
-        $this->client->request('POST', '/api/v1/user.json', [
+        $this->client->request('POST', '/auth/register', [
             'username' => 'paco',
             'email' => 'paco',
             'password' => 'qwe1313ghg1313'
@@ -102,9 +98,8 @@ class UserControllerTest extends JsonApiTestCase
      */
     public function testCreateUserWithEmptyParams()
     {
-        $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST', '/api/v1/user.json', [
+        $this->client->request('POST', '/auth/register', [
             'username' => '',
             'email' => '',
             'password' => 'qwe1313ghg1313'
@@ -120,9 +115,9 @@ class UserControllerTest extends JsonApiTestCase
      */
     public function testCreateUserWithWrongUsername()
     {
-        $this->loginClient('jorge', 'iyoque123');
+        $this->loadFixturesFromDirectory('user');
 
-        $this->client->request('POST', '/api/v1/user.json', [
+        $this->client->request('POST', '/auth/register', [
             'username' => 'jorge',
             'email' => 'paco@gmail.com',
             'password' => 'qwe1234567'
