@@ -141,7 +141,7 @@ abstract class AbstractTransaction
     /**
      * @return Money
      */
-    public function realRollback(): Money
+    public function realMoney(): Money
     {
         return (new Credit(abs($this->operationReal)))->toMoney($this->currency());
     }
@@ -149,7 +149,7 @@ abstract class AbstractTransaction
     /**
      * @return Money
      */
-    public function bonusRollback(): Money
+    public function bonusMoney(): Money
     {
         return (new Credit(abs($this->operationBonus)))->toMoney($this->currency());
     }

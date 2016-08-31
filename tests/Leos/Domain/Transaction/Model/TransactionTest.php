@@ -39,6 +39,8 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(0, $transaction->prevReal()->amount());
         self::assertEquals(0, $transaction->prevBonus()->amount());
         self::assertEquals(5000, $transaction->operationReal());
+        self::assertInstanceOf(Money::class, $transaction->realMoney());
+        self::assertInstanceOf(Money::class, $transaction->bonusMoney());
         self::assertEquals(0, $transaction->operationBonus());
         self::assertNull($transaction->referralTransaction());
         self::assertEquals($currency->code(), $transaction->currency()->code());

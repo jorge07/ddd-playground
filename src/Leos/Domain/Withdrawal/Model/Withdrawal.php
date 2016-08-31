@@ -24,4 +24,12 @@ class Withdrawal extends AbstractTransaction
     {
         parent::__construct(TransactionType::WITHDRAWAL, $wallet, $real, new Money(0, $real->currency()));
     }
+
+    /**
+     * @return RollbackWithdrawal
+     */
+    public function rollback(): RollbackWithdrawal
+    {
+        return new RollbackWithdrawal($this);
+    }
 }

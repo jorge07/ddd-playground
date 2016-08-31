@@ -14,6 +14,7 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  */
 class Deposit extends AbstractTransaction
 {
+
     /**
      * A positive Real money only insertion on user wallet
      * 
@@ -25,5 +26,13 @@ class Deposit extends AbstractTransaction
     public function __construct(Wallet $wallet, Money $real)
     {
         parent::__construct(TransactionType::DEPOSIT, $wallet, $real, new Money(0, $real->currency()));
+    }
+
+    /**
+     * @return RollbackDeposit
+     */
+    public function rollback(): RollbackDeposit
+    {
+        return new RollbackDeposit($this);
     }
 }

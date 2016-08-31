@@ -22,8 +22,8 @@ class RollbackWithdrawal extends AbstractTransaction
         parent::__construct(
             TransactionType::ROLLBACK_WITHDRAWAL,
             $withdrawal->wallet(),
-            $withdrawal->realRollback(),
-            $withdrawal->bonusRollback()
+            $withdrawal->realMoney(),
+            $withdrawal->bonusMoney()
         );
 
         $this->setReferralTransaction($withdrawal);

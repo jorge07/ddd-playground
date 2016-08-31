@@ -58,7 +58,7 @@ class RollbackController extends AbstractController
      *
      * @RequestParam(name="deposit", description="Deposit identifier")
      *
-     * @View(statusCode=202)
+     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
      * @param ParamFetcher $fetcher
      * 
@@ -91,7 +91,7 @@ class RollbackController extends AbstractController
      *
      * @RequestParam(name="withdrawal", description="Withdrawal identifier")
      *
-     * @View(statusCode=202)
+     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
      * @param ParamFetcher $fetcher
      *

@@ -49,6 +49,7 @@ class TransactionCommand
 
     /**
      * @param WithdrawalDTO $dto
+     *
      * @return Withdrawal
      */
     public function withdrawal(WithdrawalDTO $dto): Withdrawal
@@ -65,21 +66,23 @@ class TransactionCommand
 
     /**
      * @param RollbackWithdrawalDTO $dto
+     *
      * @return RollbackWithdrawal
      */
     public function rollbackWithdrawal(RollbackWithdrawalDTO $dto): RollbackWithdrawal
     {
-        $transaction = new RollbackWithdrawal(
-            $this->repository->get($dto->withdrawalId())
-        );
+        $withdrawal = $this->repository->get($dto->withdrawalId());
 
-        $this->repository->save($transaction);
+        $rollback = $withdrawal->rollback();
 
-        return $transaction;
+        $this->repository->save($rollback);
+
+        return $rollback;
     }
 
     /**
      * @param DepositDTO $dto
+     *
      * @return Deposit
      */
     public function deposit(DepositDTO $dto): Deposit
@@ -101,13 +104,14 @@ class TransactionCommand
      */
     public function rollbackDeposit(RollbackDepositDTO $dto): RollbackDeposit
     {
-        $transaction = new RollbackDeposit(
-            $this->repository->get($dto->depositId())
-        );
+        /** @var Deposit $deposit */
+        $deposit = $this->repository->get($dto->depositId());
 
-        $this->repository->save($transaction);
+        $rollback = $deposit->rollback();
 
-        return $transaction;
+        $this->repository->save($rollback);
+
+        return $rollback;
     }
 
     /**

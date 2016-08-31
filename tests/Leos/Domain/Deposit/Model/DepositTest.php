@@ -24,5 +24,6 @@ class DepositTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(AbstractTransaction::class, $transaction);
         self::assertEquals(1000, $transaction->wallet()->real()->amount());
+        self::assertInstanceOf(RollbackDeposit::class, $transaction->rollback());
     }
 }

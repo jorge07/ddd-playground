@@ -183,6 +183,16 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
             $code
         );
     }
+    
+    /**
+     * @param string $location
+     *
+     * @return string
+     */
+    protected function getResourceIdFromLocation(string $location): string
+    {
+        return substr($location, strrpos($location, '/')+1);
+    }
 
     /**
      * @Given /^the response code is "([^"]*)"$/
