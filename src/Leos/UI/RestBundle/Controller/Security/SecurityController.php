@@ -2,22 +2,20 @@
 
 namespace Leos\UI\RestBundle\Controller\Security;
 
-use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations\RequestParam;
+use Leos\UI\RestBundle\Controller\AbstractController;
 
 use Leos\Application\DTO\Security\LoginDTO;
 use Leos\Application\UseCase\Security\SecurityCommand;
 
 use Leos\Domain\Security\Exception\AuthenticationException;
 
-use Leos\UI\RestBundle\Controller\AbstractController;
-
+use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**

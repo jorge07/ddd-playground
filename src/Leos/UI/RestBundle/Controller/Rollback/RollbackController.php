@@ -10,6 +10,7 @@ use Leos\Application\UseCase\Transaction\TransactionCommand;
 
 use Leos\Domain\Deposit\Model\RollbackDeposit;
 use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
+use Leos\Domain\Common\Exception\InvalidUUIDException;
 use Leos\Domain\Transaction\Exception\TransactionNotFoundException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -19,6 +20,7 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -52,6 +54,7 @@ class RollbackController extends AbstractController
      *     description = "Rollback the given deposit",
      *     statusCodes = {
      *       200 = "Returned when successful",
+     *       400 = "Returned when Bad request",
      *       404 = "Returned when not found"
      *     }
      * )
@@ -75,6 +78,10 @@ class RollbackController extends AbstractController
         } catch (TransactionNotFoundException $e) {
 
             throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (InvalidUUIDException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
         }
     }
 
@@ -85,6 +92,7 @@ class RollbackController extends AbstractController
      *     description = "Rollback the given withdrawal",
      *     statusCodes = {
      *       200 = "Returned when successful",
+     *       400 = "Returned when Bad request",
      *       404 = "Returned when not found"
      *     }
      * )
@@ -108,6 +116,10 @@ class RollbackController extends AbstractController
         } catch (TransactionNotFoundException $e) {
 
             throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (InvalidUUIDException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
         }
     }
 }
