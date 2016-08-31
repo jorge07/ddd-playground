@@ -3,12 +3,16 @@
 namespace Leos\Application\UseCase\Transaction;
 
 use Leos\Application\DTO\Deposit\DepositDTO;
+use Leos\Application\DTO\Deposit\RollbackDepositDTO;
 use Leos\Application\DTO\Wallet\CreateWalletDTO;
+use Leos\Application\DTO\Withdrawal\RollbackWithdrawalDTO;
 use Leos\Application\DTO\Withdrawal\WithdrawalDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
 
+use Leos\Domain\Deposit\Model\RollbackDeposit;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Deposit\Model\Deposit;
+use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
 use Leos\Domain\Withdrawal\Model\Withdrawal;
 use Leos\Domain\Wallet\Factory\WalletFactory;
 
@@ -49,9 +53,24 @@ class TransactionCommand
      */
     public function withdrawal(WithdrawalDTO $dto): Withdrawal
     {
-        $transaction = Withdrawal::create(
+        $transaction = new Withdrawal(
             $this->walletQuery->get($dto->walletId()),
             $dto->real()
+        );
+
+        $this->repository->save($transaction);
+
+        return $transaction;
+    }
+
+    /**
+     * @param RollbackWithdrawalDTO $dto
+     * @return RollbackWithdrawal
+     */
+    public function rollbackWithdrawal(RollbackWithdrawalDTO $dto): RollbackWithdrawal
+    {
+        $transaction = new RollbackWithdrawal(
+            $this->repository->get($dto->withdrawalId())
         );
 
         $this->repository->save($transaction);
@@ -65,9 +84,25 @@ class TransactionCommand
      */
     public function deposit(DepositDTO $dto): Deposit
     {
-        $transaction = Deposit::create(
+        $transaction = new Deposit(
             $this->walletQuery->get($dto->walletId()),
             $dto->real()
+        );
+
+        $this->repository->save($transaction);
+
+        return $transaction;
+    }
+
+    /**
+     * @param RollbackDepositDTO $dto
+     *
+     * @return RollbackDeposit
+     */
+    public function rollbackDeposit(RollbackDepositDTO $dto): RollbackDeposit
+    {
+        $transaction = new RollbackDeposit(
+            $this->repository->get($dto->depositId())
         );
 
         $this->repository->save($transaction);
@@ -81,7 +116,7 @@ class TransactionCommand
      */
     public function createWallet(CreateWalletDTO $dto): Wallet
     {
-        $transaction = WalletFactory::create($dto->currency());
+        $transaction = new WalletFactory($dto->currency());
 
         $this->repository->save($transaction);
 

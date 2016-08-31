@@ -28,14 +28,9 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
         $currency = new Currency('EUR', 1);
 
-        $transaction = Deposit::create(
+        $transaction = new Deposit(
             $wallet,
             new Money(50.00, $currency)
-        );
-
-        $referral = Withdrawal::create(
-            $wallet,
-            new Money(25.00, $currency)
         );
 
         self::assertTrue(null !== $transaction->id());
@@ -49,9 +44,6 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($currency->code(), $transaction->currency()->code());
         self::assertNotNull($transaction->createdAt());
         self::assertNull($transaction->updatedAt());
-
-        $transaction->setReferralTransaction($referral);
-
-        self::assertNotNull($transaction->referralTransaction());
+        self::assertNull($transaction->referralTransaction());
     }
 }

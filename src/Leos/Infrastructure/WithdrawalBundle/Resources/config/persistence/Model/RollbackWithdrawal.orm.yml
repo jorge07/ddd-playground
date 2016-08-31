@@ -1,0 +1,2 @@
+Leos\Domain\Withdrawal\Model\RollbackWithdrawal:
+    type: entity

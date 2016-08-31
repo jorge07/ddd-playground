@@ -22,8 +22,8 @@ class Deposit extends AbstractTransaction
      *
      * @return Deposit
      */
-    public static function create(Wallet $wallet, Money $real): Deposit
+    public function __construct(Wallet $wallet, Money $real)
     {
-        return self::getInstance(TransactionType::DEPOSIT, $wallet, $real);
+        parent::__construct(TransactionType::DEPOSIT, $wallet, $real, new Money(0, $real->currency()));
     }
 }

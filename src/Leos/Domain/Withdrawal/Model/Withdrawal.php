@@ -20,8 +20,8 @@ class Withdrawal extends AbstractTransaction
      *
      * @return Withdrawal
      */
-    public static function create(Wallet $wallet, Money $real): Withdrawal
+    public function __construct(Wallet $wallet, Money $real)
     {
-        return self::getInstance(TransactionType::WITHDRAWAL, $wallet, $real);
+        parent::__construct(TransactionType::WITHDRAWAL, $wallet, $real, new Money(0, $real->currency()));
     }
 }

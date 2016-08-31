@@ -79,41 +79,26 @@ abstract class AbstractTransaction
     /**
      * Transaction constructor.
      *
-     * @param TransactionId $transactionId
-     * @param TransactionType $type
+     * @param string $type
      * @param Wallet $wallet
      * @param Money $real
      * @param Money $bonus
      */
-    private function __construct(
-        TransactionId $transactionId,
-        TransactionType $type,
+    public function __construct(
+        string $type,
         Wallet $wallet,
         Money $real,
         Money $bonus
     )
     {
-        $this->id = $transactionId;
-        $this->type = $type;
+        $this->id = new TransactionId();
+        $this->type = new TransactionType($type);
         $this->wallet = $wallet;
         $this->prevReal = $wallet->real();
         $this->prevBonus = $wallet->bonus();
         $this->currency = $real->currency();
         $this->process($real, $bonus);
         $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * @param string $type
-     * @param Wallet $wallet
-     * @param Money $real
-     * @param Money|null $bonus
-     *
-     * @return AbstractTransaction
-     */
-    final protected static function getInstance(string $type, Wallet $wallet, Money $real, Money $bonus = null): AbstractTransaction
-    {
-        return new static(new TransactionId(), new TransactionType($type), $wallet, $real, $bonus ?: new Money(0, $real->currency()));
     }
 
     /**
@@ -153,6 +138,22 @@ abstract class AbstractTransaction
         $this->operationBonus = $this->wallet->bonus()->diff($this->prevBonus);
     }
 
+    /**
+     * @return Money
+     */
+    public function realRollback(): Money
+    {
+        return (new Credit(abs($this->operationReal)))->toMoney($this->currency());
+    }
+
+    /**
+     * @return Money
+     */
+    public function bonusRollback(): Money
+    {
+        return (new Credit(abs($this->operationBonus)))->toMoney($this->currency());
+    }
+    
     /**
      * @return string
      */
@@ -246,7 +247,7 @@ abstract class AbstractTransaction
      *
      * @return AbstractTransaction
      */
-    public function setReferralTransaction(AbstractTransaction $referralTransaction): self
+    protected function setReferralTransaction(AbstractTransaction $referralTransaction): self
     {
         $this->referralTransaction = $referralTransaction;
 

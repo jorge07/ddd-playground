@@ -12,7 +12,7 @@ use Leos\Domain\Wallet\ValueObject\WalletId;
  * 
  * @package Domain\Wallet\Model
  */
-final class Wallet
+class Wallet
 {
     /**
      * @var WalletId

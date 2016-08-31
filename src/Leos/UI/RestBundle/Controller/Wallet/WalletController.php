@@ -272,7 +272,7 @@ class WalletController extends AbstractController
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
         }
     }
-    
+
     /**
      * @ApiDoc(
      *     resource = true,

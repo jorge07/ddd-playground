@@ -44,7 +44,6 @@ final class Credit
         return new self(intval($money->amount() * 100));
     }
 
-
     /**
      * @param Currency $currency
      * @return Money
