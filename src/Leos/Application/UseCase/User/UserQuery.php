@@ -35,7 +35,7 @@ class UserQuery
      */
     public function get(UserId $userId): User
     {
-        $user = $this->repository->findById(new UserId($userId));
+        $user = $this->repository->findById($userId);
 
         if (!$user) {
 
