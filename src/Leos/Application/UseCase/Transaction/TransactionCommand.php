@@ -10,6 +10,7 @@ use Leos\Application\DTO\Withdrawal\WithdrawalDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
 
 use Leos\Domain\Deposit\Model\RollbackDeposit;
+use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Deposit\Model\Deposit;
 use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
@@ -73,6 +74,11 @@ class TransactionCommand
     {
         $withdrawal = $this->repository->get($dto->withdrawalId());
 
+        if (!$withdrawal instanceof Withdrawal) {
+
+            throw new InvalidTransactionTypeException();
+        }
+
         $rollback = $withdrawal->rollback();
 
         $this->repository->save($rollback);
@@ -106,6 +112,11 @@ class TransactionCommand
     {
         /** @var Deposit $deposit */
         $deposit = $this->repository->get($dto->depositId());
+
+        if (!$deposit instanceof Deposit) {
+
+            throw new InvalidTransactionTypeException();
+        }
 
         $rollback = $deposit->rollback();
 

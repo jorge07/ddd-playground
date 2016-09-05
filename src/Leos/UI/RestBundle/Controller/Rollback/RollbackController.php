@@ -2,6 +2,7 @@
 
 namespace Leos\UI\RestBundle\Controller\Rollback;
 
+use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
 use Leos\Application\DTO\Deposit\RollbackDepositDTO;
@@ -82,6 +83,11 @@ class RollbackController extends AbstractController
         } catch (InvalidUUIDException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (InvalidTransactionTypeException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
         }
     }
 
@@ -120,6 +126,11 @@ class RollbackController extends AbstractController
         } catch (InvalidUUIDException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (InvalidTransactionTypeException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
         }
     }
 }
