@@ -50,12 +50,12 @@ class PaginationDTO
      */
     public function __construct(array $data = [])
     {
-        $this->filters   = $data['filterParam'] ?: [];
-        $this->operators = $data['filterOp'] ?: [];
-        $this->values    = $data['filterValue'] ?: [];
-        $this->sort      = array_combine($data['orderParameter'] ?: [], $data['orderValue'] ?: []);
-        $this->limit     = $data['limit'] ?: self::LIMIT;
-        $this->page      = $data['page'] ?: self::PAGE;
+        $this->filters   = $data['filterParam'] ?? [];
+        $this->operators = $data['filterOp'] ?? [];
+        $this->values    = $data['filterValue'] ?? [];
+        $this->sort      = array_combine($data['orderParameter'] ?? [], $data['orderValue'] ?? []);
+        $this->limit     = $data['limit'] ?? self::LIMIT;
+        $this->page      = $data['page'] ?? self::PAGE;
     }
 
     /**
