@@ -1,2 +1,1 @@
-imports:
-    - { resource: infrastructure/common.yml }
+services:
