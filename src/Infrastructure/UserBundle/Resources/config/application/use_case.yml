@@ -1,0 +1,12 @@
+services:
+
+    leos.use_case.user_command:
+        class: Leos\Application\UseCase\User\UserCommand
+        arguments:
+          - "@leos.repository.user"
+          - "@leos.factory.user"
+
+    leos.use_case.user_query:
+        class: Leos\Application\UseCase\User\UserQuery
+        arguments:
+          - "@leos.repository.user"

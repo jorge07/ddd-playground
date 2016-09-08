@@ -1,0 +1,5 @@
+services:
+
+    leos.use_case.transaction_command:
+        class: Leos\Application\UseCase\Transaction\TransactionCommand
+        autowire: true

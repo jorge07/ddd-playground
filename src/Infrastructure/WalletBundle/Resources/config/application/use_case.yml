@@ -1,0 +1,5 @@
+services:
+
+    leos.use_case.wallet_query:
+        class: Leos\Application\UseCase\Wallet\WalletQuery
+        autowire: true
