@@ -14,7 +14,10 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
-
+        types:
+            walletId: Leos\Infrastructure\WalletBundle\Doctrine\Types\WalletIdType
+            transactionId: Leos\Infrastructure\TransactionBundle\Doctrine\Types\TransactionIdType
+            userId: Leos\Infrastructure\UserBundle\Doctrine\Types\UserIdType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore

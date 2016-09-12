@@ -12,14 +12,5 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class LeosInfrastructureUserBundle extends Bundle
 {
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    public function boot()
-    {
-        if (!Type::hasType('userId')){
-
-            Type::addType('userId', 'Leos\Infrastructure\UserBundle\Doctrine\Types\UserIdType');
-        }
-    }
+    
 }
