@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Leos\\": "src/Leos/"
+            "Leos\\": "src"
         },
         "classmap": [
             "app/AppKernel.php",
@@ -13,7 +13,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\Leos\\": "tests/"
         }
     },
     "require": {

@@ -11,7 +11,7 @@ class FactoryTest extends ApiTestCase
     /**
      * @group unit
      *
-     * @expectedException Leos\Infrastructure\Common\Exception\Form\FormFactoryException
+     * @expectedException Leos\Infrastructure\CommonBundle\Exception\Form\FormFactoryException
      */
     public function testConstruct()
     {

@@ -25,8 +25,8 @@ use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
 {
     const
-        FIXTURES = '/tests/Leos/UI/Behat/Context/Fixtures',
-        RESPONSES = '/tests/Leos/UI/Responses/'
+        FIXTURES = '/tests/UI/Behat/Context/Fixtures',
+        RESPONSES = '/tests/UI/Responses/'
     ;
 
     /**
