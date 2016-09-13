@@ -1,5 +1,1 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
-imports:
-    - { resource: application/use_case.yml }
-    - { resource: infrastructure/common.yml }
+services:

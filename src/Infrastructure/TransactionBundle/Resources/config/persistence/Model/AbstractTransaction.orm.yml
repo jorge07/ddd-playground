@@ -1,0 +1,68 @@
+Leos\Domain\Transaction\Model\AbstractTransaction:
+    type: entity
+    table: transaction
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+      name: discriminator
+      type: string
+    discriminatorMap:
+      deposit: Leos\Domain\Deposit\Model\Deposit
+      rollback_deposit: Leos\Domain\Deposit\Model\RollbackDeposit
+      rollback_withdrawal: Leos\Domain\Withdrawal\Model\RollbackWithdrawal
+      withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
+      create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
+
+    repositoryClass: Leos\Infrastructure\TransactionBundle\Repository\TransactionRepository
+
+    id:
+      id:
+        id: true
+        type: transactionId
+        generator:
+          strategy: UUID
+
+    fields:
+      createdAt:
+        type: datetime
+
+      updatedAt:
+        type: datetime
+        nullable: true
+
+      operationReal:
+        type: integer
+
+      operationBonus:
+        type: integer
+
+    embedded:
+      prevReal:
+        class: Leos\Domain\Wallet\ValueObject\Credit
+
+      prevBonus:
+        class: Leos\Domain\Wallet\ValueObject\Credit
+
+      currency:
+        class: Leos\Domain\Money\ValueObject\Currency
+
+    manyToOne:
+        wallet:
+          targetEntity: Leos\Domain\Wallet\Model\Wallet
+          joinColumn:
+            name: wallet_id
+            referencedColumnName: id
+            onDelete: CASCADE
+          cascade:
+            - all
+
+        referralTransaction:
+          targetEntity: Leos\Domain\Transaction\Model\AbstractTransaction
+          joinColumn:
+            name: referral_transaction_id
+            referencedColumnName: id
+            nullble: true
+            onDelete: CASCADE
+          cascade:
+            - all
+
+    lifecycleCallbacks: {  }

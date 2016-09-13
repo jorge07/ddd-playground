@@ -59,10 +59,4 @@ Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compo
 
 ###The deployment
 
-The deployment script is `etc/infrastructure/deploy.sh` and require the releaseId as argument to work.
-The deploy file is a shit write in bash, yes, but has all the steps that you have to follow (except git logic) to deploy following a common sense container based system.
-
-To test the pipeline:
-
-    $ cd etc/infrastructure/
-    $ ./deploys <release>
+The follow the gitlab-ci.yml file!

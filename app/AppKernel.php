@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
 
             new Leos\UI\RestBundle\LeosUIRestBundle(),
+            new Leos\Infrastructure\CommonBundle\LeosInfrastructureCommonBundle(),
             new Leos\Infrastructure\WalletBundle\LeosInfrastructureWalletBundle(),
             new Leos\Infrastructure\TransactionBundle\LeosInfrastructureTransactionBundle(),
             new Leos\Infrastructure\MoneyBundle\LeosInfrastructureMoneyBundle(),

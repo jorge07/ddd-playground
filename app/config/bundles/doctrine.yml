@@ -14,7 +14,10 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
-
+        types:
+            walletId: Leos\Infrastructure\WalletBundle\Doctrine\Types\WalletIdType
+            transactionId: Leos\Infrastructure\TransactionBundle\Doctrine\Types\TransactionIdType
+            userId: Leos\Infrastructure\UserBundle\Doctrine\Types\UserIdType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -24,53 +27,53 @@ doctrine:
             Transaction:
                 type: yml
                 prefix: Leos\Domain\Transaction\Model
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/TransactionBundle/Resources/config/persistence/Model'
+                dir: '%kernel.root_dir%/../src/Infrastructure/TransactionBundle/Resources/config/persistence/Model'
                 is_bundle: false
 
             Deposit:
                 type: yml
                 prefix: Leos\Domain\Deposit\Model
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/DepositBundle/Resources/config/persistence/Model'
+                dir: '%kernel.root_dir%/../src/Infrastructure/DepositBundle/Resources/config/persistence/Model'
                 is_bundle: false
 
             Withdrawal:
                 type: yml
                 prefix: Leos\Domain\Withdrawal\Model
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WithdrawalBundle/Resources/config/persistence/Model'
+                dir: '%kernel.root_dir%/../src/Infrastructure/WithdrawalBundle/Resources/config/persistence/Model'
                 is_bundle: false
 
             WalletFactory:
                 type: yml
                 prefix: Leos\Domain\Wallet\Factory
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/Factory'
+                dir: '%kernel.root_dir%/../src/Infrastructure/WalletBundle/Resources/config/persistence/Factory'
                 is_bundle: false
 
             Wallet:
                 type: yml
                 prefix: Leos\Domain\Wallet\Model
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/Model'
+                dir: '%kernel.root_dir%/../src/Infrastructure/WalletBundle/Resources/config/persistence/Model'
                 is_bundle: false
 
             Money:
                 type: yml
                 prefix: Leos\Domain\Money\ValueObject
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/MoneyBundle/Resources/config/persistence/ValueObject'
+                dir: '%kernel.root_dir%/../src/Infrastructure/MoneyBundle/Resources/config/persistence/ValueObject'
                 is_bundle: false
 
             WalletValueObject:
                 type: yml
                 prefix: Leos\Domain\Wallet\ValueObject
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/WalletBundle/Resources/config/persistence/ValueObject'
+                dir: '%kernel.root_dir%/../src/Infrastructure/WalletBundle/Resources/config/persistence/ValueObject'
                 is_bundle: false
 
             User:
                 type: yml
                 prefix: Leos\Domain\User\Model
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/UserBundle/Resources/config/persistence/Model'
+                dir: '%kernel.root_dir%/../src/Infrastructure/UserBundle/Resources/config/persistence/Model'
                 is_bundle: false
 
             Security:
                 type: yml
                 prefix: Leos\Domain\Security\ValueObject
-                dir: '%kernel.root_dir%/../src/Leos/Infrastructure/SecurityBundle/Resources/config/persistence/ValueObject'
+                dir: '%kernel.root_dir%/../src/Infrastructure/SecurityBundle/Resources/config/persistence/ValueObject'
                 is_bundle: false
