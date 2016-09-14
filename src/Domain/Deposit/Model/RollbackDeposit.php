@@ -27,5 +27,14 @@ class RollbackDeposit extends AbstractTransaction
         );
 
         $this->setReferralTransaction($deposit);
+        $this->setDetails($deposit->details());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function details()
+    {
+        return $this->details;
     }
 }

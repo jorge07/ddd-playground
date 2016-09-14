@@ -26,6 +26,9 @@
     "created_at":"@string@.isDateTime()",
     "updated_at":null
   },
+  "details": {
+    "provider": "paypal"
+  },
   "referral_transaction": "@array@",
   "created_at":"@string@.isDateTime()",
   "updated_at":null

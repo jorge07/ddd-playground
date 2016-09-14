@@ -8,6 +8,7 @@ use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
 use Leos\Domain\Withdrawal\Model\Withdrawal;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
+use Leos\Domain\Withdrawal\ValueObject\WithdrawalDetails;
 
 /**
  * Class WithdrawalTest
@@ -25,9 +26,10 @@ class WithdrawalTest extends \PHPUnit_Framework_TestCase
 
         $wallet->addRealMoney(new Money(50 ,$currency = new Currency('EUR', 1)));
 
-        $transaction = new Withdrawal($wallet, new Money(50, $currency));
+        $transaction = new Withdrawal($wallet, new Money(50, $currency), new WithdrawalDetails('paypal'));
 
         self::assertInstanceOf(AbstractTransaction::class, $transaction);
+        self::assertInstanceOf(WithdrawalDetails::class, $transaction->details());
         self::assertEquals(0, $transaction->wallet()->real()->amount());
         self::assertInstanceOf(RollbackWithdrawal::class, $transaction->rollback());
     }

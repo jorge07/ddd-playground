@@ -2,6 +2,7 @@
 
 namespace Leos\Domain\Deposit\Model;
 
+use Leos\Domain\Deposit\ValueObject\DepositDetails;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
@@ -20,10 +21,15 @@ class DepositTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $transaction = new Deposit(new Wallet(new WalletId()), new Money(10, new Currency('EUR', 1)));
+        $transaction = new Deposit(
+            new Wallet(new WalletId()),
+            new Money(10, new Currency('EUR', 1)),
+            new DepositDetails('paypal')
+        );
 
         self::assertInstanceOf(AbstractTransaction::class, $transaction);
         self::assertEquals(1000, $transaction->wallet()->real()->amount());
         self::assertInstanceOf(RollbackDeposit::class, $transaction->rollback());
+        self::assertInstanceOf(DepositDetails::class, $transaction->details());
     }
 }

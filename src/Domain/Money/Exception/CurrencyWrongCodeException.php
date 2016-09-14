@@ -7,7 +7,7 @@ namespace Leos\Domain\Money\Exception;
  *
  * @package Leos\Domain\Money\Exception
  */
-class CurrencyWrongCodeException extends \LogicException
+class CurrencyWrongCodeException extends \InvalidArgumentException
 {
     /**
      * CreditNotEnoughException constructor.

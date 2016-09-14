@@ -27,5 +27,14 @@ class RollbackWithdrawal extends AbstractTransaction
         );
 
         $this->setReferralTransaction($withdrawal);
+        $this->setDetails($withdrawal->details());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function details()
+    {
+        return $this->details;
     }
 }

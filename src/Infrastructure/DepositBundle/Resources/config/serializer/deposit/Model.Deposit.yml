@@ -1,1 +1,6 @@
-Leos\Domain\Deposit\Model\Deposit: {}
+Leos\Domain\Deposit\Model\Deposit:
+    properties:
+        details:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Deposit\ValueObject\DepositDetails

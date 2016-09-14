@@ -3,13 +3,13 @@
 namespace Leos\Domain\Transaction\Model;
 
 use Leos\Domain\Deposit\Model\Deposit;
+use Leos\Domain\Deposit\ValueObject\DepositDetails;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Transaction\ValueObject\TransactionType;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Wallet\ValueObject\Credit;
 use Leos\Domain\Wallet\ValueObject\WalletId;
-use Leos\Domain\Withdrawal\Model\Withdrawal;
 
 /**
  * Class TransactionTest
@@ -30,7 +30,8 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
         $transaction = new Deposit(
             $wallet,
-            new Money(50.00, $currency)
+            new Money(50.00, $currency),
+            new DepositDetails('paypal')
         );
 
         self::assertTrue(null !== $transaction->id());

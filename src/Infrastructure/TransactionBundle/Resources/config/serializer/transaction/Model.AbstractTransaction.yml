@@ -51,6 +51,10 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
             groups: [Identifier, Basic]
             type: Leos\Domain\Wallet\Model\Wallet
 
+        details:
+            expose: true
+            groups: [Basic]
+
         referralTransaction:
             expose: true
             groups: [Basic]

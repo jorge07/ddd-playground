@@ -9,6 +9,7 @@ use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
 use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
 use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
+use Leos\Domain\Deposit\ValueObject\DepositDetails;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Deposit\Model\Deposit;
 use Leos\Domain\Withdrawal\Model\Withdrawal;
@@ -17,6 +18,7 @@ use Leos\Domain\Deposit\Model\RollbackDeposit;
 use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
 use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
+use Leos\Domain\Withdrawal\ValueObject\WithdrawalDetails;
 
 /**
  * Class TransactionCommand
@@ -56,7 +58,8 @@ class TransactionCommand
     {
         $transaction = new Withdrawal(
             $this->walletQuery->get($dto->walletId()),
-            $dto->real()
+            $dto->real(),
+            new WithdrawalDetails($dto->provider())
         );
 
         $this->repository->save($transaction);
@@ -94,7 +97,8 @@ class TransactionCommand
     {
         $transaction = new Deposit(
             $this->walletQuery->get($dto->walletId()),
-            $dto->real()
+            $dto->real(),
+            new DepositDetails($dto->provider())
         );
 
         $this->repository->save($transaction);
