@@ -7,7 +7,7 @@ namespace Leos\Domain\Deposit\Exception;
  *
  * @package Leos\Domain\Deposit\Exception
  */
-class MinDepositAmountException extends \Exception
+class MinDepositAmountException extends \InvalidArgumentException
 {
     /**
      * MinDepositAmountException constructor.

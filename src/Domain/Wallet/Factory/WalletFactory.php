@@ -24,4 +24,12 @@ class WalletFactory extends AbstractTransaction
     {
         parent::__construct(TransactionType::CREATE_WALLET, new Wallet(), new Money(0, $currency), new Money(0, $currency));
     }
+
+    /**
+     * @return mixed
+     */
+    public function details()
+    {
+        return $this->details;
+    }
 }

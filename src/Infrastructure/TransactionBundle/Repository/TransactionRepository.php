@@ -31,7 +31,7 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
             ->where('transaction.id = :id')
             ->setParameter('id', (string) $transactionId)
             ->getQuery()
-            ->getSingleResult()
+            ->getOneOrNullResult()
         ;
 
         if (!$transaction) {

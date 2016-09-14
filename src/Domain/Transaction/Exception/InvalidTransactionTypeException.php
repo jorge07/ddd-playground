@@ -7,7 +7,7 @@ namespace Leos\Domain\Transaction\Exception;
  * 
  * @package Leos\Domain\Transaction\Exception
  */
-class InvalidTransactionTypeException extends \LogicException
+class InvalidTransactionTypeException extends \InvalidArgumentException
 {
     /**
      * InvalidTransactionTypeException constructor.

@@ -23,6 +23,10 @@ class DepositDTO
      * @var Money
      */
     private $real;
+    /**
+     * @var string
+     */
+    private $provider;
 
     /**
      * DepositDTO constructor.
@@ -30,11 +34,13 @@ class DepositDTO
      * @param WalletId $uid
      * @param Currency $currency
      * @param float $amountReal
+     * @param string $provider
      */
-    public function __construct(WalletId $uid, Currency $currency, float $amountReal)
+    public function __construct(WalletId $uid, Currency $currency, float $amountReal, string $provider)
     {
         $this->uid = $uid;
         $this->setReal($amountReal, $currency);
+        $this->provider = $provider;
     }
 
     /**
@@ -69,4 +75,11 @@ class DepositDTO
         return $this->real;
     }
 
+    /**
+     * @return string
+     */
+    public function provider(): string
+    {
+        return $this->provider;
+    }
 }

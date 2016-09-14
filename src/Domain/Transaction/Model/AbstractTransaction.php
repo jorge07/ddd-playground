@@ -62,6 +62,11 @@ abstract class AbstractTransaction
     protected $currency;
 
     /**
+     * @var mixed
+     */
+    protected $details;
+
+    /**
      * @var null|AbstractTransaction
      */
     protected $referralTransaction;
@@ -232,6 +237,23 @@ abstract class AbstractTransaction
     public function updatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public abstract function details();
+
+    /**
+     * @param $details
+     * 
+     * @return AbstractTransaction
+     */
+    public function setDetails($details): self
+    {
+        $this->details = $details;
+
+        return $this;
     }
 
     /**

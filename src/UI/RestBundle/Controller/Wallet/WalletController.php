@@ -14,10 +14,7 @@ use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
-use Leos\Domain\Common\Exception\InvalidUUIDException;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
-use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
-use Leos\Domain\Deposit\Exception\MinDepositAmountException;
 use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
 use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
@@ -214,7 +211,7 @@ class WalletController extends AbstractController
 
             return $this->routeRedirectView('get_wallet', [ 'walletId' => $wallet->id() ]);
 
-        } catch (CurrencyWrongCodeException $e) {
+        } catch (\InvalidArgumentException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
 
@@ -236,6 +233,7 @@ class WalletController extends AbstractController
      *
      * @RequestParam(name="real",     default="0",   description="Deposit amount")
      * @RequestParam(name="currency", default="EUR", description="Currency")
+     * @RequestParam(name="provider", default="", description="Payment provider")
      *
      * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
@@ -252,23 +250,16 @@ class WalletController extends AbstractController
                 new DepositDTO(
                     new WalletId($uid),
                     new Currency($fetcher->get('currency')),
-                    (float) $fetcher->get('real')
+                    (float) $fetcher->get('real'),
+                    $fetcher->get('provider')
                 )
             );
-
-        } catch (InvalidUUIDException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
 
         } catch (WalletNotFoundException $e) {
 
             throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
 
-        } catch (CurrencyWrongCodeException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (MinDepositAmountException $e) {
+        } catch (\InvalidArgumentException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
         }
@@ -290,6 +281,7 @@ class WalletController extends AbstractController
      *
      * @RequestParam(name="real",     default="0",  description="Withdrawal amount")
      * @RequestParam(name="currency", default="EUR", description="Currency")
+     * @RequestParam(name="provider", default="", description="Payment provider")
      *
      * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
@@ -306,19 +298,16 @@ class WalletController extends AbstractController
                 new WithdrawalDTO(
                     new WalletId($uid),
                     new Currency($fetcher->get('currency')),
-                    (float) $fetcher->get('real')
+                    (float) $fetcher->get('real'),
+                    $fetcher->get('provider')
                 )
             );
-
-        } catch (InvalidUUIDException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
 
         } catch (WalletNotFoundException $e) {
 
             throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
 
-        } catch (CurrencyWrongCodeException $e) {
+        } catch (\InvalidArgumentException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
 

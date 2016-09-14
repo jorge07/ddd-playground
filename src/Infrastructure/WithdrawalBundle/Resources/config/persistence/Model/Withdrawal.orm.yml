@@ -1,2 +1,5 @@
 Leos\Domain\Withdrawal\Model\Withdrawal:
     type: entity
+    fields:
+      details:
+        type: withdrawal_details

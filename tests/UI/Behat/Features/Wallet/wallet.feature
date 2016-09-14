@@ -19,21 +19,24 @@ Feature: Wallet endpoint
     Then I send a "POST" to resource "/deposit.json" with:
     """
     {
-      "real": 100
+      "real": 100,
+      "provider": "paypal"
     }
     """
     And the response body match with file "deposit" and status code is "202"
     Then I send a "POST" to resource "/deposit.json" with:
     """
     {
-      "real": 9
+      "real": 9,
+      "provider": "paypal"
     }
     """
     And the response code is "202"
     Then I send a "POST" to resource "/withdrawal.json" with:
     """
     {
-      "real": 64
+      "real": 64,
+      "provider": "paypal"
     }
     """
     And the response body match with file "withdrawal_final_behat" and status code is "202"
@@ -52,7 +55,8 @@ Feature: Wallet endpoint
     Then I send a "POST" to resource "/deposit.json" with:
     """
     {
-      "real": 100
+      "real": 100,
+      "provider": "paypal"
     }
     """
     And the response body match with file "deposit" and status code is "202"
@@ -80,7 +84,8 @@ Feature: Wallet endpoint
     Then I send a "POST" to resource "/deposit.json" with:
     """
     {
-      "real": 50
+      "real": 50,
+      "provider": "redsys"
     }
     """
     And the response code is "202"
@@ -88,7 +93,8 @@ Feature: Wallet endpoint
     Then I send a "POST" to resource "/withdrawal.json" with:
     """
     {
-      "real": 50
+      "real": 50,
+      "provider": "paypal"
     }
     """
     And the response code is "202"

@@ -93,7 +93,8 @@ class WalletControllerTest extends JsonApiTestCase
         self::assertEquals(201, $response->getStatusCode());
 
         $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
-            'real' => 100
+            'real' => 100,
+            'provider' => 'paypal'
         ]);
 
         $response = $this->client->getResponse();
@@ -109,7 +110,8 @@ class WalletControllerTest extends JsonApiTestCase
 
         $this->client->request('POST',  '/api/v1/wallet/404/deposit.json', [
             'real' => 5,
-            'bonus' => 5
+            'bonus' => 5,
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -125,7 +127,8 @@ class WalletControllerTest extends JsonApiTestCase
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/deposit.json', [
             'real' => 5,
             'bonus' => 5,
-            'currency' => 'LIBRAS'
+            'currency' => 'LIBRAS',
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -147,11 +150,13 @@ class WalletControllerTest extends JsonApiTestCase
         self::assertEquals(201, $response->getStatusCode());
 
         $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
-            'real' => 50
+            'real' => 50,
+            'provider' => 'paypal'
         ]);
 
         $this->client->request('POST', $response->headers->get('location') . '/withdrawal.json', [
-            'real' => 5
+            'real' => 5,
+            'provider' => 'paypal'
         ]);
 
         self::assertResponse($this->client->getResponse(), "withdrawal", 202);
@@ -174,7 +179,8 @@ class WalletControllerTest extends JsonApiTestCase
 
         $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
             'real' => 50,
-            'currency' => 'LIBRAS'
+            'currency' => 'LIBRAS',
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -199,7 +205,8 @@ class WalletControllerTest extends JsonApiTestCase
 
         $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
             'real' => 0,
-            'currency' => 'EUR'
+            'currency' => 'EUR',
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -215,7 +222,8 @@ class WalletControllerTest extends JsonApiTestCase
         $this->loginClient('jorge', 'iyoque123');
 
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/deposit.json', [
-            'real' => 5
+            'real' => 5,
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(404, $this->client->getResponse()->getStatusCode());
@@ -232,7 +240,8 @@ class WalletControllerTest extends JsonApiTestCase
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/withdrawal.json', [
             'real' => 5,
             'bonus' => 5,
-            'currency' => 'LIBRAS'
+            'currency' => 'LIBRAS',
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -256,7 +265,8 @@ class WalletControllerTest extends JsonApiTestCase
 
         $this->client->request('POST', $response->headers->get('location') . '/withdrawal.json', [
             'real' => 60,
-            'bonus' => 5
+            'bonus' => 5,
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(409, $this->client->getResponse()->getStatusCode());
@@ -271,7 +281,8 @@ class WalletControllerTest extends JsonApiTestCase
 
         $this->client->request('POST',  '/api/v1/wallet/404/withdrawal.json', [
             'real' => 5,
-            'bonus' => 5
+            'bonus' => 5,
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
@@ -286,7 +297,8 @@ class WalletControllerTest extends JsonApiTestCase
         
         $this->client->request('POST',  '/api/v1/wallet/0cb00000-646e-11e6-a5a2-0000ac1b0000/withdrawal.json', [
             'real' => 5,
-            'bonus' => 5
+            'bonus' => 5,
+            'provider' => 'paypal'
         ]);
 
         self::assertEquals(404, $this->client->getResponse()->getStatusCode());
