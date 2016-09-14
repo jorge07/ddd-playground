@@ -2,21 +2,20 @@
 
 namespace Leos\Application\UseCase\Transaction;
 
-use Leos\Application\Request\Deposit\DepositDTO;
-use Leos\Application\Request\Deposit\RollbackDepositDTO;
-use Leos\Application\Request\Wallet\CreateWalletDTO;
-use Leos\Application\Request\Withdrawal\RollbackWithdrawalDTO;
-use Leos\Application\Request\Withdrawal\WithdrawalDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
+use Leos\Application\UseCase\Transaction\Request\DepositDTO;
+use Leos\Application\UseCase\Transaction\Request\WithdrawalDTO;
+use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
+use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
+use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
-use Leos\Domain\Deposit\Model\RollbackDeposit;
-use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Deposit\Model\Deposit;
-use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
 use Leos\Domain\Withdrawal\Model\Withdrawal;
 use Leos\Domain\Wallet\Factory\WalletFactory;
-
+use Leos\Domain\Deposit\Model\RollbackDeposit;
+use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
+use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
 
 /**

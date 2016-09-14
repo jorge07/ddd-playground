@@ -1,13 +1,13 @@
 <?php
 
-namespace Leos\Application\Request\Deposit;
+namespace Leos\Application\UseCase\Transaction\Request;
 
 use Leos\Domain\Transaction\ValueObject\TransactionId;
 
 /**
  * Class RollbackDepositDTO
- *
- * @package Leos\Application\Request\Deposit
+ * 
+ * @package Leos\Application\UseCase\Transaction\Request
  */
 class RollbackDepositDTO
 {

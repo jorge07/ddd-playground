@@ -2,16 +2,16 @@
 
 namespace Leos\UI\RestBundle\Controller\Rollback;
 
-use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\Request\Deposit\RollbackDepositDTO;
-use Leos\Application\Request\Withdrawal\RollbackWithdrawalDTO;
 use Leos\Application\UseCase\Transaction\TransactionCommand;
+use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
+use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
 use Leos\Domain\Deposit\Model\RollbackDeposit;
 use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
 use Leos\Domain\Common\Exception\InvalidUUIDException;
+use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\Domain\Transaction\Exception\TransactionNotFoundException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;

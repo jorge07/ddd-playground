@@ -1,11 +1,11 @@
 <?php
 
-namespace Leos\Application\Request\Security;
+namespace Leos\Application\UseCase\Security\Request;
 
 /**
  * Class LoginDTO
- *
- * @package Leos\Application\Request\Security
+ * 
+ * @package Leos\Application\UseCase\Security\Request
  */
 class LoginDTO
 {
