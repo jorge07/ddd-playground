@@ -11,21 +11,14 @@ use Leos\Domain\User\Model\User;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\User\Exception\NotFoundException;
 use Leos\Domain\Common\Exception\InvalidUUIDException;
-use Leos\Domain\Security\Exception\InvalidPasswordException;
-
-use Leos\Infrastructure\CommonBundle\Exception\Form\FormException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

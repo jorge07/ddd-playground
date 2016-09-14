@@ -4,12 +4,12 @@ namespace Leos\UI\RestBundle\Controller\Wallet;
 
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\Request\Deposit\DepositDTO;
-use Leos\Application\Request\Common\PaginationDTO;
-use Leos\Application\Request\Wallet\CreateWalletDTO;
 use Leos\Application\UseCase\Wallet\WalletQuery;
-use Leos\Application\Request\Withdrawal\WithdrawalDTO;
+use Leos\Application\Request\Common\PaginationDTO;
+use Leos\Application\UseCase\Transaction\Request\DepositDTO;
+use Leos\Application\UseCase\Transaction\Request\WithdrawalDTO;
 use Leos\Application\UseCase\Transaction\TransactionCommand;
+use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
 
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Currency;

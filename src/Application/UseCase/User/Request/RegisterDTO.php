@@ -1,11 +1,11 @@
 <?php
 
-namespace Leos\Application\Request\User;
+namespace Leos\Application\UseCase\User\Request;
 
 /**
  * Class RegisterDTO
  * 
- * @package Leos\Application\Request\User
+ * @package Leos\Application\UseCase\User\Request
  */
 class RegisterDTO
 {

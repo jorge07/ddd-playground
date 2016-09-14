@@ -2,9 +2,10 @@
 
 namespace Leos\Application\UseCase\User;
 
-use Leos\Application\Request\User\RegisterDTO;
-use Leos\Domain\User\Factory\UserFactoryInterface;
+use Leos\Application\UseCase\User\Request\RegisterDTO;
+
 use Leos\Domain\User\Model\User;
+use Leos\Domain\User\Factory\UserFactoryInterface;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 
 /**

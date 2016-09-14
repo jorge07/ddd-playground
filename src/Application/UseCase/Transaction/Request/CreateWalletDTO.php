@@ -1,13 +1,13 @@
 <?php
 
-namespace Leos\Application\Request\Wallet;
+namespace Leos\Application\UseCase\Transaction\Request;
 
 use Leos\Domain\Money\ValueObject\Currency;
 
 /**
  * Class CreateWalletDTO
- *
- * @package Leos\Domain\Wallet\DTO
+ * 
+ * @package Leos\Application\UseCase\Transaction\Request
  */
 class CreateWalletDTO
 {

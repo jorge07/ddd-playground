@@ -1,8 +1,8 @@
 <?php
 
 namespace Tests\Leos\Application\Request\Wallet;
+use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
 
-use Leos\Application\Request\Wallet\CreateWalletDTO;
 
 /**
  * Class CreateWalletDTOTest

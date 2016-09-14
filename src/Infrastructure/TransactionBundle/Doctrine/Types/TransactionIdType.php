@@ -18,11 +18,19 @@ class TransactionIdType extends GuidType
     
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
+        if (null === $value) {
+            return null;
+        }
+
         return new TransactionId($value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
+        if (null === $value) {
+            return null;
+        }
+        
         return (string) $value;
     }
 

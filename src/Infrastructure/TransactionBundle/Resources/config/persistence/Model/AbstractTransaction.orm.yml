@@ -51,6 +51,7 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
           joinColumn:
             name: wallet_id
             referencedColumnName: id
+            nullable: false
             onDelete: CASCADE
           cascade:
             - all
@@ -59,8 +60,8 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
           targetEntity: Leos\Domain\Transaction\Model\AbstractTransaction
           joinColumn:
             name: referral_transaction_id
+            nullable: true
             referencedColumnName: id
-            nullble: true
             onDelete: CASCADE
           cascade:
             - all

@@ -2,13 +2,15 @@
 
 namespace Leos\Application\UseCase\Security;
 
+use Leos\Application\UseCase\Security\Request\LoginDTO;
 
-use Leos\Application\Request\Security\LoginDTO;
 use Leos\Domain\Security\Exception\AuthenticationException;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
+
 use Leos\Infrastructure\SecurityBundle\Security\Model\Auth;
+
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
-use Namshi\JOSE\JWT;
+
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 

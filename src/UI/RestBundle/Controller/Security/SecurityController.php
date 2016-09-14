@@ -4,10 +4,10 @@ namespace Leos\UI\RestBundle\Controller\Security;
 
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\Request\User\RegisterDTO;
-use Leos\Application\Request\Security\LoginDTO;
 use Leos\Application\UseCase\User\UserCommand;
 use Leos\Application\UseCase\Security\SecurityCommand;
+use Leos\Application\UseCase\User\Request\RegisterDTO;
+use Leos\Application\UseCase\Security\Request\LoginDTO;
 
 use Leos\Domain\User\Model\User;
 use Leos\Domain\Security\Exception\InvalidPasswordException;

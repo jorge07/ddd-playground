@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Application\Request\Withdrawal;
+namespace Leos\Application\UseCase\Transaction\Request;
 
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\ValueObject\Money;
@@ -8,8 +8,8 @@ use Leos\Domain\Wallet\ValueObject\WalletId;
 
 /**
  * Class WithdrawalDTO
- *
- * @package Leos\Application\Request\Withdrawal
+ * 
+ * @package Leos\Application\UseCase\Transaction\Request
  */
 class WithdrawalDTO
 {

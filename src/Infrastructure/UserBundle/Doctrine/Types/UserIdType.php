@@ -18,12 +18,12 @@ class UserIdType extends GuidType
     
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        return new UserId($value);
+        return (null === $value) ? null : new UserId($value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return (string) $value;
+        return  (null === $value) ? null : (string) $value;
     }
 
     public function getName()

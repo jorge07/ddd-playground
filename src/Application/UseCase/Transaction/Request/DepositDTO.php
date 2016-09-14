@@ -1,16 +1,16 @@
 <?php
 
-namespace Leos\Application\Request\Deposit;
+namespace Leos\Application\UseCase\Transaction\Request;
 
-use Leos\Domain\Deposit\Exception\MinDepositAmountException;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
+use Leos\Domain\Deposit\Exception\MinDepositAmountException;
 
 /**
  * Class DepositDTO
- *
- * @package Leos\Application\Request\Deposit
+ * 
+ * @package Leos\Application\UseCase\Transaction\Request
  */
 class DepositDTO
 {

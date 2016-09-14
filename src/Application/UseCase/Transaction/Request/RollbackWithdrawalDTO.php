@@ -1,13 +1,13 @@
 <?php
 
-namespace Leos\Application\Request\Withdrawal;
+namespace Leos\Application\UseCase\Transaction\Request;
 
 use Leos\Domain\Transaction\ValueObject\TransactionId;
 
 /**
  * Class RollbackWithdrawalDTO
  * 
- * @package Leos\Application\Request\Withdrawal
+ * @package Leos\Application\UseCase\Transaction\Request
  */
 class RollbackWithdrawalDTO
 {

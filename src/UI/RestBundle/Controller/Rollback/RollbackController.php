@@ -4,13 +4,14 @@ namespace Leos\UI\RestBundle\Controller\Rollback;
 
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\Request\Deposit\RollbackDepositDTO;
-use Leos\Application\Request\Withdrawal\RollbackWithdrawalDTO;
 use Leos\Application\UseCase\Transaction\TransactionCommand;
+use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
+use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
 use Leos\Domain\Deposit\Model\RollbackDeposit;
 use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
 use Leos\Domain\Common\Exception\InvalidUUIDException;
+use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\Domain\Transaction\Exception\TransactionNotFoundException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -82,6 +83,11 @@ class RollbackController extends AbstractController
         } catch (InvalidUUIDException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (InvalidTransactionTypeException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
         }
     }
 
@@ -120,6 +126,11 @@ class RollbackController extends AbstractController
         } catch (InvalidUUIDException $e) {
 
             throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
+        } catch (InvalidTransactionTypeException $e) {
+
+            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
+
         }
     }
 }

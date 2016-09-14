@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Leos" default="build">
+    <property name="workspace" value="/app"/>
+    <property name="sourcedir" value="${workspace}/src"/>
+    <property name="consoledir" value="${workspace}/bin"/>
+    <property name="vardir" value="${workspace}/var"/>
+    <property name="vendordir" value="${workspace}/vendor"/>
+    <property name="bindir" value="${vendordir}/bin"/>
+
+    <target name="clean" description="Cleanup build artifacts">
+        <delete dir="${workspace}/report"/>
+    </target>
+
+    <target name="waitfor" description="wait for mysql socket">
+        <waitfor>
+            <socket server="mysql" port="3306"/>
+        </waitfor>
+    </target>
+
+    <target name="prepare" depends="clean" description="Prepare for build">
+        <mkdir dir="${workspace}/report"/>
+    </target>
+
+    <target name="createdatabase" description="Load fixtures">
+        <exec executable="php" failonerror="true">
+            <arg value="${consoledir}/console"/>
+            <arg value="doctrine:database:drop"/>
+            <arg value="--force"/>
+            <arg value="--no-interaction"/>
+        </exec>
+
+        <exec executable="php" failonerror="true">
+            <arg value="${consoledir}/console"/>
+            <arg value="doctrine:database:create"/>
+            <arg value="--no-interaction"/>
+        </exec>
+
+        <exec executable="php" failonerror="true">
+            <arg value="${consoledir}/console"/>
+            <arg value="doctrine:schema:create"/>
+            <arg value="--no-interaction"/>
+        </exec>
+
+        <exec executable="php" failonerror="true">
+            <arg value="${consoledir}/console"/>
+            <arg value="doctrine:schema:validate"/>
+        </exec>
+
+    </target>
+
+    <target name="apidoc" description="Dump an HTML file with the API documentation">
+        <exec executable="php" output="${workspace}/doc/api_doc.html">
+            <arg value="${consoledir}/console" />
+            <arg value="api:doc:dump" />
+            <arg value="--format=html" />
+        </exec>
+    </target>
+
+    <target name="cachewarm" description="Wipe test and dev caches">
+        <delete dir="${project.basedir}/var/cache/dev"/>
+        <delete dir="${project.basedir}/var/cache/test"/>
+        <exec executable="php">
+            <arg value="${consoledir}/console"/>
+            <arg value="cache:clear"/>
+        </exec>
+        <exec executable="php">
+            <arg value="${consoledir}/console"/>
+            <arg value="cache:clear"/>
+            <arg value="--env=test"/>
+        </exec>
+    </target>
+
+    <target name="phpunit" description="Run PHPUnit tests">
+        <exec executable="${bindir}/phpunit" failonerror="true">
+            <arg value="-c"/>
+            <arg path="${workspace}/phpunit.xml.dist"/>
+        </exec>
+    </target>
+
+    <target name="behat" description="Run Behat tests">
+        <exec executable="${bindir}/behat" failonerror="true">
+            <arg value="-c"/>
+            <arg path="${workspace}/behat.yml"/>
+            <arg value="-f"/>
+            <arg value="progress"/>
+        </exec>
+    </target>
+
+    <target name="build" depends="waitfor, prepare, createdatabase" description="Prepare project dependencies"/>
+    <target name="unit-and-functional" depends="cachewarm, phpunit" description="Run project unit and functional tests"/>
+    <target name="acceptation" depends="behat" description="Run project acceptation tests"/>
+</project>
