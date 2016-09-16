@@ -1,7 +1,15 @@
 DDD Playground
 ===
 
-[![coverage report](https://gitlab.com/jorge07/leos/badges/develop/coverage.svg)](https://gitlab.com/jorge07/leos/commits/develop)
+A simple Wallet implementation in DDD.
+
+Operations:
+   - Create a new Wallet
+   - Deposit
+   - Withdrawal
+   - Rollbacks
+
+User Authentication with JWT.
 
 Quick env: [See doc first](https://hub.docker.com/r/jorge07/alpine-php/)
 
