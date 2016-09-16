@@ -38,7 +38,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     {
         return $this->createQueryBuilder('user')
             ->where('user.uuid = :id')
-            ->setParameter('id', (string) $userId)
+            ->setParameter('id', $userId->bytes())
             ->getQuery()
 //            ->useResultCache(true, null, 'user.findByUsername'.$username)
             ->getOneOrNullResult()

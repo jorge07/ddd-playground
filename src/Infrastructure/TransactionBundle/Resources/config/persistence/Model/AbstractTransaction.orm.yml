@@ -23,10 +23,10 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
 
     fields:
       createdAt:
-        type: datetime
+        type: datetimetz
 
       updatedAt:
-        type: datetime
+        type: datetimetz
         nullable: true
 
       operationReal:
