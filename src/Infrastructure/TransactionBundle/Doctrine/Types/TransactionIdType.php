@@ -2,7 +2,8 @@
 
 namespace Leos\Infrastructure\TransactionBundle\Doctrine\Types;
 
-use Doctrine\DBAL\Types\GuidType;
+use Ramsey\Uuid\Doctrine\UuidBinaryType;
+
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 use Leos\Domain\Transaction\ValueObject\TransactionId;
@@ -12,26 +13,28 @@ use Leos\Domain\Transaction\ValueObject\TransactionId;
  *
  * @package Leos\Infrastructure\TransactionBundle\Doctrine\Types
  */
-class TransactionIdType extends GuidType
+class TransactionIdType extends UuidBinaryType
 {
     const TRANSACTION_ID = 'transactionId';
     
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if (null === $value) {
-            return null;
-        }
-
-        return new TransactionId($value);
+        return (null === $value) ? null : TransactionId::fromBytes($value);
     }
 
+    /**
+     * @param TransactionId $value
+     * @param AbstractPlatform $platform
+     * @return null|string
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if (null === $value) {
-            return null;
+        if (is_string($value)) {
+
+            return TransactionId::toBytes($value);
         }
         
-        return (string) $value;
+        return (null === $value) ? null : $value->bytes();
     }
 
     public function getName()

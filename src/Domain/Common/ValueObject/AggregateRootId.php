@@ -49,6 +49,32 @@ abstract class AggregateRootId
     /**
      * @return string
      */
+    public function bytes(): string
+    {
+        return Uuid::fromString($this->uuid)->getBytes();
+    }
+
+    /**
+     * @param string $bytes
+     * @return AggregateRootId
+     */
+    public static function fromBytes(string $bytes): self
+    {
+        return new static(Uuid::fromBytes($bytes)->toString());
+    }
+
+    /**
+     * @param string $uid
+     * @return string
+     */
+    public static function toBytes(string $uid): string
+    {
+        return (new static($uid))->bytes();
+    }
+
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         return (string) $this->uuid;

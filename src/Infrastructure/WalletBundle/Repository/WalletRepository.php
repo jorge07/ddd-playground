@@ -55,7 +55,7 @@ class WalletRepository extends EntityRepository implements WalletRepositoryInter
     {
         return $this->createQueryBuilder('wallet')
             ->where('wallet.id = :id')
-            ->setParameter('id', (string) $uid)
+            ->setParameter('id', $uid->bytes())
             ->getQuery()
             ->getOneOrNullResult()
         ;

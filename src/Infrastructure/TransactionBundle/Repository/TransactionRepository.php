@@ -29,7 +29,7 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
     {
         $transaction = $this->createQueryBuilder('transaction')
             ->where('transaction.id = :id')
-            ->setParameter('id', (string) $transactionId)
+            ->setParameter('id', $transactionId->bytes())
             ->getQuery()
             ->getOneOrNullResult()
         ;
