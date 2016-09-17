@@ -1,6 +1,18 @@
 DDD Playground
 ===============
 
+### Examples in the repo
+
+   - User authentication split into domain and infrastructure using Json web token 
+   - Usage of UUID as binary to improve the performance and create a nightmare for the dba.
+   - Example of table inheritance and discriminator strategy 
+   - How to deal with Json data type and how to use same column for different doctrine data types. 
+   - Code structured in layers as appears in DDD in php book (buenosvinos) 
+   - An example of how to test the api with behat and guzzle and accessing to the api via web server, nginx in this case. 
+   - Example of how to use phpmatcher with Lakion api test case and Alice for fixtures and how to integrate it with behat. 
+
+### Tools
+
 This repo its a REST API built following more or less DDD and using few useful packages like:
 
 
@@ -29,7 +41,7 @@ And for testing proposal:
 - `guzzlehttp/guzzle`
 
 
-###The folder structure is:
+###The folder structure 
 
     src
       \
@@ -59,4 +71,4 @@ Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compo
 
 ###The deployment
 
-The follow the gitlab-ci.yml file!
+Follow the gitlab-ci.yml file!
