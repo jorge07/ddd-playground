@@ -3,7 +3,7 @@ DDD Playground
 
 ### Examples in the repo
 
-   - User authentication split into domain and infrastructure using Json web token 
+   - User authentication split into domain and infrastructure and using Json web token 
    - Usage of UUID as binary to improve the performance and create a nightmare for the dba.
    - Example of table inheritance and discriminator strategy 
    - How to deal with Json data type and how to use same column for different doctrine data types. 
