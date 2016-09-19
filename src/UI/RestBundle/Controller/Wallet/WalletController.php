@@ -270,7 +270,7 @@ class WalletController extends AbstractController
      *     resource = true,
      *     section="Wallet",
      *     description = "Generate a negative insertion on the given Wallet",
-     *     output = "Leos\Domain\Withdrawal\Model\Withdrawal",
+     *     output = "Leos\Domain\Payment\Model\Withdrawal",
      *     statusCodes = {
      *       202 = "Returned when successful",
      *       400 = "Returned when bad request",

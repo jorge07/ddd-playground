@@ -1,0 +1,5 @@
+Leos\Domain\Payment\Model\Deposit:
+    type: entity
+    fields:
+      details:
+        type: deposit_details

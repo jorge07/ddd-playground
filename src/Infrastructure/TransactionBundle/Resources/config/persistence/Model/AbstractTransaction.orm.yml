@@ -6,10 +6,10 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
       name: discriminator
       type: string
     discriminatorMap:
-      deposit: Leos\Domain\Deposit\Model\Deposit
-      rollback_deposit: Leos\Domain\Deposit\Model\RollbackDeposit
-      rollback_withdrawal: Leos\Domain\Withdrawal\Model\RollbackWithdrawal
-      withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
+      deposit: Leos\Domain\Payment\Model\Deposit
+      rollback_deposit: Leos\Domain\Payment\Model\RollbackDeposit
+      rollback_withdrawal: Leos\Domain\Payment\Model\RollbackWithdrawal
+      withdrawal: Leos\Domain\Payment\Model\Withdrawal
       create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
 
     repositoryClass: Leos\Infrastructure\TransactionBundle\Repository\TransactionRepository

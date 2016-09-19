@@ -1,9 +1,9 @@
 <?php
 
-namespace Leos\Domain\Transaction\Model;
+namespace Tests\Leos\Domain\Transaction\Model;
 
-use Leos\Domain\Deposit\Model\Deposit;
-use Leos\Domain\Deposit\ValueObject\DepositDetails;
+use Leos\Domain\Payment\Model\Deposit;
+use Leos\Domain\Payment\ValueObject\DepositDetails;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Transaction\ValueObject\TransactionType;

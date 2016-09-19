@@ -1,0 +1,7 @@
+Leos\Domain\Payment\ValueObject\WithdrawalDetails:
+    exclusion_policy: ALL
+    properties:
+      provider:
+          type: string
+          groups: [Basic]
+

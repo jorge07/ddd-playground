@@ -5,7 +5,7 @@ namespace Leos\Application\UseCase\Transaction\Request;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
-use Leos\Domain\Deposit\Exception\MinDepositAmountException;
+use Leos\Domain\Payment\Exception\MinDepositAmountException;
 
 /**
  * Class DepositDTO

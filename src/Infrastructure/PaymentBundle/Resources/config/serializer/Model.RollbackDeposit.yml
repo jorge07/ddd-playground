@@ -1,0 +1,6 @@
+Leos\Domain\Payment\Model\RollbackDeposit:
+    properties:
+        details:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Payment\ValueObject\DepositDetails
