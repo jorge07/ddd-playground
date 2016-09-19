@@ -1,0 +1,6 @@
+Leos\Domain\Payment\Model\Withdrawal:
+    properties:
+        details:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Payment\ValueObject\WithdrawalDetails

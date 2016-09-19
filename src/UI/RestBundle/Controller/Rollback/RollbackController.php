@@ -8,8 +8,8 @@ use Leos\Application\UseCase\Transaction\TransactionCommand;
 use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
 use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
-use Leos\Domain\Deposit\Model\RollbackDeposit;
-use Leos\Domain\Withdrawal\Model\RollbackWithdrawal;
+use Leos\Domain\Payment\Model\RollbackDeposit;
+use Leos\Domain\Payment\Model\RollbackWithdrawal;
 use Leos\Domain\Transaction\Exception\TransactionNotFoundException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;

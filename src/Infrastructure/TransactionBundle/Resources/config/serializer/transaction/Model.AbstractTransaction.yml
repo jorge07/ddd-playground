@@ -3,10 +3,10 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
     discriminator:
       field_name: discriminator
       map:
-        deposit: Leos\Domain\Deposit\Model\Deposit
-        rollback_deposit: Leos\Domain\Deposit\Model\RollbackDeposit
-        withdrawal: Leos\Domain\Withdrawal\Model\Withdrawal
-        rollback_withdrawal: Leos\Domain\Withdrawal\Model\RollbackWithdrawal
+        deposit: Leos\Domain\Payment\Model\Deposit
+        rollback_deposit: Leos\Domain\Payment\Model\RollbackDeposit
+        withdrawal: Leos\Domain\Payment\Model\Withdrawal
+        rollback_withdrawal: Leos\Domain\Payment\Model\RollbackWithdrawal
         create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
 
     properties:

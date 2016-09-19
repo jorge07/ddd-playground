@@ -1,10 +1,13 @@
 <?php
 
-namespace Leos\Domain\Money\ValueObject;
+namespace Tests\Leos\Domain\Money\ValueObject;
+
+use Leos\Domain\Money\ValueObject\Money;
+use Leos\Domain\Money\ValueObject\Currency;
 
 /**
  * Class MoneyTest
- * @package Leos\Domain\Money\ValueObject
+ * @package Tests\Leos\Domain\Money\ValueObject
  */
 class MoneyTest extends \PHPUnit_Framework_TestCase
 {

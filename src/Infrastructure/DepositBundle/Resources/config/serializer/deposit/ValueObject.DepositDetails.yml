@@ -1,6 +1,0 @@
-Leos\Domain\Deposit\ValueObject\DepositDetails:
-    exclusion_policy: ALL
-    properties:
-      provider:
-          type: string
-          groups: [Basic]

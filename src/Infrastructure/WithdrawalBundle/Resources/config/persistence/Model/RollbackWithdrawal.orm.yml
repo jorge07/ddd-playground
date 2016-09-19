@@ -1,5 +1,0 @@
-Leos\Domain\Withdrawal\Model\RollbackWithdrawal:
-    type: entity
-    fields:
-      details:
-        type: withdrawal_details

@@ -1,6 +1,0 @@
-Leos\Domain\Withdrawal\Model\Withdrawal:
-    properties:
-        details:
-            expose: true
-            groups: [Basic]
-            type: Leos\Domain\Withdrawal\ValueObject\WithdrawalDetails

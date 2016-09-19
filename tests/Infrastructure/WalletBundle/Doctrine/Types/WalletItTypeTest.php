@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Infrastructure\WalletBundle\Doctrine\Types;
+namespace Tests\Leos\Infrastructure\WalletBundle\Doctrine\Types;
 
 use Doctrine\DBAL\Types\Type;
 

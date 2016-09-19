@@ -1,0 +1,7 @@
+Leos\Domain\Payment\Model\RollbackWithdrawal:
+    properties:
+        details:
+            expose: true
+            groups: [Basic]
+            type: Leos\Domain\Payment\ValueObject\WithdrawalDetails
+
