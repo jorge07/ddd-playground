@@ -22,7 +22,7 @@ class DepositTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $transaction = new Deposit(
-            new Wallet(new WalletId()),
+            new Wallet(),
             new Money(10, new Currency('EUR', 1)),
             new DepositDetails('paypal')
         );

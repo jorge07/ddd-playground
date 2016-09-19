@@ -2,8 +2,6 @@
 
 namespace Tests\Leos\Domain\Wallet\Model;
 
-use Ramsey\Uuid\Uuid;
-
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Wallet\ValueObject\Credit;
 use Leos\Domain\Wallet\ValueObject\WalletId;
@@ -25,7 +23,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function testWalletGetters()
     {
-        $wallet = new Wallet(new WalletId($id = Uuid::uuid4()));
+        $wallet = new Wallet();
 
         $real = new Credit(100);
         $bonus = new Credit(100);
@@ -39,8 +37,9 @@ class WalletTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(100, $wallet->bonus()->amount());
         self::assertNotNull($wallet->createdAt());
         self::assertNull($wallet->updatedAt());
-        self::assertEquals($id, $wallet->id());
-        self::assertEquals($id, $wallet->walletId()->__toString());
+        self::assertInstanceOf(WalletId::class, $wallet->walletId());
+        self::assertNotNull($wallet->id());
+        self::assertNotNull($wallet->walletId()->__toString());
     }
 
     /**
@@ -48,7 +47,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function testWalletAdd()
     {
-        $wallet = new Wallet(new WalletId());
+        $wallet = new Wallet();
 
         $real = new Credit(100);
         $bonus = new Credit(100);
@@ -77,7 +76,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function testWalletRemove()
     {
-        $wallet = new Wallet(new WalletId());
+        $wallet = new Wallet();
 
         $real = new Credit(350);
         $bonus = new Credit(350);
@@ -109,7 +108,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     {
         try {
 
-            $wallet = new Wallet(new WalletId());
+            $wallet = new Wallet();
 
             $real = new Credit(350);
             $bonus = new Credit(350);
