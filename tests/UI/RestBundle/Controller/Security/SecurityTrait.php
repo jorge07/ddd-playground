@@ -12,7 +12,7 @@ trait SecurityTrait
     /**
      * @var string
      */
-    protected $accessToken= [];
+    protected $accessToken = [];
 
     /**
      * @param string $username

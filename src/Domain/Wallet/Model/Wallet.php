@@ -41,12 +41,10 @@ class Wallet
 
     /** 
      * Wallet constructor.
-     *
-     * @param WalletId $walletId
      */
-    public function __construct(WalletId $walletId = null)
+    public function __construct()
     {
-        $this->id = $walletId ?: new WalletId();
+        $this->id = new WalletId();
         $this->real = new Credit(0);
         $this->bonus = new Credit(0);
         $this->createdAt = new \DateTime();

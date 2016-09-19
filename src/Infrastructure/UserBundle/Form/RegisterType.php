@@ -73,7 +73,6 @@ class RegisterType extends AbstractType
             'empty_data' => function (FormInterface $form) {
 
                 return new User(
-                    new UserId(),
                     $form->get('username')->getViewData(),
                     $form->get('email')->getViewData(),
                     new EncodedPassword($form->get('password')->getViewData())

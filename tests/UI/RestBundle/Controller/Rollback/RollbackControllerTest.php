@@ -32,7 +32,7 @@ class RollbackControllerTest extends JsonApiTestCase
         }
 
         $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/Wallet";
-        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Behat/Context/Fixtures";
+        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Fixtures";
     }
 
     /**

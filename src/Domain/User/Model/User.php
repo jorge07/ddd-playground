@@ -46,9 +46,9 @@ class User
      * @param string $email
      * @param EncodedPasswordInterface $encodedPassword
      */
-    public function __construct(UserId $userId, string $username, string $email, EncodedPasswordInterface $encodedPassword)
+    public function __construct(string $username, string $email, EncodedPasswordInterface $encodedPassword)
     {
-        $this->uuid = $userId;
+        $this->uuid = new UserId();
         $this->auth = new AuthUser($username, $encodedPassword);
         $this->email = $email;
         $this->createdAt = new \DateTime();

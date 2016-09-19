@@ -23,7 +23,7 @@ class RollbackDepositTest extends \PHPUnit_Framework_TestCase
     {
         $transaction = new RollbackDeposit(
             new Deposit(
-                new Wallet(new WalletId()),
+                new Wallet(),
                 new Money(10, new Currency('EUR', 1)),
                 new DepositDetails('paypal')
             )

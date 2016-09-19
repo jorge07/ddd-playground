@@ -29,7 +29,7 @@ class SecurityTest extends JsonApiTestCase
         }
 
         $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/Security";
-        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Behat/Context/Fixtures";
+        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Fixtures";
     }
 
     /**
