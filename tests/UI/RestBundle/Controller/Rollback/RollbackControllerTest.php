@@ -126,6 +126,7 @@ class RollbackControllerTest extends JsonApiTestCase
         $response = $this->client->getResponse();
         self::assertEquals(202, $response->getStatusCode());
     }
+
     /**
      * @group functional
      */
@@ -155,10 +156,11 @@ class RollbackControllerTest extends JsonApiTestCase
         self::assertResponse($response, "withdrawal", 202);
 
         $this->client->request('POST', '/api/v1/rollback/deposit.json', [
-            'withdrawal' => json_decode($response->getContent(), true)['id']
+            'deposit' => json_decode($response->getContent(), true)['id']
         ]);
 
         $response = $this->client->getResponse();
         self::assertEquals(400, $response->getStatusCode());
+        self::assertContains('type', $response->getContent());
     }
 }
