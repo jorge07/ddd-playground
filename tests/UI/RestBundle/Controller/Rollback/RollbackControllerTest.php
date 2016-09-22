@@ -160,7 +160,7 @@ class RollbackControllerTest extends JsonApiTestCase
         ]);
 
         $response = $this->client->getResponse();
-        self::assertEquals(400, $response->getStatusCode());
+        self::assertEquals(409, $response->getStatusCode());
         self::assertContains('type', $response->getContent());
     }
 }

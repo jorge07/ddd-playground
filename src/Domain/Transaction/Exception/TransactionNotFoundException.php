@@ -2,12 +2,14 @@
 
 namespace Leos\Domain\Transaction\Exception;
 
+use Leos\Domain\Common\Exception\NotFoundException;
+
 /**
  * Class TransactionNotFoundException
  *
  * @package Leos\Domain\Transaction\Exception
  */
-class TransactionNotFoundException extends \Exception
+class TransactionNotFoundException extends NotFoundException
 {
 
     /**
