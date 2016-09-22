@@ -9,17 +9,11 @@ use Leos\Application\UseCase\User\UserCommand;
 
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\ValueObject\UserId;
-use Leos\Domain\User\Exception\NotFoundException;
-use Leos\Domain\Common\Exception\InvalidUUIDException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
-
-
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class UserController
@@ -72,17 +66,6 @@ class UserController extends AbstractController
      */
     public function getAction(string $uuid): User
     {
-        try {
-
-            return $this->query->get(new UserId($uuid));
-
-        } catch (NotFoundException $e) {
-
-            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
-            
-        } catch (InvalidUUIDException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-        }
+        return $this->query->get(new UserId($uuid));
     }
 }

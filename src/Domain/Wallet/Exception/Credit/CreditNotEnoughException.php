@@ -7,13 +7,13 @@ namespace Leos\Domain\Wallet\Exception\Credit;
  *
  * @package Domain\Wallet\Exception\Credit
  */
-class CreditNotEnoughException extends \LogicException
+class CreditNotEnoughException extends \Exception
 {
     /**
      * CreditNotEnoughException constructor.
      */
     public function __construct()
     {
-        parent::__construct('credit.exception.not_enough_founds', 4001, null);
+        parent::__construct('credit.exception.not_enough_founds', 4001);
     }
 }

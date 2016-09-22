@@ -7,7 +7,7 @@ namespace Leos\Domain\User\Exception;
  *
  * @package Leos\Domain\User\Exception
  */
-class NotFoundException extends \Exception
+class NotFoundException extends \Leos\Domain\Common\Exception\NotFoundException
 {
     /**
      * NotFoundException constructor.

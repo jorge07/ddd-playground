@@ -8,7 +8,7 @@ namespace Leos\Domain\Security\Exception;
  *
  * @package Leos\Domain\Security\Exception
  */
-class InvalidPasswordException extends \Exception
+class InvalidPasswordException extends \InvalidArgumentException
 {
     /**
      * InvalidPasswordException constructor.
