@@ -2,12 +2,14 @@
 
 namespace Leos\Domain\Wallet\Exception\Wallet;
 
+use Leos\Domain\Common\Exception\NotFoundException;
+
 /**
  * Class WalletNotFoundException
  * 
  * @package Leos\Domain\Wallet\Exception\Wallet
  */
-class WalletNotFoundException extends \Exception
+class WalletNotFoundException extends NotFoundException
 {
     /**
      * WalletNotFoundException constructor.

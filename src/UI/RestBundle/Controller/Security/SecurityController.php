@@ -10,8 +10,6 @@ use Leos\Application\UseCase\User\Request\RegisterDTO;
 use Leos\Application\UseCase\Security\Request\LoginDTO;
 
 use Leos\Domain\User\Model\User;
-use Leos\Domain\Security\Exception\InvalidPasswordException;
-use Leos\Domain\Security\Exception\AuthenticationException;
 
 use Leos\Infrastructure\CommonBundle\Exception\Form\FormException;
 
@@ -24,9 +22,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**
  * Class SecurityController
@@ -80,21 +76,14 @@ class SecurityController extends AbstractController
      */
     public function postLoginAction(ParamFetcher $fetcher)
     {
-        try {
-
-            return [
-                'token' => $this->securityCommand->login(
-                    new LoginDTO(
-                        $fetcher->get('_username'),
-                        $fetcher->get('_password')
-                    )
+        return [
+            'token' => $this->securityCommand->login(
+                new LoginDTO(
+                    $fetcher->get('_username'),
+                    $fetcher->get('_password')
                 )
-            ];
-
-        }catch (AuthenticationException $e) {
-
-            throw new UnauthorizedHttpException('login', $e->getMessage(), $e);
-        }
+            )
+        ];
     }
 
 
@@ -142,10 +131,6 @@ class SecurityController extends AbstractController
         } catch (UniqueConstraintViolationException $e) {
 
             throw new ConflictHttpException('user.exception.already_exist');
-
-        } catch (InvalidPasswordException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
         }
     }
 }

@@ -10,7 +10,6 @@ use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
 use Leos\Domain\Payment\Model\RollbackDeposit;
 use Leos\Domain\Payment\Model\RollbackWithdrawal;
-use Leos\Domain\Transaction\Exception\TransactionNotFoundException;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -18,9 +17,6 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
-
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class RollbackController
@@ -68,20 +64,9 @@ class RollbackController extends AbstractController
      */
     public function postDepositAction(ParamFetcher $fetcher): RollbackDeposit
     {
-        try {
-
-            $dto = new RollbackDepositDTO($fetcher->get('deposit'));
-
-            return $this->command->rollbackDeposit($dto);
-
-        } catch (TransactionNotFoundException $e) {
-
-            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (\InvalidArgumentException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-        }
+        return $this->command->rollbackDeposit(
+            new RollbackDepositDTO($fetcher->get('deposit'))
+        );
     }
 
     /**
@@ -106,20 +91,8 @@ class RollbackController extends AbstractController
      */
     public function postWithdrawalAction(ParamFetcher $fetcher): RollbackWithdrawal
     {
-        try{
-
-            $dto = new RollbackWithdrawalDTO($fetcher->get('withdrawal'));
-
-            return $this->command->rollbackWithdrawal($dto);
-
-        } catch (TransactionNotFoundException $e) {
-
-            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (\InvalidArgumentException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-
-        }
+        return $this->command->rollbackWithdrawal(
+            new RollbackWithdrawalDTO($fetcher->get('withdrawal'))
+        );
     }
 }

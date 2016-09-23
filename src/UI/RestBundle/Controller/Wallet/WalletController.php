@@ -15,8 +15,6 @@ use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
-use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
-use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
 use Leos\Infrastructure\CommonBundle\Pagination\PagerTrait;
 
@@ -31,9 +29,6 @@ use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Class WalletController
@@ -171,13 +166,7 @@ class WalletController extends AbstractController
      */
     public function getAction(string $walletId): Wallet
     {
-        try {
-            return $this->walletQuery->get(new WalletId($walletId));
-
-        } catch (WalletNotFoundException $e) {
-
-            throw new NotFoundHttpException($e->getMessage());
-        }
+        return $this->walletQuery->get(new WalletId($walletId));
     }
 
     /**
@@ -201,21 +190,13 @@ class WalletController extends AbstractController
      */
     public function postAction(ParamFetcher $fetcher)
     {
-        try {
+        $wallet = $this->transactionCommand->createWallet(
+            new CreateWalletDTO(
+                $fetcher->get('currency')
+            )
+        );
 
-            $wallet = $this->transactionCommand->createWallet(
-                new CreateWalletDTO(
-                    $fetcher->get('currency')
-                )
-            );
-
-            return $this->routeRedirectView('get_wallet', [ 'walletId' => $wallet->id() ]);
-
-        } catch (\InvalidArgumentException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-
-        }
+        return $this->routeRedirectView('get_wallet', [ 'walletId' => $wallet->id() ]);
     }
 
     /**
@@ -244,25 +225,14 @@ class WalletController extends AbstractController
      */
     public function postDepositAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
-        try {
-
-            return $this->transactionCommand->deposit(
-                new DepositDTO(
-                    new WalletId($uid),
-                    new Currency($fetcher->get('currency')),
-                    (float) $fetcher->get('real'),
-                    $fetcher->get('provider')
-                )
-            );
-
-        } catch (WalletNotFoundException $e) {
-
-            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (\InvalidArgumentException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-        }
+        return $this->transactionCommand->deposit(
+            new DepositDTO(
+                new WalletId($uid),
+                new Currency($fetcher->get('currency')),
+                (float) $fetcher->get('real'),
+                $fetcher->get('provider')
+            )
+        );
     }
 
     /**
@@ -292,28 +262,14 @@ class WalletController extends AbstractController
      */
     public function postWithdrawalAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
-        try {
 
-            return $this->transactionCommand->withdrawal(
-                new WithdrawalDTO(
-                    new WalletId($uid),
-                    new Currency($fetcher->get('currency')),
-                    (float) $fetcher->get('real'),
-                    $fetcher->get('provider')
-                )
-            );
-
-        } catch (WalletNotFoundException $e) {
-
-            throw new NotFoundHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (\InvalidArgumentException $e) {
-
-            throw new BadRequestHttpException($e->getMessage(), $e, $e->getCode());
-
-        } catch (CreditNotEnoughException $e) {
-
-            throw new ConflictHttpException($e->getMessage(), $e, $e->getCode());
-        }
+        return $this->transactionCommand->withdrawal(
+            new WithdrawalDTO(
+                new WalletId($uid),
+                new Currency($fetcher->get('currency')),
+                (float) $fetcher->get('real'),
+                $fetcher->get('provider')
+            )
+        );
     }
 }
