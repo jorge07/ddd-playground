@@ -41,6 +41,7 @@ clean-build:
   stage: clean
   script:
     - docker-compose -f build/docker-compose.yml down --rmi local --volumes
+  when: on_failure
 
 release:tags:
   stage: release

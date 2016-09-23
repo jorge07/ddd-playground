@@ -57,11 +57,11 @@
         <delete dir="${project.basedir}/var/cache/test"/>
         <exec executable="php">
             <arg value="${consoledir}/console"/>
-            <arg value="cache:clear"/>
+            <arg value="cache:w"/>
         </exec>
         <exec executable="php">
             <arg value="${consoledir}/console"/>
-            <arg value="cache:clear"/>
+            <arg value="cache:w"/>
             <arg value="--env=test"/>
         </exec>
     </target>

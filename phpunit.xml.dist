@@ -19,7 +19,6 @@
     </testsuites>
     <logging>
         <log type="coverage-html" target="report/report" lowUpperBound="35" highLowerBound="70"/>
-        <log type="coverage-clover" target="report/coverage.xml"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
     <filter>
