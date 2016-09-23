@@ -70,6 +70,7 @@
         <exec executable="${bindir}/phpunit" failonerror="true">
             <arg value="-c"/>
             <arg path="${workspace}/phpunit.xml.dist"/>
+            <arg value="--no-colors"/>
         </exec>
     </target>
 
