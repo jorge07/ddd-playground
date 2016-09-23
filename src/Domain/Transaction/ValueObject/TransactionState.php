@@ -16,30 +16,4 @@ class TransactionState
         PENDING = 'pending',
         REVERTED = 'reverted'
     ;
-
-    /**
-     * @param AbstractTransaction $transaction
-     *
-     * @return void
-     */
-    public static function confirm(AbstractTransaction $transaction)
-    {
-        if ($transaction->is() === static::PENDING) {
-
-            $transaction->setState(static::ACTIVE);
-        }
-    }
-
-    /**
-     * @param AbstractTransaction $transaction
-     *
-     * @return void
-     */
-    public static function rollback(AbstractTransaction $transaction)
-    {
-        if ($transaction->is() === static::ACTIVE) {
-
-            $transaction->setState(static::REVERTED);
-        }
-    }
 }

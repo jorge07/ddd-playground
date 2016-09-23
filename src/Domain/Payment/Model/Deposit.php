@@ -35,7 +35,7 @@ class Deposit extends AbstractTransaction
      */
     public function rollback(): RollbackDeposit
     {
-        TransactionState::rollback($this);
+        $this->setState(TransactionState::REVERTED);
 
         return new RollbackDeposit($this);
     }

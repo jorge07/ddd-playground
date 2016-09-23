@@ -34,7 +34,7 @@ class Withdrawal extends AbstractTransaction
      */
     public function rollback(): RollbackWithdrawal
     {
-        TransactionState::rollback($this);
+        $this->setState(TransactionState::REVERTED);
 
         return new RollbackWithdrawal($this);
     }
