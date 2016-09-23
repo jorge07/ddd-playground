@@ -195,7 +195,7 @@ abstract class AbstractTransaction
      *
      * @return AbstractTransaction
      */
-    public function setState(string $newState): self
+    final protected function setState(string $newState): self
     {
         $this->state = $newState;
 
