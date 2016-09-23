@@ -5,8 +5,9 @@ namespace Leos\Domain\Payment\Model;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
-use Leos\Domain\Transaction\ValueObject\TransactionType;
 use Leos\Domain\Payment\ValueObject\WithdrawalDetails;
+use Leos\Domain\Transaction\ValueObject\TransactionState;
+use Leos\Domain\Transaction\ValueObject\TransactionType;
 
 /**
  * Class Withdrawal
@@ -33,6 +34,8 @@ class Withdrawal extends AbstractTransaction
      */
     public function rollback(): RollbackWithdrawal
     {
+        TransactionState::rollback($this);
+
         return new RollbackWithdrawal($this);
     }
 

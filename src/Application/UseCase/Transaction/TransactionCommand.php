@@ -5,20 +5,21 @@ namespace Leos\Application\UseCase\Transaction;
 use Leos\Application\UseCase\Wallet\WalletQuery;
 use Leos\Application\UseCase\Transaction\Request\DepositDTO;
 use Leos\Application\UseCase\Transaction\Request\WithdrawalDTO;
-use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
 use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
+use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
 use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
-use Leos\Domain\Payment\ValueObject\DepositDetails;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Payment\Model\Deposit;
 use Leos\Domain\Payment\Model\Withdrawal;
 use Leos\Domain\Wallet\Factory\WalletFactory;
 use Leos\Domain\Payment\Model\RollbackDeposit;
 use Leos\Domain\Payment\Model\RollbackWithdrawal;
+use Leos\Domain\Payment\ValueObject\DepositDetails;
+use Leos\Domain\Payment\ValueObject\WithdrawalDetails;
+
 use Leos\Domain\Transaction\Exception\InvalidTransactionTypeException;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
-use Leos\Domain\Payment\ValueObject\WithdrawalDetails;
 
 /**
  * Class TransactionCommand
@@ -56,13 +57,13 @@ class TransactionCommand
      */
     public function withdrawal(WithdrawalDTO $dto): Withdrawal
     {
-        $transaction = new Withdrawal(
-            $this->walletQuery->get($dto->walletId()),
-            $dto->real(),
-            new WithdrawalDetails($dto->provider())
+        $this->repository->save(
+            $transaction = new Withdrawal(
+                $this->walletQuery->get($dto->walletId()),
+                $dto->real(),
+                new WithdrawalDetails($dto->provider())
+            )
         );
-
-        $this->repository->save($transaction);
 
         return $transaction;
     }
@@ -81,9 +82,9 @@ class TransactionCommand
             throw new InvalidTransactionTypeException();
         }
 
-        $rollback = $withdrawal->rollback();
-
-        $this->repository->save($rollback);
+        $this->repository->save(
+            $rollback = $withdrawal->rollback()
+        );
 
         return $rollback;
     }
