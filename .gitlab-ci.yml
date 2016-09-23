@@ -14,6 +14,9 @@ build:
   stage: build
   script:
     - mkdir -p context-${RELEASE}/build
+    - docker pull jorge07/alpine-php:7
+    - docker pull jorge07/alpine-php:7-dev
+    - docker-compose pull
     - docker-compose -f build/docker-compose.yml build
     - docker-compose -f build/docker-compose.yml up -d
     - docker exec sf-build-${RELEASE} ant build
