@@ -22,8 +22,6 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
      * @return AbstractTransaction
      *
      * @throws TransactionNotFoundException
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get(TransactionId $transactionId): AbstractTransaction
     {

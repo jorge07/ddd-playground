@@ -7,13 +7,15 @@ stages:
 
 before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
-  - connect
   - cd etc/infrastructure
 
 build:
   stage: build
   script:
     - mkdir -p context-${RELEASE}/build
+    - docker pull jorge07/alpine-php:7
+    - docker pull jorge07/alpine-php:7-dev
+    - docker-compose -f build/docker-compose.yml pull
     - docker-compose -f build/docker-compose.yml build
     - docker-compose -f build/docker-compose.yml up -d
     - docker exec sf-build-${RELEASE} ant build
@@ -38,6 +40,7 @@ clean-build:
   stage: clean
   script:
     - docker-compose -f build/docker-compose.yml down --rmi local --volumes
+  when: always
 
 release:tags:
   stage: release

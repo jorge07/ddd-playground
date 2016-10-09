@@ -42,11 +42,6 @@
             <arg value="--no-interaction"/>
         </exec>
 
-        <exec executable="php" failonerror="true">
-            <arg value="${consoledir}/console"/>
-            <arg value="doctrine:schema:validate"/>
-        </exec>
-
     </target>
 
     <target name="apidoc" description="Dump an HTML file with the API documentation">
@@ -62,11 +57,11 @@
         <delete dir="${project.basedir}/var/cache/test"/>
         <exec executable="php">
             <arg value="${consoledir}/console"/>
-            <arg value="cache:clear"/>
+            <arg value="cache:w"/>
         </exec>
         <exec executable="php">
             <arg value="${consoledir}/console"/>
-            <arg value="cache:clear"/>
+            <arg value="cache:w"/>
             <arg value="--env=test"/>
         </exec>
     </target>

@@ -35,7 +35,14 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
       operationBonus:
         type: integer
 
+      state:
+        type: string
+
     embedded:
+
+      type:
+        class: Leos\Domain\Transaction\ValueObject\TransactionType
+
       prevReal:
         class: Leos\Domain\Wallet\ValueObject\Credit
 

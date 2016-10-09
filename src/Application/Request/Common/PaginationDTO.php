@@ -29,6 +29,7 @@ class PaginationDTO
      * @var array
      */
     private $values = [];
+
     /**
      * @var array
      */

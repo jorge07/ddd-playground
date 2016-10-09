@@ -12,6 +12,8 @@ services:
       context: ../../../
       dockerfile: etc/infrastructure/build/nginx/Dockerfile
     container_name: nginx-${RELEASE}
+    ports:
+      - "80:80"
     networks:
       - test
     depends_on:
@@ -21,6 +23,9 @@ services:
       context: ../../../
       dockerfile: etc/infrastructure/build/fpm/Dockerfile.test
     container_name: sf-build-${RELEASE}
+    ports:
+      - "2244:22"
+      - "9000:9000"
     networks:
       - test
     depends_on:

@@ -2,15 +2,17 @@
 
 namespace Leos\Domain\User\Exception;
 
+use Leos\Domain\Common\Exception\NotFoundException;
+
 /**
- * Class NotFoundException
+ * Class UserNotFoundException
  *
  * @package Leos\Domain\User\Exception
  */
-class NotFoundException extends \Leos\Domain\Common\Exception\NotFoundException
+class UserNotFoundException extends NotFoundException
 {
     /**
-     * NotFoundException constructor.
+     * UserNotFoundException constructor.
      */
     public function __construct()
     {

@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Leos\Domain\Transaction\Model;
 
 use Leos\Domain\Wallet\Model\Wallet;
+use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Wallet\ValueObject\Credit;
 use Leos\Domain\Money\ValueObject\Currency;
-
-use Leos\Domain\Money\ValueObject\Money;
-
 use Leos\Domain\Transaction\ValueObject\TransactionId;
 use Leos\Domain\Transaction\ValueObject\TransactionType;
+use Leos\Domain\Transaction\ValueObject\TransactionState;
+use Leos\Domain\Transaction\Exception\InvalidTransactionStateException;
 
 /**
  * Class Transaction
@@ -26,10 +26,13 @@ abstract class AbstractTransaction
 
     /**
      * @var TransactionType
-     *
-     * @internal
      */
-    private $type;
+    protected $type;
+
+    /**
+     * @var string
+     */
+    private $state;
 
     /**
      * @var Credit
@@ -99,6 +102,7 @@ abstract class AbstractTransaction
         $this->id = new TransactionId();
         $this->type = new TransactionType($type);
         $this->wallet = $wallet;
+        $this->state = TransactionState::PENDING;
         $this->prevReal = $wallet->real();
         $this->prevBonus = $wallet->bonus();
         $this->currency = $real->currency();
@@ -148,7 +152,8 @@ abstract class AbstractTransaction
      */
     public function realMoney(): Money
     {
-        return (new Credit(abs($this->operationReal)))->toMoney($this->currency());
+        return (new Credit((int) abs($this->operationReal)))
+            ->toMoney($this->currency());
     }
 
     /**
@@ -156,7 +161,8 @@ abstract class AbstractTransaction
      */
     public function bonusMoney(): Money
     {
-        return (new Credit(abs($this->operationBonus)))->toMoney($this->currency());
+        return (new Credit((int) abs($this->operationBonus)))
+            ->toMoney($this->currency());
     }
     
     /**
@@ -173,6 +179,32 @@ abstract class AbstractTransaction
     public function type(): TransactionType
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function is()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param string $newState
+     *
+     * @return AbstractTransaction
+     * @throws InvalidTransactionStateException
+     */
+    final protected function setState(string $newState): self
+    {
+        if (!TransactionState::can($this, $newState)) {
+
+            throw new InvalidTransactionStateException();
+        }
+
+        $this->state = $newState;
+
+        return $this;
     }
 
     /**
@@ -274,5 +306,9 @@ abstract class AbstractTransaction
         $this->referralTransaction = $referralTransaction;
 
         return $this;
+    }
+
+    public function rollback()
+    {
     }
 }

@@ -227,8 +227,8 @@ class WalletController extends AbstractController
     {
         return $this->transactionCommand->deposit(
             new DepositDTO(
-                new WalletId($uid),
-                new Currency($fetcher->get('currency')),
+                $uid,
+                $fetcher->get('currency'),
                 (float) $fetcher->get('real'),
                 $fetcher->get('provider')
             )
@@ -262,11 +262,10 @@ class WalletController extends AbstractController
      */
     public function postWithdrawalAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
-
         return $this->transactionCommand->withdrawal(
             new WithdrawalDTO(
-                new WalletId($uid),
-                new Currency($fetcher->get('currency')),
+                $uid,
+                $fetcher->get('currency'),
                 (float) $fetcher->get('real'),
                 $fetcher->get('provider')
             )

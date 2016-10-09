@@ -2,6 +2,7 @@
 
 namespace Leos\Domain\Payment\Model;
 
+use Leos\Domain\Transaction\ValueObject\TransactionState;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Payment\ValueObject\DepositDetails;
@@ -25,7 +26,7 @@ class Deposit extends AbstractTransaction
     public function __construct(Wallet $wallet, Money $real, DepositDetails $details)
     {
         parent::__construct(TransactionType::DEPOSIT, $wallet, $real, new Money(0, $real->currency()));
-
+        $this->setState(TransactionState::ACTIVE);
         $this->details = $details;
     }
 
@@ -34,6 +35,8 @@ class Deposit extends AbstractTransaction
      */
     public function rollback(): RollbackDeposit
     {
+        $this->setState(TransactionState::REVERTED);
+
         return new RollbackDeposit($this);
     }
 

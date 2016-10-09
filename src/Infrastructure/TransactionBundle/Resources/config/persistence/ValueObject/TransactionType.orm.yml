@@ -1,0 +1,5 @@
+Leos\Domain\Transaction\ValueObject\TransactionType:
+  type: embeddable
+  fields:
+    type:
+      type: string

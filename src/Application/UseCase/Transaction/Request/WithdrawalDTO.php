@@ -2,9 +2,10 @@
 
 namespace Leos\Application\UseCase\Transaction\Request;
 
-use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\ValueObject\Money;
+use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
+use Leos\Domain\Payment\Exception\MinWithdrawalAmountException;
 
 /**
  * Class WithdrawalDTO
@@ -28,29 +29,27 @@ class WithdrawalDTO
     private $provider;
 
     /**
-     * WithdrawalDTO constructor.
-     *
-     * @param WalletId $uid
-     * @param Currency $currency
+     * @param string $uid
+     * @param string $currency
      * @param float $amountReal
      * @param string $provider
      */
-    public function __construct(WalletId $uid, Currency $currency, float $amountReal, string $provider)
+    public function __construct(string $uid, string $currency, float $amountReal, string $provider)
     {
-        $this->uid = $uid;
-        $this->setReal($amountReal, $currency);
+        $this->uid = new WalletId($uid);
+        $this->setReal($amountReal, new Currency($currency));
         $this->provider = $provider;
     }
 
     /**
      * @param float $amount
      * @param Currency $currency
-     *
      */
     protected function setReal(float $amount, Currency $currency)
     {
         if (0.00 >= $amount) {
-            // TODO add exception
+
+            throw new MinWithdrawalAmountException();
         }
 
         $this->real = new Money($amount, $currency);
