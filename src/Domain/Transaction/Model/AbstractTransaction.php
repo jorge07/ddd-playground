@@ -302,4 +302,8 @@ abstract class AbstractTransaction
 
         return $this;
     }
+
+    public function rollback()
+    {
+    }
 }

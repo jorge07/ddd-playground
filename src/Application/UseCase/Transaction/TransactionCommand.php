@@ -72,6 +72,7 @@ class TransactionCommand
      * @param RollbackWithdrawalDTO $dto
      *
      * @return RollbackWithdrawal
+     * @throws InvalidTransactionTypeException
      */
     public function rollbackWithdrawal(RollbackWithdrawalDTO $dto): RollbackWithdrawal
     {

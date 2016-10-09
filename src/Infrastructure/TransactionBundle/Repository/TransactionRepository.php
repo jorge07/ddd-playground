@@ -22,13 +22,11 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
      * @return AbstractTransaction
      *
      * @throws TransactionNotFoundException
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get(TransactionId $transactionId): AbstractTransaction
     {
         $transaction = $this->createQueryBuilder('transaction')
-            ->where('transaction.id = :id')
+            ->where('transaction. = :id')
             ->setParameter('id', $transactionId->bytes())
             ->getQuery()
             ->getOneOrNullResult()
