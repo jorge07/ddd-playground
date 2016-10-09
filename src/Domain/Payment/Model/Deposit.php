@@ -26,7 +26,7 @@ class Deposit extends AbstractTransaction
     public function __construct(Wallet $wallet, Money $real, DepositDetails $details)
     {
         parent::__construct(TransactionType::DEPOSIT, $wallet, $real, new Money(0, $real->currency()));
-
+        $this->setState(TransactionState::ACTIVE);
         $this->details = $details;
     }
 

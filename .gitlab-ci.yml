@@ -7,7 +7,6 @@ stages:
 
 before_script:
   - export RELEASE=${CI_BUILD_REF_NAME}
-  - connect
   - cd etc/infrastructure
 
 build:

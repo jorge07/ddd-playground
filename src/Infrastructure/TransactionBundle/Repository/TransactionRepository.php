@@ -26,7 +26,7 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
     public function get(TransactionId $transactionId): AbstractTransaction
     {
         $transaction = $this->createQueryBuilder('transaction')
-            ->where('transaction. = :id')
+            ->where('transaction.id = :id')
             ->setParameter('id', $transactionId->bytes())
             ->getQuery()
             ->getOneOrNullResult()

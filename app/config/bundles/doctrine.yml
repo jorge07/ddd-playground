@@ -30,6 +30,12 @@ doctrine:
                 dir: '%kernel.root_dir%/../src/Infrastructure/TransactionBundle/Resources/config/persistence/Model'
                 is_bundle: false
 
+            TransactionValueObject:
+                type: yml
+                prefix: Leos\Domain\Transaction\ValueObject
+                dir: '%kernel.root_dir%/../src/Infrastructure/TransactionBundle/Resources/config/persistence/ValueObject'
+                is_bundle: false
+
             Payment:
                 type: yml
                 prefix: Leos\Domain\Payment\Model

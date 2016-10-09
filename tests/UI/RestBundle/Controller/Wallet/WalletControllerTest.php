@@ -165,6 +165,34 @@ class WalletControllerTest extends JsonApiTestCase
     /**
      * @group functional
      */
+    public function testWithdrawalShouldFailWhenMinAmountAction()
+    {
+        $this->loginClient('jorge', 'iyoque123');
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'currency' => 'EUR'
+        ]);
+
+        $response = $this->client->getResponse();
+        self::assertEquals(201, $response->getStatusCode());
+
+        $this->client->request('POST', $response->headers->get('location') . '/deposit.json', [
+            'real' => 50,
+            'provider' => 'paypal'
+        ]);
+
+        $this->client->request('POST', $response->headers->get('location') . '/withdrawal.json', [
+            'real' => 0,
+            'provider' => 'paypal'
+        ]);
+
+        self::assertEquals($this->client->getResponse()->getStatusCode(), 400);
+        self::assertContains('amount_must_be_higher_than_0', $this->client->getResponse()->getContent());
+    }
+
+    /**
+     * @group functional
+     */
     public function testDepositWrongCurrencyAction()
     {
         $this->loginClient('jorge', 'iyoque123');

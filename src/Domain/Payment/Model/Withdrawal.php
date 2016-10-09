@@ -26,6 +26,7 @@ class Withdrawal extends AbstractTransaction
     public function __construct(Wallet $wallet, Money $real, WithdrawalDetails $details)
     {
         parent::__construct(TransactionType::WITHDRAWAL, $wallet, $real, new Money(0, $real->currency()));
+        $this->setState(TransactionState::ACTIVE);
         $this->details = $details;
     }
 

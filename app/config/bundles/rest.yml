@@ -41,9 +41,12 @@ fos_rest:
 
             'Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException': 409
             'Leos\Domain\Transaction\Exception\InvalidTransactionTypeException': 409
+            'Leos\Domain\Transaction\Exception\InvalidTransactionStateException': 409
+
         messages:
             '\InvalidArgumentException': true
             'Leos\Domain\Common\Exception\NotFoundException': true
             'Leos\Domain\Security\Exception\AuthenticationException': true
             'Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException': true
             'Leos\Domain\Transaction\Exception\InvalidTransactionTypeException': true
+            'Leos\Domain\Transaction\Exception\InvalidTransactionStateException': true

@@ -112,6 +112,7 @@ class TransactionCommand
      * @param RollbackDepositDTO $dto
      *
      * @return RollbackDeposit
+     * @throws InvalidTransactionTypeException
      */
     public function rollbackDeposit(RollbackDepositDTO $dto): RollbackDeposit
     {

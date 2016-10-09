@@ -28,7 +28,7 @@ class TransactionState
         $can = false;
 
         $current = $transaction->is();
-        $type = $transaction->type();
+        $type = (string) $transaction->type();
 
         switch ($new) {
 
@@ -37,12 +37,11 @@ class TransactionState
                 break;
             case self::PENDING:
 
-                $can = self::canWait($current);
+                $can = self::canWait($current, $type);
                 break;
             case self::REVERTED:
-                $can = self::canRevert($current);
+                $can = self::canRevert($current, $type);
                 break;
-
         }
 
         return $can;
@@ -55,26 +54,34 @@ class TransactionState
      */
     private static function canActivate(string $state): bool
     {
-        return $state === static::REVERTED;
+        return $state !== static::REVERTED;
     }
 
     /**
      * @param string $state
+     * @param string $type
      *
      * @return bool
      */
-    private static function canRevert(string $state): bool
+    private static function canRevert(string $state, string $type): bool
     {
-        return $state === static::ACTIVE;
+        return $state === static::ACTIVE && !in_array($type, [
+            TransactionType::ROLLBACK_DEPOSIT,
+            TransactionType::ROLLBACK_WITHDRAWAL
+        ]);
     }
 
     /**
      * @param string $state
+     * @param string $type
      *
      * @return bool
      */
-    private static function canWait(string $state): bool
+    private static function canWait(string $state, string $type): bool
     {
-        return $state === static::ACTIVE;
+        return $state === static::ACTIVE && !in_array($type, [
+            TransactionType::ROLLBACK_DEPOSIT,
+            TransactionType::ROLLBACK_WITHDRAWAL
+        ]);
     }
 }

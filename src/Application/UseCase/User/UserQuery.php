@@ -2,9 +2,9 @@
 
 namespace Leos\Application\UseCase\User;
 
-use Leos\Domain\User\Exception\NotFoundException;
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\ValueObject\UserId;
+use Leos\Domain\User\Exception\UserNotFoundException;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 
 /**
@@ -31,7 +31,7 @@ class UserQuery
     /**
      * @param UserId $userId
      * @return User
-     * @throws NotFoundException
+     * @throws UserNotFoundException
      */
     public function get(UserId $userId): User
     {
@@ -39,7 +39,7 @@ class UserQuery
 
         if (!$user) {
 
-            throw new NotFoundException();
+            throw new UserNotFoundException();
         }
 
         return $user;

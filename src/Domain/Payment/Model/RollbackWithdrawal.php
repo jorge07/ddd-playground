@@ -3,6 +3,7 @@
 namespace Leos\Domain\Payment\Model;
 
 use Leos\Domain\Transaction\Model\AbstractTransaction;
+use Leos\Domain\Transaction\ValueObject\TransactionState;
 use Leos\Domain\Transaction\ValueObject\TransactionType;
 
 /**
@@ -26,6 +27,7 @@ class RollbackWithdrawal extends AbstractTransaction
             $withdrawal->bonusMoney()
         );
 
+        $this->setState(TransactionState::ACTIVE);
         $this->setReferralTransaction($withdrawal);
         $this->setDetails($withdrawal->details());
     }
