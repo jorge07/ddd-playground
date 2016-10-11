@@ -39,7 +39,7 @@ aceptation:
 clean-build:
   stage: clean
   script:
-    - docker-compose -f build/docker-compose.yml down --rmi local --volumes
+    - docker-compose -f build/docker-compose.yml down --volumes
   when: always
 
 release:tags:
