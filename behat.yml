@@ -32,6 +32,7 @@ default:
                     path: http://nginx
                     basePath: %paths.base%
                     responsesPath: %paths.base%/tests/UI/Responses/Wallet
+
         monitor:
             paths:
                 - "%paths.base%/tests/UI/Behat/Features/Monitor"
