@@ -2,6 +2,8 @@
 
 namespace Tests\Leos\UI\RestBundle\Controller\Security;
 
+use Leos\Domain\User\Model\User;
+
 /**
  * Class SecurityTrait
  *
@@ -15,14 +17,23 @@ trait SecurityTrait
     protected $accessToken = [];
 
     /**
+     * @var User[]
+     */
+    protected $users = [];
+
+    /**
      * @param string $username
      * @param string $password
+     * @param bool $fixture
+     *
      */
-    public function loginClient(string $username, string $password)
+    public function loginClient(string $username, string $password, bool $fixture = true)
     {
         if (!isset($this->accessToken[$username])) {
 
-            $this->loadFixturesFromDirectory('user');
+            if ($fixture) {
+                $this->users = $this->loadFixturesFromDirectory('user');
+            }
 
             $this->client->request('POST', '/auth/login.json', [
                 '_username' => $username,

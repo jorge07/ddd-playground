@@ -9,6 +9,7 @@ use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
 use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
 use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
 
+use Leos\Domain\User\Repository\UserRepositoryInterface;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Payment\Model\Deposit;
 use Leos\Domain\Payment\Model\Withdrawal;
@@ -37,17 +38,21 @@ class TransactionCommand
      * @var WalletQuery
      */
     private $walletQuery;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $userRepository;
 
     /**
-     * TransactionCommand constructor.
-     *
      * @param TransactionRepositoryInterface $repository
+     * @param UserRepositoryInterface $userRepository
      * @param WalletQuery $walletQuery
      */
-    public function __construct(TransactionRepositoryInterface $repository, WalletQuery $walletQuery)
+    public function __construct(TransactionRepositoryInterface $repository, UserRepositoryInterface $userRepository, WalletQuery $walletQuery)
     {
         $this->repository = $repository;
         $this->walletQuery = $walletQuery;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -137,7 +142,10 @@ class TransactionCommand
      */
     public function createWallet(CreateWalletDTO $dto): Wallet
     {
-        $transaction = new WalletFactory($dto->currency());
+        $transaction = new WalletFactory(
+            $this->userRepository->findById($dto->userId()),
+            $dto->currency()
+        );
 
         $this->repository->save($transaction);
 

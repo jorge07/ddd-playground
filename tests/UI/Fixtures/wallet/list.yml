@@ -1,3 +1,6 @@
+include:
+  - ../user/list.yml
+
 Leos\Domain\Money\ValueObject\Currency:
     EUR:
       __construct: ['EUR']
@@ -28,12 +31,12 @@ Leos\Domain\Wallet\ValueObject\WalletId:
 
 Leos\Domain\Wallet\Model\Wallet:
     wallet1:
-      __construct: ['@wallet-id-1']
+      __construct: ['@jorge', '@wallet-id-1']
       addRealmoney: ['@money-05']
     wallet2:
-      __construct: ['@wallet-id-2']
+      __construct: ['@marcel', '@wallet-id-2']
       addRealmoney: ['@money-50']
       addBonusmoney: ['@money-50']
     wallet3:
-      __construct: ['@wallet-id-3']
+      __construct: ['@sebas', '@wallet-id-3']
       addBonusmoney: ['@money-100']

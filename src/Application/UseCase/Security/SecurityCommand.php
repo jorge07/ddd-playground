@@ -76,7 +76,9 @@ class SecurityCommand
             throw new AuthenticationException();
         }
 
-        $encoder = $this->encoderFactory->getEncoder($authUser = new Auth($user->auth()));
+        $authUser = new Auth($user->id()->__toString(), $user->auth());
+
+        $encoder = $this->encoderFactory->getEncoder($authUser);
 
         if (!$encoder->isPasswordValid($authUser->getPassword(), $dto->plainPassword(), $authUser->getSalt())) {
 

@@ -42,7 +42,11 @@ class RollbackControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST', '/api/v1/wallet.json');
+        $userId = $this->users['jorge']->id()->__toString();
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'userId' => $userId
+        ]);
 
         $response = $this->client->getResponse();
         self::assertEquals(201, $response->getStatusCode());
@@ -98,9 +102,12 @@ class RollbackControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
+
 
         $response = $this->client->getResponse();
         self::assertEquals(201, $response->getStatusCode());
@@ -134,8 +141,10 @@ class RollbackControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();

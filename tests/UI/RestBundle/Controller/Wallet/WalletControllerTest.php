@@ -42,7 +42,11 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST', '/api/v1/wallet.json');
+        $userId = $this->users['jorge']->id()->__toString();
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'userId' => $userId
+        ]);
 
         $response = $this->client->getResponse();
 
@@ -58,9 +62,10 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 50,
-            'bonus' => 25,
+            'userId' => $userId,
             'currency' => 'EURAZO'
         ]);
 
@@ -87,7 +92,11 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST', '/api/v1/wallet.json');
+        $userId = $this->users['jorge']->id()->__toString();
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'userId' => $userId
+        ]);
 
         $response = $this->client->getResponse();
         self::assertEquals(201, $response->getStatusCode());
@@ -142,8 +151,10 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -169,8 +180,10 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -197,8 +210,10 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -223,8 +238,10 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -283,10 +300,10 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 50,
-            'bonus' => 25,
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -338,9 +355,9 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testWalletCollectionAction()
     {
-        $this->loginClient('jorge', 'iyoque123');
-        
         $this->loadFixturesFromDirectory('wallet');
+
+        $this->loginClient('jorge', 'iyoque123', false);
 
         $this->client->request('GET',  '/api/v1/wallet.json');
 
@@ -352,9 +369,10 @@ class WalletControllerTest extends JsonApiTestCase
      */
     public function testWalletCollectionFilterAction()
     {
-        $this->loginClient('jorge', 'iyoque123');
-
         $this->loadFixturesFromDirectory('wallet');
+
+        $this->loginClient('jorge', 'iyoque123', false);
+
         $this->client->request('GET',  '/api/v1/wallet.json?filterParam[]=real.amount&filterOp[]=eq&filterValue[]=50');
 
         self::assertResponse($this->client->getResponse(), "cget_wallet_filter_50", 200);

@@ -39,9 +39,6 @@ class User
     private $updatedAt;
 
     /**
-     * User constructor.
-     * 
-     * @param UserId $userId
      * @param string $username
      * @param string $email
      * @param EncodedPasswordInterface $encodedPassword

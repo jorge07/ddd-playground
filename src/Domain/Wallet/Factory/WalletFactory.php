@@ -2,6 +2,7 @@
 
 namespace Leos\Domain\Wallet\Factory;
 
+use Leos\Domain\User\Model\User;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
@@ -16,13 +17,12 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
 class WalletFactory extends AbstractTransaction
 {
     /**
-     * WalletFactory constructor.
-     *
+     * @param User $user
      * @param Currency $currency
      */
-    public function __construct(Currency $currency)
+    public function __construct(User $user, Currency $currency)
     {
-        parent::__construct(TransactionType::CREATE_WALLET, new Wallet(), new Money(0, $currency), new Money(0, $currency));
+        parent::__construct(TransactionType::CREATE_WALLET, new Wallet($user), new Money(0, $currency), new Money(0, $currency));
     }
 
     /**

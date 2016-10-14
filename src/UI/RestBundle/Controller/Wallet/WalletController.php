@@ -12,7 +12,6 @@ use Leos\Application\UseCase\Transaction\TransactionCommand;
 use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
 
 use Leos\Domain\Wallet\Model\Wallet;
-use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
 
@@ -180,7 +179,8 @@ class WalletController extends AbstractController
      *     }
      * )
      *
-     * @RequestParam(name="currency",   default="EUR",  description="The currency of the wallet")
+     * @RequestParam(name="userId",   default="none", description="The user identifier")
+     * @RequestParam(name="currency", default="EUR",  description="The currency of the wallet")
      *
      * @View(statusCode=201)
      *
@@ -192,6 +192,7 @@ class WalletController extends AbstractController
     {
         $wallet = $this->transactionCommand->createWallet(
             new CreateWalletDTO(
+                $fetcher->get('userId'),
                 $fetcher->get('currency')
             )
         );

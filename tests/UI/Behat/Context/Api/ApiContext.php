@@ -59,6 +59,8 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
      */
     private $httpFoundationFactory;
 
+    protected $fixtures = [];
+
     /**
      * ApiContext constructor.
      *
@@ -110,7 +112,10 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     public function iSendAToWith($method, $uri, PyStringNode $string)
     {
         $this->request($method, $uri, [
-            RequestOptions::JSON => json_decode($string->getRaw(), true)
+            RequestOptions::JSON => json_decode(
+                $this->placeholders($string->getRaw()),
+                true
+            )
         ]);
 
     }
@@ -254,4 +259,12 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
         }
     }
 
+    final protected function placeholders(string $string): string
+    {
+        foreach($this->fixtures as $key => $value){
+            $string = str_replace('%' . $key . '%', $value, $string);
+        }
+
+        return $string;
+    }
 }

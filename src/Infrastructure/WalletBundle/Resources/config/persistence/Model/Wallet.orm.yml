@@ -22,4 +22,15 @@ Leos\Domain\Wallet\Model\Wallet:
       bonus:
         class: Leos\Domain\Wallet\ValueObject\Credit
 
+    manyToOne:
+      user:
+        targetEntity: Leos\Domain\User\Model\User
+        joinColumn:
+          name: user
+          referencedColumnName: uuid
+          nullable: false
+          onDelete: CASCADE
+        cascade:
+          - all
+
     lifecycleCallbacks: {  }

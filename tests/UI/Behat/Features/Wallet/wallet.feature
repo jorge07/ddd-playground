@@ -10,6 +10,7 @@ Feature: Wallet endpoint
     When I send a "POST" to "/api/v1/wallet.json" with:
     """
     {
+      "userId": "%userId%",
       "currency": "EUR"
     }
     """
@@ -46,6 +47,7 @@ Feature: Wallet endpoint
     When I send a "POST" to "/api/v1/wallet.json" with:
     """
     {
+      "userId": "%userId%",
       "currency": "EUR"
     }
     """
@@ -75,6 +77,7 @@ Feature: Wallet endpoint
     When I send a "POST" to "/api/v1/wallet.json" with:
     """
     {
+      "userId": "%userId%",
       "currency": "EUR"
     }
     """

@@ -54,7 +54,7 @@ class UserProvider implements UserProviderInterface
             throw new UsernameNotFoundException();
         }
 
-        return new Auth($user->auth());
+        return new Auth($user->id()->__toString(), $user->auth());
     }
 
     /**
