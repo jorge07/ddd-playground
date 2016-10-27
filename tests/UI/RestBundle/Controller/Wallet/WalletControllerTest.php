@@ -36,7 +36,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testCreateWalletAction()
     {
@@ -56,7 +56,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testCreateWalletWithWrongCurrencyAction()
     {
@@ -74,7 +74,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testGetWalletActionNotFound()
     {
@@ -86,7 +86,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositAction()
     {
@@ -111,7 +111,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositBadUUIDAction()
     {
@@ -127,7 +127,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDeposit400WrongCurrencyAction()
     {
@@ -145,7 +145,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawalAction()
     {
@@ -174,7 +174,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawalShouldFailWhenMinAmountAction()
     {
@@ -204,7 +204,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositWrongCurrencyAction()
     {
@@ -232,7 +232,7 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositWrongAmountAction()
     {
@@ -260,7 +260,7 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDeposit404Action()
     {
@@ -276,7 +276,7 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawal400WrongCurrencyAction()
     {
@@ -294,7 +294,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawal409Action()
     {
@@ -318,7 +318,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawalBadUUIDAction()
     {
@@ -334,7 +334,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawal404Action()
     {
@@ -351,7 +351,7 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWalletCollectionAction()
     {
@@ -365,7 +365,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWalletCollectionFilterAction()
     {

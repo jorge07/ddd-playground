@@ -13,7 +13,7 @@ class HomeControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testGetAction()
     {

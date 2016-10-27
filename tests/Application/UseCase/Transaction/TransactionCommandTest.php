@@ -22,6 +22,8 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
      */
     private $command;
 
+    private $fixture = [];
+
     public function setUp()
     {
         $repo = self::getMockBuilder(TransactionRepositoryInterface::class)
@@ -31,7 +33,9 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['save', 'findById', 'findByUsername']);
 
         $mock = $userRepo->getMock();
-        $mock->method('findById')->willReturn(UserTest::create());
+
+        $this->fixture['user'] = UserTest::create();
+        $mock->method('findById')->with((string) $this->fixture['user']->id())->willReturn($this->fixture['user']);
 
         $walletRepo = self::getMockBuilder(WalletRepositoryInterface::class)
             ->setMethods(['save', 'get', 'findOneById', 'findAll'])->getMock();
@@ -49,7 +53,7 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group unit
+     * @group functional
      */
     public function testShouldCreateTransactionWithNewWallet()
     {
@@ -61,10 +65,5 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(0, $result->user()->id()->equals($user));
         self::assertEquals(0, $result->real()->amount());
         self::assertEquals(0, $result->bonus()->amount());
-    }
-
-    public static function randomId(): string
-    {
-        return (new UserId())->__toString();
     }
 }

@@ -36,7 +36,7 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackDepositAction()
     {
@@ -67,7 +67,7 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackDepositNotFoundAction()
     {
@@ -81,7 +81,7 @@ class RollbackControllerTest extends JsonApiTestCase
         self::assertEquals(404, $response->getStatusCode());
     }
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackWithdrawalNotFoundAction()
     {
@@ -96,7 +96,7 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackWithdrawalAction()
     {
@@ -135,7 +135,7 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackDepositGivenAWithdrawalAction()
     {

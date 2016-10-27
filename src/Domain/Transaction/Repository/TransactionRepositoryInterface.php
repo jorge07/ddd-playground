@@ -21,7 +21,7 @@ interface TransactionRepositoryInterface
      *
      * @throws TransactionNotFoundException
      */
-    public function get(TransactionId $transactionId);
+    public function get(TransactionId $transactionId): AbstractTransaction;
 
     /**
      * @param AbstractTransaction $transaction

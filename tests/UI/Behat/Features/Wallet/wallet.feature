@@ -61,14 +61,51 @@ Feature: Wallet endpoint
       "provider": "paypal"
     }
     """
-    And the response body match with file "deposit" and status code is "202"
+    And the response should match with code "202" and body:
+    """
+    {
+      "id":"@string@",
+      "type":"deposit",
+      "prev_real": {
+        "amount":0,
+        "generated_at":"@string@.isDateTime()"
+      },
+      "prev_bonus": {
+        "amount":0,
+        "generated_at":"@string@.isDateTime()"
+      },
+      "operation_real": 10000,
+      "operation_bonus": 0,
+      "wallet": {
+        "id": {
+          "uuid": "@string@"
+        },
+        "real": {
+          "amount":10000,
+          "generated_at":"@string@.isDateTime()"
+        },
+        "bonus": {
+          "amount":0,
+          "generated_at":"@string@.isDateTime()"
+        },
+        "created_at":"@string@.isDateTime()",
+        "updated_at":null
+      },
+      "details": {
+        "provider": "paypal"
+      },
+      "referral_transaction":null,
+      "created_at":"@string@.isDateTime()",
+      "updated_at":null
+    }
+    """
 
     And I store the transaction
 
     Then I rollback the deposit
     And the response code is "202"
 
-    Then I send a "GET" to resource ".json" with:
+    Then I request again the resource
     """
     """
     And the response body match with file "get_wallet" and status code is "200"

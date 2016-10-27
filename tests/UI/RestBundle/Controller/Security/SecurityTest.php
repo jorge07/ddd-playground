@@ -33,7 +33,7 @@ class SecurityTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testLoginSuccess()
     {
@@ -50,7 +50,7 @@ class SecurityTest extends JsonApiTestCase
     }
     
     /**
-     * @group functional
+     * @group integration
      */
     public function testLoginInvalidUser()
     {
@@ -67,7 +67,7 @@ class SecurityTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testLoginWrongPassword()
     {
@@ -84,7 +84,7 @@ class SecurityTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testLoginMissingUsername()
     {
@@ -99,7 +99,7 @@ class SecurityTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testLoginWMissingPassword()
     {
