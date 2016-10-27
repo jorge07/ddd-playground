@@ -26,7 +26,7 @@ class WalletContext extends ApiContext
         $this->setUpDatabase();
         $fixtures = $this->loadFixturesFromDirectory('wallet');
 
-        $this->fixtures['userId'] = $fixtures['jorge']->id()->__toString();
+        $this->addPlaceHolder('userId', $fixtures['jorge']->id()->__toString());
     }
 
     /**

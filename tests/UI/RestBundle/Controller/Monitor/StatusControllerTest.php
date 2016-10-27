@@ -18,7 +18,7 @@ class StatusControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testPingAction()
     {

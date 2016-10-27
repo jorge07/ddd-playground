@@ -38,6 +38,7 @@ class TransactionCommand
      * @var WalletQuery
      */
     private $walletQuery;
+
     /**
      * @var UserRepositoryInterface
      */
@@ -48,7 +49,10 @@ class TransactionCommand
      * @param UserRepositoryInterface $userRepository
      * @param WalletQuery $walletQuery
      */
-    public function __construct(TransactionRepositoryInterface $repository, UserRepositoryInterface $userRepository, WalletQuery $walletQuery)
+    public function __construct(
+        TransactionRepositoryInterface $repository,
+        UserRepositoryInterface $userRepository,
+        WalletQuery $walletQuery)
     {
         $this->repository = $repository;
         $this->walletQuery = $walletQuery;
