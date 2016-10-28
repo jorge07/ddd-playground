@@ -31,6 +31,7 @@ class EntityRepository extends BaseEntityRepository
      * @param array $operators
      * @param array $values
      * @param array $sorting
+     *
      * @return Pagerfanta
      */
     public function createOperatorPaginator(
@@ -75,6 +76,7 @@ class EntityRepository extends BaseEntityRepository
      * @param array $keys
      * @param array $operators
      * @param array $values
+     *
      * @return QueryBuilder
      */
     protected function applyCriteriaOperator(
@@ -83,7 +85,7 @@ class EntityRepository extends BaseEntityRepository
         array $keys = [],
         array $operators = [],
         array $values = []
-    )
+    ): QueryBuilder
     {
         foreach ($keys as $position => $value) {
 
@@ -150,9 +152,10 @@ class EntityRepository extends BaseEntityRepository
      * @param string $alias
      * @param QueryBuilder $queryBuilder
      * @param array $sorting
+     *
      * @return QueryBuilder
      */
-    protected function applySorting(string $alias, QueryBuilder $queryBuilder, array $sorting = [])
+    protected function applySorting(string $alias, QueryBuilder $queryBuilder, array $sorting = []): QueryBuilder
     {
         foreach ($sorting as $property => $order) {
             if (!empty($order) ) {
@@ -166,6 +169,7 @@ class EntityRepository extends BaseEntityRepository
     /**
      * @param string $alias
      * @param string $name
+     *
      * @return string
      */
     protected function getPropertyName(string $alias, string $name): string
@@ -174,11 +178,13 @@ class EntityRepository extends BaseEntityRepository
     }
 
     /**
-     * @param $haystack
-     * @param $needle
+     * @param string $haystack
+     * @param string $needle
+     *
      * @return bool
      */
-    private function startsWith($haystack, $needle) {
+    private function startsWith(string $haystack, string $needle): bool
+    {
         return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
     }
 }

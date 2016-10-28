@@ -9,6 +9,7 @@ use Leos\Domain\Payment\Model\Withdrawal;
 use Leos\Domain\Payment\Model\RollbackWithdrawal;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
 use Leos\Domain\Payment\ValueObject\WithdrawalDetails;
+use Tests\Leos\Domain\Wallet\Model\WalletTest;
 
 /**
  * Class RollbackWithdrawalTest
@@ -22,7 +23,7 @@ class RollbackWithdrawalTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $wallet = new Wallet();
+        $wallet = WalletTest::create();
 
         $wallet->addRealMoney(new Money(50 ,$currency = new Currency('EUR', 1)));
 

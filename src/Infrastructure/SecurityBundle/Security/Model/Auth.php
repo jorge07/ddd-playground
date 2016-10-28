@@ -15,18 +15,31 @@ use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 class Auth implements UserInterface, EncoderAwareInterface
 {
     /**
+     * @var string
+     */
+    private $uuid;
+
+    /**
      * @var AuthUser
      */
     private $authUser;
 
     /**
-     * Auth constructor.
-     *
+     * @param string $uuid
      * @param AuthUser $authUser
      */
-    public function __construct(AuthUser $authUser)
+    public function __construct(string $uuid, AuthUser $authUser)
     {
+        $this->uuid = $uuid;
         $this->authUser = $authUser;
+    }
+
+    /**
+     * @return string
+     */
+    public function id(): string
+    {
+        return $this->uuid;
     }
 
     /**

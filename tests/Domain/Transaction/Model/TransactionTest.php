@@ -10,6 +10,7 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Wallet\ValueObject\Credit;
 use Leos\Domain\Wallet\ValueObject\WalletId;
+use Tests\Leos\Domain\Wallet\Model\WalletTest;
 
 /**
  * Class TransactionTest
@@ -23,8 +24,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetters()
     {
-
-        $wallet = new Wallet(new WalletId(), new Credit(0), new Credit(0));
+        $wallet = WalletTest::create();
 
         $currency = new Currency('EUR', 1);
 

@@ -19,8 +19,6 @@ class FactoryTest extends WebTestCase
     public function testConstruct()
     {
         try {
-
-
             new FixtureFactory(self::createClient()->getContainer()->get('form.factory'));
 
             self::assertFalse(true, "exception not throw");

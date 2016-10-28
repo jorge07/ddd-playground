@@ -55,5 +55,4 @@ class TransactionTypeTest extends \PHPUnit_Framework_TestCase
             self::assertTrue(true);
         }
     }
-
 }

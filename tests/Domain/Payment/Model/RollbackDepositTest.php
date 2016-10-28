@@ -9,6 +9,7 @@ use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
+use Tests\Leos\Domain\Wallet\Model\WalletTest;
 
 /**
  * Class RollbackDepositTest
@@ -24,7 +25,7 @@ class RollbackDepositTest extends \PHPUnit_Framework_TestCase
     {
         $transaction = new RollbackDeposit(
             new Deposit(
-                new Wallet(),
+                WalletTest::create(),
                 new Money(10, new Currency('EUR', 1)),
                 new DepositDetails('paypal')
             )

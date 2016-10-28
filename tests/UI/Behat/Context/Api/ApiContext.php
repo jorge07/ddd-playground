@@ -2,6 +2,7 @@
 
 namespace Tests\Leos\UI\Behat\Context\Api;
 
+use Behat\Behat\Context\Context;
 use GuzzleHttp\Client as Http;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Exception\ClientException;
@@ -14,15 +15,15 @@ use Coduo\PHPMatcher\Matcher\Matcher;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 
 use Behat\Gherkin\Node\PyStringNode;
-use Behat\Behat\Context\SnippetAcceptingContext;
 
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 
 /**
  * Class ApiContext
+ *
  * @package Tests\Leos\Leos\UI\Behat\Context\Api
  */
-class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
+class ApiContext extends JsonApiTestCase implements Context
 {
     const
         FIXTURES = '/tests/UI/Fixtures',
@@ -60,6 +61,11 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     private $httpFoundationFactory;
 
     /**
+     * @var array
+     */
+    private $placeholders = [];
+
+    /**
      * ApiContext constructor.
      *
      * @param string $path
@@ -90,6 +96,64 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     }
 
     /**
+     * @return Http
+     */
+    public function http(): Http
+    {
+        return $this->http;
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    final protected function placeholders(string $string): string
+    {
+        foreach($this->placeholders as $key => $value) {
+
+            $string = str_replace('%' . $key . '%', $value, $string);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param string $key
+     * @param $value
+     *
+     * @return ApiContext
+     */
+    protected function addPlaceHolder(string $key, $value): self
+    {
+        $this->placeholders[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return ApiContext
+     */
+    protected function removePlaceHolder(string $key): self
+    {
+        unset($this->placeholders[$key]);
+
+        return $this;
+    }
+
+    /**
+     * @return ApiContext
+     */
+    protected function cleanPlaceHolders(): self
+    {
+        $this->placeholders = [];
+
+        return $this;
+    }
+
+    /**
      * @When /^I send a "([^"]*)" request to "([^"]*)"$/
      *
      * @param $method
@@ -110,7 +174,10 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     public function iSendAToWith($method, $uri, PyStringNode $string)
     {
         $this->request($method, $uri, [
-            RequestOptions::JSON => json_decode($string->getRaw(), true)
+            RequestOptions::JSON => json_decode(
+                $this->placeholders($string->getRaw()),
+                true
+            )
         ]);
 
     }
@@ -130,6 +197,14 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     }
 
     /**
+     * @When /^I request again the resource$/
+     */
+    public function iRequestAgainResource()
+    {
+        $this->request('GET', $this->resource);
+    }
+
+    /**
      * @When /^I send a "([^"]*)" to the resource with:$/
      *
      * @param $method
@@ -143,12 +218,14 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
     }
 
     /**
-     * @Given /^the response should match with:$/
+     * @Given /^the response should match with code "([^"]*)" and body:$/
      *
      * @param PyStringNode $expected
      */
-    public function theResponseShouldMatchWith(PyStringNode $expected)
+    public function theResponseShouldMatchWith(int $code, PyStringNode $expected)
     {
+        $this->theResponseCodeIs($code);
+
         self::assertTrue(
             $this->matcher->match(
                 (string) $this->response->getBody(),
@@ -221,15 +298,9 @@ class ApiContext extends JsonApiTestCase implements SnippetAcceptingContext
 
         self::assertEquals(200, $this->response->getStatusCode(), 'User cannot be logged due to credentials error');
 
-        $this->options[RequestOptions::HEADERS] = ['Authorization' =>  'Bearer ' . json_decode($this->response->getBody(), true)['token']];
-    }
-
-    /**
-     * @return Http
-     */
-    public function http(): Http
-    {
-        return $this->http;
+        $this->options[RequestOptions::HEADERS] = [
+            'Authorization' =>  'Bearer ' . json_decode($this->response->getBody(), true)['token']
+        ];
     }
 
     /**

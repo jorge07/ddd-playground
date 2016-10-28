@@ -36,13 +36,17 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testCreateWalletAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST', '/api/v1/wallet.json');
+        $userId = $this->users['jorge']->id()->__toString();
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'userId' => $userId
+        ]);
 
         $response = $this->client->getResponse();
 
@@ -52,15 +56,16 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testCreateWalletWithWrongCurrencyAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 50,
-            'bonus' => 25,
+            'userId' => $userId,
             'currency' => 'EURAZO'
         ]);
 
@@ -69,7 +74,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testGetWalletActionNotFound()
     {
@@ -81,13 +86,17 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST', '/api/v1/wallet.json');
+        $userId = $this->users['jorge']->id()->__toString();
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'userId' => $userId
+        ]);
 
         $response = $this->client->getResponse();
         self::assertEquals(201, $response->getStatusCode());
@@ -102,7 +111,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositBadUUIDAction()
     {
@@ -118,7 +127,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDeposit400WrongCurrencyAction()
     {
@@ -136,14 +145,16 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawalAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -163,14 +174,16 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawalShouldFailWhenMinAmountAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -191,14 +204,16 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositWrongCurrencyAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -217,14 +232,16 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDepositWrongAmountAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -243,7 +260,7 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testDeposit404Action()
     {
@@ -259,7 +276,7 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawal400WrongCurrencyAction()
     {
@@ -277,16 +294,16 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawal409Action()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'real' => 50,
-            'bonus' => 25,
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();
@@ -301,7 +318,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawalBadUUIDAction()
     {
@@ -317,7 +334,7 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWithdrawal404Action()
     {
@@ -334,13 +351,13 @@ class WalletControllerTest extends JsonApiTestCase
 
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWalletCollectionAction()
     {
-        $this->loginClient('jorge', 'iyoque123');
-        
         $this->loadFixturesFromDirectory('wallet');
+
+        $this->loginClient('jorge', 'iyoque123', false);
 
         $this->client->request('GET',  '/api/v1/wallet.json');
 
@@ -348,13 +365,14 @@ class WalletControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testWalletCollectionFilterAction()
     {
-        $this->loginClient('jorge', 'iyoque123');
-
         $this->loadFixturesFromDirectory('wallet');
+
+        $this->loginClient('jorge', 'iyoque123', false);
+
         $this->client->request('GET',  '/api/v1/wallet.json?filterParam[]=real.amount&filterOp[]=eq&filterValue[]=50');
 
         self::assertResponse($this->client->getResponse(), "cget_wallet_filter_50", 200);

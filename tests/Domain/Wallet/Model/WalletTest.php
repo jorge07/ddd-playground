@@ -9,6 +9,7 @@ use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
+use Tests\Leos\Domain\User\Model\UserTest;
 
 /**
  * Class WalletTest
@@ -23,7 +24,7 @@ class WalletTest extends \PHPUnit_Framework_TestCase
      */
     public function testWalletGetters()
     {
-        $wallet = new Wallet();
+        $wallet = self::create();
 
         $real = new Credit(100);
         $bonus = new Credit(100);
@@ -40,14 +41,15 @@ class WalletTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(WalletId::class, $wallet->walletId());
         self::assertNotNull($wallet->id());
         self::assertNotNull($wallet->walletId()->__toString());
+        self::assertNotNull($wallet->user());
     }
 
     /**
      * @group unit
      */
-    public function testWalletAdd()
+    public function testWalletAddCredit()
     {
-        $wallet = new Wallet();
+        $wallet = self::create();
 
         $real = new Credit(100);
         $bonus = new Credit(100);
@@ -74,9 +76,9 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     /**
      * @group unit
      */
-    public function testWalletRemove()
+    public function testWalletRemoveCredit()
     {
-        $wallet = new Wallet();
+        $wallet = self::create();
 
         $real = new Credit(350);
         $bonus = new Credit(350);
@@ -104,11 +106,11 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     /**
      * @group unit
      */
-    public function testWalletRemoveNotEnoughCredit()
+    public function testWalletFailWhenRemoveWithNotEnoughCredit()
     {
         try {
 
-            $wallet = new Wallet();
+            $wallet = self::create();
 
             $real = new Credit(350);
             $bonus = new Credit(350);
@@ -134,5 +136,10 @@ class WalletTest extends \PHPUnit_Framework_TestCase
     private function getTestCurrency(): Currency
     {
         return new Currency('EUR', 1);
+    }
+
+    public static function create(): Wallet
+    {
+        return new Wallet(UserTest::create());
     }
 }

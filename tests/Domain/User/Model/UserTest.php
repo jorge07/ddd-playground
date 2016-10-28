@@ -58,4 +58,12 @@ class UserTest extends \PHPUnit_Framework_TestCase
             new EncodedPassword($password = null)
         );
     }
+
+    public static function create(string $name = null, string $email = null, string $pwd = null): User
+    {
+        return new User($name ?? 'jorge',
+            $email ?? 'jorge.arcoma@gmail.com',
+            new EncodedPassword($pwd ?? 'iyoquease')
+        );
+    }
 }

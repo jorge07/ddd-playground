@@ -36,6 +36,8 @@ class TransactionType
 
     /**
      * @param string $type
+     *
+     * @throws InvalidTransactionTypeException
      */
     private function setType(string $type)
     {

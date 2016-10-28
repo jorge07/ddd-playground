@@ -36,13 +36,17 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackDepositAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $this->client->request('POST', '/api/v1/wallet.json');
+        $userId = $this->users['jorge']->id()->__toString();
+
+        $this->client->request('POST', '/api/v1/wallet.json', [
+            'userId' => $userId
+        ]);
 
         $response = $this->client->getResponse();
         self::assertEquals(201, $response->getStatusCode());
@@ -63,7 +67,7 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackDepositNotFoundAction()
     {
@@ -77,7 +81,7 @@ class RollbackControllerTest extends JsonApiTestCase
         self::assertEquals(404, $response->getStatusCode());
     }
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackWithdrawalNotFoundAction()
     {
@@ -92,15 +96,18 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackWithdrawalAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
+
 
         $response = $this->client->getResponse();
         self::assertEquals(201, $response->getStatusCode());
@@ -128,14 +135,16 @@ class RollbackControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @group functional
+     * @group integration
      */
     public function testRollbackDepositGivenAWithdrawalAction()
     {
         $this->loginClient('jorge', 'iyoque123');
 
+        $userId = $this->users['jorge']->id()->__toString();
+
         $this->client->request('POST', '/api/v1/wallet.json', [
-            'currency' => 'EUR'
+            'userId' => $userId
         ]);
 
         $response = $this->client->getResponse();

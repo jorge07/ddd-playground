@@ -2,6 +2,9 @@
 
 namespace Leos\Domain\User\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\Security\ValueObject\AuthUser;
 use Leos\Domain\Security\ValueObject\EncodedPasswordInterface;
@@ -29,6 +32,11 @@ class User
     private $auth;
 
     /**
+     * @var Wallet[]|ArrayCollection
+     */
+    private $wallets;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -39,9 +47,6 @@ class User
     private $updatedAt;
 
     /**
-     * User constructor.
-     * 
-     * @param UserId $userId
      * @param string $username
      * @param string $email
      * @param EncodedPasswordInterface $encodedPassword
@@ -51,6 +56,7 @@ class User
         $this->uuid = new UserId();
         $this->auth = new AuthUser($username, $encodedPassword);
         $this->email = $email;
+        $this->wallets = new ArrayCollection();
         $this->createdAt = new \DateTime();
     }
 
@@ -92,5 +98,35 @@ class User
     public function updatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function realBalance(): int
+    {
+        $total = 0;
+
+        foreach ($this->wallets as $wallet) {
+
+            $total = $wallet->real()->amount();
+        }
+
+        return $total;
+    }
+
+    /**
+     * @return int
+     */
+    public function bonusBalance(): int
+    {
+        $total = 0;
+
+        foreach ($this->wallets as $wallet) {
+
+            $total = $wallet->bonus()->amount();
+        }
+
+        return $total;
     }
 }

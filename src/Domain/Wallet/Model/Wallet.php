@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Leos\Domain\Wallet\Model;
 
 use Leos\Domain\Money\ValueObject\Money;
+use Leos\Domain\User\Model\User;
 use Leos\Domain\Wallet\ValueObject\Credit;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 
@@ -18,6 +19,11 @@ class Wallet
      * @var WalletId
      */
     private $id;
+
+    /**
+     * @var User
+     */
+    private $user;
 
     /**
      * @var Credit
@@ -39,12 +45,13 @@ class Wallet
      */
     private $updatedAt;
 
-    /** 
-     * Wallet constructor.
+    /**
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(User $user)
     {
         $this->id = new WalletId();
+        $this->user = $user;
         $this->real = new Credit(0);
         $this->bonus = new Credit(0);
         $this->createdAt = new \DateTime();
@@ -112,6 +119,14 @@ class Wallet
     public function walletId(): WalletId
     {
         return $this->id;
+    }
+
+    /**
+     * @return User
+     */
+    public function user(): User
+    {
+        return $this->user;
     }
 
     /**
