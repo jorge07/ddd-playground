@@ -44,7 +44,7 @@
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "phpunit/phpunit": "^4.8",
+        "phpunit/phpunit": "^5.6",
         "lakion/api-test-case": "^1.0",
         "behat/symfony2-extension": "^2.1",
         "guzzlehttp/guzzle": "^6.2",

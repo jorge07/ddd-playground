@@ -6,6 +6,7 @@ use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
 use Leos\Application\UseCase\Transaction\TransactionCommand;
 use Leos\Application\UseCase\Wallet\WalletQuery;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
+use Leos\Domain\User\Model\User;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\Wallet\Model\Wallet;
@@ -57,12 +58,12 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldCreateTransactionWithNewWallet()
     {
-        $user = new UserId();
-
-        $result = $this->command->createWallet(new CreateWalletDTO($user->__toString(), 'EUR'));
+        /** @var User $user */
+        $user = $this->fixture['user'];
+        $result = $this->command->createWallet(new CreateWalletDTO((string) $user->id(), 'EUR'));
 
         self::assertInstanceOf(Wallet::class, $result);
-        self::assertEquals(0, $result->user()->id()->equals($user));
+        self::assertTrue($result->user()->id()->equals($user->id()));
         self::assertEquals(0, $result->real()->amount());
         self::assertEquals(0, $result->bonus()->amount());
     }
