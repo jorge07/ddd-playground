@@ -3,6 +3,7 @@
 namespace Tests\Leos\Domain\User\Model;
 
 use Leos\Domain\User\Model\User;
+use Leos\Domain\User\ValueObject\UserId;
 use Leos\Infrastructure\SecurityBundle\ValueObject\EncodedPassword;
 
 /**
@@ -18,6 +19,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGetters()
     {
         $user = new User(
+            new UserId,
             $username = 'jorge',
             $email = 'jorge.arcoma@gmail.com',
             new EncodedPassword($password = 'iyoquease')
@@ -39,6 +41,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testMinPasswordLength()
     {
         new User(
+            new UserId,
             'jorge',
             'jorge.arcoma@gmail.com',
             new EncodedPassword($password = 'iyoque')
@@ -53,6 +56,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testNullPassword()
     {
         new User(
+            new UserId,
             'jorge',
             'jorge.arcoma@gmail.com',
             new EncodedPassword($password = null)
@@ -61,7 +65,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public static function create(string $name = null, string $email = null, string $pwd = null): User
     {
-        return new User($name ?? 'jorge',
+        return new User(
+            new UserId,
+            $name ?? 'jorge',
             $email ?? 'jorge.arcoma@gmail.com',
             new EncodedPassword($pwd ?? 'iyoquease')
         );

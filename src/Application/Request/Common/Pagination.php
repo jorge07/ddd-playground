@@ -3,11 +3,11 @@
 namespace Leos\Application\Request\Common;
 
 /**
- * Class PaginationDTO
+ * Class Pagination
  * 
  * @package Leos\Application\Request\Common
  */
-class PaginationDTO
+    class Pagination
 {
 
     const
@@ -46,7 +46,7 @@ class PaginationDTO
     private $page = self::PAGE;
 
     /**
-     * PaginationDTO constructor.
+     * Pagination constructor.
      * @param array $data
      */
     public function __construct(array $data = [])

@@ -69,7 +69,7 @@ class SecurityTest extends JsonApiTestCase
     /**
      * @group integration
      */
-    public function testLoginWrongPassword()
+    public function testLoginWithWrongPassword()
     {
         $this->loadFixturesFromDirectory('user');
 
@@ -86,7 +86,7 @@ class SecurityTest extends JsonApiTestCase
     /**
      * @group integration
      */
-    public function testLoginMissingUsername()
+    public function testLoginWithMissingUsername()
     {
         $this->client->request('POST', '/auth/login.json', [
             '_password' => 'qwerty'
@@ -101,7 +101,7 @@ class SecurityTest extends JsonApiTestCase
     /**
      * @group integration
      */
-    public function testLoginWMissingPassword()
+    public function testLoginWithMissingPassword()
     {
         $this->client->request('POST', '/auth/login.json', [
             '_username' => 'jorge'

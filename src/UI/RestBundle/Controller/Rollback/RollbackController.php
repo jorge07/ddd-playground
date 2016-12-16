@@ -2,11 +2,11 @@
 
 namespace Leos\UI\RestBundle\Controller\Rollback;
 
+use League\Tactician\CommandBus;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\UseCase\Transaction\TransactionCommand;
-use Leos\Application\UseCase\Transaction\Request\RollbackDepositDTO;
-use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawalDTO;
+use Leos\Application\UseCase\Transaction\Request\RollbackDeposit as RollbackDepositRequest;
+use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawal as RollbackWithdrawalRequest;
 
 use Leos\Domain\Payment\Model\RollbackDeposit;
 use Leos\Domain\Payment\Model\RollbackWithdrawal;
@@ -28,18 +28,17 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 class RollbackController extends AbstractController
 {
     /**
-     * @var TransactionCommand
+     * @var CommandBus
      */
-    private $command;
+    private $commandBus;
 
     /**
      * RollbackController constructor.
-     * 
-     * @param TransactionCommand $command
+     * @param CommandBus $commandBus
      */
-    public function __construct(TransactionCommand $command)
+    public function __construct(CommandBus $commandBus)
     {
-        $this->command = $command;
+        $this->commandBus = $commandBus;
     }
     
     /**
@@ -64,8 +63,8 @@ class RollbackController extends AbstractController
      */
     public function postDepositAction(ParamFetcher $fetcher): RollbackDeposit
     {
-        return $this->command->rollbackDeposit(
-            new RollbackDepositDTO($fetcher->get('deposit'))
+        return $this->commandBus->handle(
+            new RollbackDepositRequest($fetcher->get('deposit'))
         );
     }
 
@@ -91,8 +90,8 @@ class RollbackController extends AbstractController
      */
     public function postWithdrawalAction(ParamFetcher $fetcher): RollbackWithdrawal
     {
-        return $this->command->rollbackWithdrawal(
-            new RollbackWithdrawalDTO($fetcher->get('withdrawal'))
+        return $this->commandBus->handle(
+            new RollbackWithdrawalRequest($fetcher->get('withdrawal'))
         );
     }
 }

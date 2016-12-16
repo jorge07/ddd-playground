@@ -6,11 +6,11 @@ use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\Money\ValueObject\Currency;
 
 /**
- * Class CreateWalletDTO
+ * Class CreateWallet
  * 
  * @package Leos\Application\UseCase\Transaction\Request
  */
-class CreateWalletDTO
+class CreateWallet
 {
     /**
      * @var UserId

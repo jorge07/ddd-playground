@@ -2,17 +2,17 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
+use League\Tactician\CommandBus;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\UseCase\Wallet\WalletQuery;
-use Leos\Application\Request\Common\PaginationDTO;
-use Leos\Application\UseCase\Transaction\Request\DepositDTO;
-use Leos\Application\UseCase\Transaction\Request\WithdrawalDTO;
-use Leos\Application\UseCase\Transaction\TransactionCommand;
-use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
+use Leos\Application\UseCase\Wallet\Request\Find;
+use Leos\Application\UseCase\Wallet\Request\GetWallet;
+use Leos\Application\UseCase\Transaction\Request\CreateDeposit;
+use Leos\Application\UseCase\Transaction\Request\Withdrawal;
+use Leos\Application\UseCase\Transaction\Request\CreateWallet;
+
 
 use Leos\Domain\Wallet\Model\Wallet;
-use Leos\Domain\Wallet\ValueObject\WalletId;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
 
 use Leos\Infrastructure\CommonBundle\Pagination\PagerTrait;
@@ -39,27 +39,19 @@ use Symfony\Component\Form\Form;
 class WalletController extends AbstractController
 {
     use PagerTrait;
-
     /**
-     * @var WalletQuery
+     * @var CommandBus
      */
-    private $walletQuery;
-
-    /**
-     * @var TransactionCommand
-     */
-    private $transactionCommand;
+    private $commandBus;
 
     /**
      * WalletController constructor.
-     *
-     * @param WalletQuery $walletQuery
-     * @param TransactionCommand $transactionCommand
+     * 
+     * @param CommandBus $commandBus
      */
-    public function __construct(WalletQuery $walletQuery, TransactionCommand $transactionCommand)
+    public function __construct(CommandBus $commandBus)
     {
-        $this->walletQuery = $walletQuery;
-        $this->transactionCommand = $transactionCommand;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -134,14 +126,14 @@ class WalletController extends AbstractController
      */
     public function cgetAction(ParamFetcher $fetcher): PaginatedRepresentation
     {
-        $dto = new PaginationDTO($fetcher->all());
+        $request = new Find($fetcher->all());
 
         return $this->getPagination(
-            $this->walletQuery->find($dto),
+            $this->commandBus->handle($request),
             'cget_wallet',
             [],
-            $dto->getLimit(),
-            $dto->getPage()
+            $request->getLimit(),
+            $request->getPage()
         );
     }
 
@@ -165,7 +157,7 @@ class WalletController extends AbstractController
      */
     public function getAction(string $walletId): Wallet
     {
-        return $this->walletQuery->get(new WalletId($walletId));
+        return $this->commandBus->handle(new GetWallet($walletId));
     }
 
     /**
@@ -190,8 +182,8 @@ class WalletController extends AbstractController
      */
     public function postAction(ParamFetcher $fetcher)
     {
-        $wallet = $this->transactionCommand->createWallet(
-            new CreateWalletDTO(
+        $wallet = $this->commandBus->handle(
+            new CreateWallet(
                 $fetcher->get('userId'),
                 $fetcher->get('currency')
             )
@@ -226,8 +218,8 @@ class WalletController extends AbstractController
      */
     public function postDepositAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
-        return $this->transactionCommand->deposit(
-            new DepositDTO(
+        return $this->commandBus->handle(
+            new CreateDeposit(
                 $uid,
                 $fetcher->get('currency'),
                 (float) $fetcher->get('real'),
@@ -263,8 +255,8 @@ class WalletController extends AbstractController
      */
     public function postWithdrawalAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
-        return $this->transactionCommand->withdrawal(
-            new WithdrawalDTO(
+        return $this->commandBus->handle(
+            new Withdrawal(
                 $uid,
                 $fetcher->get('currency'),
                 (float) $fetcher->get('real'),

@@ -3,6 +3,7 @@
   "message": "Validation Failed",
   "errors": {
     "children": {
+      "uuid": {},
       "email": {
         "errors":[
           "user.exception.email.not_valid"

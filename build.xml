@@ -23,7 +23,7 @@
     </target>
 
     <target name="createdatabase" description="Load fixtures">
-        <exec executable="php" failonerror="true">
+        <exec executable="php" failonerror="false">
             <arg value="${consoledir}/console"/>
             <arg value="doctrine:database:drop"/>
             <arg value="--force"/>

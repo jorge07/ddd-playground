@@ -2,13 +2,12 @@
 
 namespace Tests\Leos\Application\UseCase\Transaction;
 
-use Leos\Application\UseCase\Transaction\Request\CreateWalletDTO;
-use Leos\Application\UseCase\Transaction\TransactionCommand;
-use Leos\Application\UseCase\Wallet\WalletQuery;
+use Leos\Application\UseCase\Transaction\CreateWalletHandler;
+use Leos\Application\UseCase\Transaction\Request\CreateWallet;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
-use Leos\Domain\User\ValueObject\UserId;
+
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Wallet\Repository\WalletRepositoryInterface;
 use Tests\Leos\Domain\User\Model\UserTest;
@@ -19,7 +18,7 @@ use Tests\Leos\Domain\User\Model\UserTest;
 class TransactionCommandTest extends \PHPUnit_Framework_TestCase 
 {
     /**
-     * @var TransactionCommand
+     * @var CreateWalletHandler
      */
     private $command;
 
@@ -41,10 +40,9 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
         $walletRepo = self::getMockBuilder(WalletRepositoryInterface::class)
             ->setMethods(['save', 'get', 'findOneById', 'findAll'])->getMock();
 
-        $this->command = new TransactionCommand(
+        $this->command = new CreateWalletHandler(
             $repo,
-            $mock,
-            new WalletQuery($walletRepo)
+            $mock
         );
     }
 
@@ -60,7 +58,7 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
     {
         /** @var User $user */
         $user = $this->fixture['user'];
-        $result = $this->command->createWallet(new CreateWalletDTO((string) $user->id(), 'EUR'));
+        $result = $this->command->handle(new CreateWallet((string) $user->id(), 'EUR'));
 
         self::assertInstanceOf(Wallet::class, $result);
         self::assertTrue($result->user()->id()->equals($user->id()));

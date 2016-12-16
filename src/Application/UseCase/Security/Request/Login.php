@@ -3,11 +3,11 @@
 namespace Leos\Application\UseCase\Security\Request;
 
 /**
- * Class LoginDTO
+ * Class Login
  * 
  * @package Leos\Application\UseCase\Security\Request
  */
-class LoginDTO
+class Login
 {
     /**
      * @var string
@@ -20,7 +20,7 @@ class LoginDTO
     private $plainPassword;
 
     /**
-     * LoginDTO constructor.
+     * Login constructor.
      *
      * @param string $username
      * @param string $plainPassword

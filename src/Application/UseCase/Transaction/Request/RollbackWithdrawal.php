@@ -5,11 +5,11 @@ namespace Leos\Application\UseCase\Transaction\Request;
 use Leos\Domain\Transaction\ValueObject\TransactionId;
 
 /**
- * Class RollbackWithdrawalDTO
+ * Class RollbackWithdrawal
  * 
  * @package Leos\Application\UseCase\Transaction\Request
  */
-class RollbackWithdrawalDTO
+class RollbackWithdrawal
 {
     /**
      * @var TransactionId
