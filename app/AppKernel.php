@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new Snc\RedisBundle\SncRedisBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
 
+            new League\Tactician\Bundle\TacticianBundle(),
+
             new Leos\UI\RestBundle\LeosUIRestBundle(),
             new Leos\Infrastructure\CommonBundle\LeosInfrastructureCommonBundle(),
             new Leos\Infrastructure\WalletBundle\LeosInfrastructureWalletBundle(),

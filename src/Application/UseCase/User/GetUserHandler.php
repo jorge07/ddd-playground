@@ -2,17 +2,18 @@
 
 namespace Leos\Application\UseCase\User;
 
+use Leos\Application\UseCase\User\Request\GetUser;
+
 use Leos\Domain\User\Model\User;
-use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\User\Exception\UserNotFoundException;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 
 /**
- * Class UserQuery
+ * Class GetUserHandler
  *
  * @package Leos\Application\UseCase\User
  */
-class UserQuery
+class GetUserHandler
 {
     /**
      * @var UserRepositoryInterface
@@ -20,7 +21,7 @@ class UserQuery
     private $repository;
 
     /**
-     * UserQuery constructor.
+     * GetUserHandler constructor.
      * @param UserRepositoryInterface $repository
      */
     public function __construct(UserRepositoryInterface $repository)
@@ -29,13 +30,13 @@ class UserQuery
     }
     
     /**
-     * @param UserId $userId
+     * @param GetUser $request
      * @return User
      * @throws UserNotFoundException
      */
-    public function get(UserId $userId): User
+    public function handle(GetUser $request): User
     {
-        $user = $this->repository->findById($userId);
+        $user = $this->repository->findById($request->uuid());
 
         if (!$user) {
 

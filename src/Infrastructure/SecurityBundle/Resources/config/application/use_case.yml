@@ -1,7 +1,9 @@
 services:
 
     leos.use_case.security_command:
-        class: Leos\Application\UseCase\Security\SecurityCommand
+        class: Leos\Application\UseCase\Security\LoginHandler
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Security\Request\Login }
         arguments:
           - "@security.authentication_utils"
           - "@leos.repository.user"

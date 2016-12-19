@@ -2,18 +2,18 @@
 
 namespace Leos\Application\UseCase\User;
 
-use Leos\Application\UseCase\User\Request\RegisterDTO;
+use Leos\Application\UseCase\User\Request\Register;
 
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\Factory\UserFactoryInterface;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 
 /**
- * Class UserCommand
+ * Class RegisterUserHandler
  * 
  * @package Leos\Application\UseCase\User
  */
-class UserCommand
+class RegisterUserHandler
 {
     /**
      * @var UserRepositoryInterface
@@ -26,7 +26,7 @@ class UserCommand
     private $factory;
 
     /**
-     * UserCommand constructor.
+     * RegisterUserHandler constructor.
      * 
      * @param UserRepositoryInterface $repository
      * @param UserFactoryInterface $factory
@@ -38,12 +38,12 @@ class UserCommand
     }
 
     /**
-     * @param RegisterDTO $dto
+     * @param Register $request
      * @return User
      */
-    public function register(RegisterDTO $dto): User
+    public function handle(Register $request): User
     {
-        $user = $this->factory->register($dto->toForm());
+        $user = $this->factory->register($request->toForm());
         
         $this->repository->save($user);
 

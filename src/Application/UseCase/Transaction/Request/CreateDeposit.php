@@ -5,14 +5,14 @@ namespace Leos\Application\UseCase\Transaction\Request;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
-use Leos\Domain\Payment\Exception\MinWithdrawalAmountException;
+use Leos\Domain\Payment\Exception\MinDepositAmountException;
 
 /**
- * Class WithdrawalDTO
+ * Class CreateDeposit
  * 
  * @package Leos\Application\UseCase\Transaction\Request
  */
-class WithdrawalDTO
+class CreateDeposit
 {
     /**
      * @var WalletId
@@ -44,12 +44,14 @@ class WithdrawalDTO
     /**
      * @param float $amount
      * @param Currency $currency
+     *
+     * @throws MinDepositAmountException
      */
     protected function setReal(float $amount, Currency $currency)
     {
         if (0.00 >= $amount) {
 
-            throw new MinWithdrawalAmountException();
+            throw new MinDepositAmountException();
         }
 
         $this->real = new Money($amount, $currency);

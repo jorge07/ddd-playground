@@ -2,7 +2,7 @@
 
 namespace Leos\Application\UseCase\Security;
 
-use Leos\Application\UseCase\Security\Request\LoginDTO;
+use Leos\Application\UseCase\Security\Request\Login;
 
 use Leos\Domain\Security\Exception\AuthenticationException;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
@@ -15,11 +15,11 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * Class SecurityCommand
+ * Class LoginHandler
  *
  * @package Leos\Application\UseCase\Security
  */
-class SecurityCommand
+class LoginHandler
 {
     /**
      * @var AuthenticationUtils
@@ -42,7 +42,7 @@ class SecurityCommand
     private $JWTManager;
 
     /**
-     * SecurityCommand constructor.
+     * LoginHandler constructor.
      *
      * @param AuthenticationUtils $authenticationUtils
      * @param UserRepositoryInterface $userRepository
@@ -63,13 +63,13 @@ class SecurityCommand
     }
 
     /**
-     * @param LoginDTO $dto
+     * @param Login $request
      * @return string
      * @throws AuthenticationException
      */
-    public function login(LoginDTO $dto): string
+    public function handle(Login $request): string
     {
-        $user = $this->userRepository->findByUsername($dto->username());
+        $user = $this->userRepository->findByUsername($request->username());
 
         if (!$user) {
 
@@ -80,7 +80,7 @@ class SecurityCommand
 
         $encoder = $this->encoderFactory->getEncoder($authUser);
 
-        if (!$encoder->isPasswordValid($authUser->getPassword(), $dto->plainPassword(), $authUser->getSalt())) {
+        if (!$encoder->isPasswordValid($authUser->getPassword(), $request->plainPassword(), $authUser->getSalt())) {
 
             throw new AuthenticationException();
         }

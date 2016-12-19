@@ -5,11 +5,11 @@ namespace Leos\Application\UseCase\Transaction\Request;
 use Leos\Domain\Transaction\ValueObject\TransactionId;
 
 /**
- * Class RollbackDepositDTO
+ * Class RollbackDeposit
  * 
  * @package Leos\Application\UseCase\Transaction\Request
  */
-class RollbackDepositDTO
+class RollbackDeposit
 {
     /**
      * @var TransactionId
@@ -17,7 +17,7 @@ class RollbackDepositDTO
     private $depositId;
 
     /**
-     * RollbackDepositDTO constructor.
+     * RollbackDeposit constructor.
      *
      * @param string $depositId
      */

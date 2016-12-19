@@ -32,6 +32,9 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('uuid', null, [
+                'mapped' => false
+            ])
             ->add('email', EmailType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -73,9 +76,10 @@ class RegisterType extends AbstractType
             'empty_data' => function (FormInterface $form) {
 
                 return new User(
-                    $form->get('username')->getViewData(),
-                    $form->get('email')->getViewData(),
-                    new EncodedPassword($form->get('password')->getViewData())
+                    $form->get('uuid')->getData() ?: new UserId(),
+                    $form->get('username')->getData() ?: '',
+                    $form->get('email')->getData() ?: '',
+                    new EncodedPassword($form->get('password')->getData() ?: '')
                 );
             }
         ]);

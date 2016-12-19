@@ -47,13 +47,14 @@ class User
     private $updatedAt;
 
     /**
+     * @param UserId $userId
      * @param string $username
      * @param string $email
      * @param EncodedPasswordInterface $encodedPassword
      */
-    public function __construct(string $username, string $email, EncodedPasswordInterface $encodedPassword)
+    public function __construct(UserId $userId, string $username, string $email, EncodedPasswordInterface $encodedPassword)
     {
-        $this->uuid = new UserId();
+        $this->uuid = $userId;
         $this->auth = new AuthUser($username, $encodedPassword);
         $this->email = $email;
         $this->wallets = new ArrayCollection();

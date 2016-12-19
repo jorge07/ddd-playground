@@ -9,12 +9,21 @@ Leos\Infrastructure\SecurityBundle\ValueObject\EncodedPassword:
       __construct: ['dispensy']
 
 
+Leos\Domain\User\ValueObject\UserId:
+    one:
+      __construct: ['fc03e3ec-c3a1-11e6-a4a6-cec0c932ce01']
+    two:
+      __construct: ['fc03e3ec-c3a1-11e6-a4a6-cec0c932ce02']
+    three:
+      __construct: ['fc03e3ec-c3a1-11e6-a4a6-cec0c932ce03']
+    four:
+      __construct: ['fc03e3ec-c3a1-11e6-a4a6-cec0c932ce04']
 Leos\Domain\User\Model\User:
     jorge:
-      __construct: ['jorge', 'jorge.arcoma@gmail.com', '@jorge-pass']
+      __construct: ['@one', 'jorge', 'jorge.arcoma@gmail.com', '@jorge-pass']
     marcel:
-      __construct: ['marcel', '1ma@gmail.com', '@marcel-pass']
+      __construct: ['@two', 'marcel', '1ma@gmail.com', '@marcel-pass']
     sebas:
-      __construct: ['sebas', 'sebidchi@gmail.com', '@sebas-pass']
+      __construct: ['@three', 'sebas', 'sebidchi@gmail.com', '@sebas-pass']
     tito:
-      __construct: ['vrios', 'vrios@gmail.com', '@tito-pass']
+      __construct: ['@four', 'vrios', 'vrios@gmail.com', '@tito-pass']

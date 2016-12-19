@@ -1,5 +1,13 @@
 services:
 
-    leos.use_case.wallet_query:
-        class: Leos\Application\UseCase\Wallet\WalletQuery
+    leos.use_case.get_wallet:
+        class: Leos\Application\UseCase\Wallet\GetWalletHandler
         autowire: true
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Wallet\Request\GetWallet }
+
+    leos.use_case.find_wallet:
+        class: Leos\Application\UseCase\Wallet\FindWalletHandler
+        autowire: true
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Wallet\Request\Find }

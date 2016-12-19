@@ -2,13 +2,12 @@
 
 namespace Leos\UI\RestBundle\Controller\User;
 
+use League\Tactician\CommandBus;
+
+use Leos\Application\UseCase\User\Request\GetUser;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\UseCase\User\UserQuery;
-use Leos\Application\UseCase\User\UserCommand;
-
 use Leos\Domain\User\Model\User;
-use Leos\Domain\User\ValueObject\UserId;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -25,25 +24,18 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 class UserController extends AbstractController
 {
     /**
-     * @var UserCommand
+     * @var CommandBus
      */
-    private $command;
-    
-    /**
-     * @var UserQuery
-     */
-    private $query;
+    private $commandBus;
 
     /**
      * UserController constructor.
-     * 
-     * @param UserCommand $command
-     * @param UserQuery $query
+     *
+     * @param CommandBus $commandBus
      */
-    public function __construct(UserCommand $command, UserQuery $query)
+    public function __construct(CommandBus $commandBus)
     {
-        $this->command = $command;
-        $this->query = $query;
+        $this->commandBus = $commandBus;
     }
 
 
@@ -66,6 +58,6 @@ class UserController extends AbstractController
      */
     public function getAction(string $uuid): User
     {
-        return $this->query->get(new UserId($uuid));
+        return $this->commandBus->handle(new GetUser($uuid));
     }
 }

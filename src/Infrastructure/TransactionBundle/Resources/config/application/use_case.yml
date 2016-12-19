@@ -1,5 +1,31 @@
 services:
 
-    leos.use_case.transaction_command:
-        class: Leos\Application\UseCase\Transaction\TransactionCommand
+    leos.use_case.create_wallet:
+        class: Leos\Application\UseCase\Transaction\CreateWalletHandler
         autowire: true
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Transaction\Request\CreateWallet }
+
+    leos.use_case.create_deposit:
+        class: Leos\Application\UseCase\Transaction\CreateDepositHandler
+        autowire: true
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Transaction\Request\CreateDeposit }
+
+    leos.use_case.rollback_deposit:
+        class: Leos\Application\UseCase\Transaction\RollbackDepositHandler
+        autowire: true
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Transaction\Request\RollbackDeposit }
+
+    leos.use_case.create_withdrawal:
+        class: Leos\Application\UseCase\Transaction\WithdrawalHandler
+        autowire: true
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Transaction\Request\Withdrawal }
+
+    leos.use_case.rollback_withdrawal:
+        class: Leos\Application\UseCase\Transaction\RollbackWithdrawalHandler
+        autowire: true
+        tags:
+          - { name: tactician.handler, command: Leos\Application\UseCase\Transaction\Request\RollbackWithdrawal }

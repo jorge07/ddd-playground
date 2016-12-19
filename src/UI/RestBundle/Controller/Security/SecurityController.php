@@ -2,12 +2,12 @@
 
 namespace Leos\UI\RestBundle\Controller\Security;
 
+use Leos\Domain\Security\Exception\AuthenticationException;
+use Leos\Domain\User\ValueObject\UserId;
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Leos\Application\UseCase\User\UserCommand;
-use Leos\Application\UseCase\Security\SecurityCommand;
-use Leos\Application\UseCase\User\Request\RegisterDTO;
-use Leos\Application\UseCase\Security\Request\LoginDTO;
+use Leos\Application\UseCase\User\Request\Register;
+use Leos\Application\UseCase\Security\Request\Login;
 
 use Leos\Domain\User\Model\User;
 
@@ -22,6 +22,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
+use League\Tactician\CommandBus;
+
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**
@@ -34,25 +36,18 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 class SecurityController extends AbstractController
 {
     /**
-     * @var SecurityCommand
+     * @var CommandBus
      */
-    private $securityCommand;
-
-    /**
-     * @var UserCommand
-     */
-    private $userCommand;
+    private $commandBus;
 
     /**
      * SecurityController constructor.
      *
-     * @param SecurityCommand $securityCommand
-     * @param UserCommand $userCommand
+     * @param CommandBus $commandBus
      */
-    public function __construct(SecurityCommand $securityCommand, UserCommand $userCommand)
+    public function __construct(CommandBus $commandBus)
     {
-        $this->securityCommand = $securityCommand;
-        $this->userCommand = $userCommand;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -72,13 +67,15 @@ class SecurityController extends AbstractController
      *
      * @param ParamFetcher $fetcher
      *
+     * @throws AuthenticationException
+     *
      * @return array
      */
     public function postLoginAction(ParamFetcher $fetcher)
     {
         return [
-            'token' => $this->securityCommand->login(
-                new LoginDTO(
+            'token' => $this->commandBus->handle(
+                new Login(
                     $fetcher->get('_username'),
                     $fetcher->get('_password')
                 )
@@ -108,14 +105,16 @@ class SecurityController extends AbstractController
      *
      * @param ParamFetcher $fetcher
      *
-     * @return User|\Symfony\Component\Form\FormInterface
+     * @return User|\Symfony\Component\Form\FormInterface|\FOS\RestBundle\View\View
      */
     public function postRegisterAction(ParamFetcher $fetcher)
     {
         try {
 
-            $user = $this->userCommand->register(
-                new RegisterDTO(
+            /** @var User $user */
+            $user = $this->commandBus->handle(
+                new Register(
+                    new UserId(),
                     $fetcher->get('username'),
                     $fetcher->get('email'),
                     $fetcher->get('password')

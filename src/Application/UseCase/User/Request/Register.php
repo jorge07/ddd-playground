@@ -2,12 +2,14 @@
 
 namespace Leos\Application\UseCase\User\Request;
 
+use Leos\Domain\User\ValueObject\UserId;
+
 /**
- * Class RegisterDTO
+ * Class Register
  * 
  * @package Leos\Application\UseCase\User\Request
  */
-class RegisterDTO
+class Register
 {
     /**
      * @var string
@@ -23,19 +25,25 @@ class RegisterDTO
      * @var string
      */
     private $plainPassword;
+    /**
+     * @var UserId
+     */
+    private $userId;
 
     /**
-     * RegisterDTO constructor.
+     * Register constructor.
      *
+     * @param UserId $userId
      * @param string $username
      * @param string $email
      * @param string $plainPassword
      */
-    public function __construct(string $username, string $email, string $plainPassword)
+    public function __construct(UserId $userId, string $username, string $email, string $plainPassword)
     {
         $this->username = $username;
         $this->email = $email;
         $this->plainPassword = $plainPassword;
+        $this->userId = $userId;
     }
 
     /**
@@ -44,6 +52,7 @@ class RegisterDTO
     public function toForm(): array
     {
         return [
+            'uuid' => $this->userId,
             'username' =>   $this->username ?: '',
             'email' =>      $this->email ?: '',
             'password' =>   $this->plainPassword  ?: ''
