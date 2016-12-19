@@ -10,6 +10,7 @@ DDD Playground
    - Code structured in layers as appears in DDD in php book (buenosvinos) 
    - An example of how to test the api with **behat** and guzzle and accessing to the api via web server, nginx in this case. 
    - Example of how to use phpmatcher with Lakion api test case and Alice for fixtures and how to integrate it with behat. 
+   - Example of Command Bus implementation
 
 ### Tools
 
@@ -29,6 +30,8 @@ This repo its a RESTful API built following *more or less* DDD and using few use
 - `willdurand/hateoas-bundle`
 
 - `jms/serializer-bundle`
+
+- `league/tactician-bundle`
 
 And for testing proposal:
 
