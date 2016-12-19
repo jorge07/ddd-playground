@@ -39,7 +39,8 @@
         "white-october/pagerfanta-bundle": "^1.0",
         "willdurand/hateoas-bundle": "^1.2",
         "lexik/jwt-authentication-bundle": "^1.7",
-        "ramsey/uuid-doctrine": "^1.2"
+        "ramsey/uuid-doctrine": "^1.2",
+        "league/tactician-bundle": "~0.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
