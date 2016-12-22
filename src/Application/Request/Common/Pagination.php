@@ -7,7 +7,7 @@ namespace Leos\Application\Request\Common;
  * 
  * @package Leos\Application\Request\Common
  */
-    class Pagination
+class Pagination
 {
 
     const
