@@ -4,7 +4,7 @@ jms_serializer:
     directories:
       Common:
         namespace_prefix: "Leos\\Domain\\Common"
-        path: "src/Leos/Infrastructure/Resources/config/serializer/common"
+        path: "src/Leos/Infrastructure/CommonBundle/Resources/config/serializer/common"
 
       Wallet:
         namespace_prefix: "Leos\\Domain\\Wallet"
