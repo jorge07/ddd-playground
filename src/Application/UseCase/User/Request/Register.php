@@ -53,9 +53,9 @@ class Register
     {
         return [
             'uuid' => $this->userId,
-            'username' =>   $this->username ?: '',
-            'email' =>      $this->email ?: '',
-            'password' =>   $this->plainPassword  ?: ''
+            'username' =>   $this->username,
+            'email' =>      $this->email,
+            'password' =>   $this->plainPassword
         ];
     }
 }
