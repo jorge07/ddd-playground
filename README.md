@@ -6,7 +6,7 @@ DDD Playground
    - **User authentication** split into domain and infrastructure and using Json web token 
    - Usage of **UUID as binary** to improve the performance and create a nightmare for the dba.
    - Automated tasks with ant.
-   - **Dev and CI endnvironments in Docker**. Using docker **cache layers** reduce build times in pipeline. Orchestrating with **Docker Compose**.
+   - **Dev and CI environments in Docker**. Using docker **cache layers** reduce build times in pipeline. Orchestrating with **Docker Compose**.
    - Example of **table inheritance and discriminator strategy** 
    - How to deal with **Json data type** and how to use same column for different doctrine data types. 
    - Code structured in layers as appears in DDD in php book.
