@@ -15,31 +15,31 @@ build:
     - mkdir -p context-${RELEASE}/build
     - docker pull jorge07/alpine-php:7
     - docker pull jorge07/alpine-php:7-dev
-    - docker-compose -f build/docker-compose.yml pull
-    - docker-compose -f build/docker-compose.yml build
-    - docker-compose -f build/docker-compose.yml up -d
+    - docker-compose -p ${RELEASE} -f build/docker-compose.yml pull
+    - docker-compose -p ${RELEASE} -f build/docker-compose.yml build
+    - docker-compose -p ${RELEASE} -f build/docker-compose.yml up -d
     - docker exec sf-build-${RELEASE} ant build
 
 test-mess-detector:
   stage: test
   script:
-    - docker exec sf-build-${RELEASE} ./vendor/bin/phpmd src text cleancode, codesize, controversial, design, naming, unusedcode
+    - docker exec ${RELEASE}_fpm_1 ./vendor/bin/phpmd src text cleancode, codesize, controversial, design, naming, unusedcode
   allow_failure: true
 
 test-coverage:
   stage: test
   script:
-    - docker exec sf-build-${RELEASE} ant unit-and-functional
+    - docker exec ${RELEASE}_fpm_1 ant unit-and-functional
 
 aceptation:
   stage: aceptation
   script:
-    - docker exec sf-build-${RELEASE} ant acceptation
+    - docker exec ${RELEASE}_fpm_1 ant acceptation
 
 clean-build:
   stage: clean
   script:
-    - docker-compose -f build/docker-compose.yml down --volumes
+    - docker-compose -p ${RELEASE} -f build/docker-compose.yml down --volumes
   when: always
 
 release:tags:
