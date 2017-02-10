@@ -61,10 +61,8 @@ And for testing proposal:
 ###The tests
 
 The tests follow the same structure and the *phpunit* tests are tagged with group tags: *unit* or *functional*.
-The PHPUnit test don't need nginx to run.
 
-The *aceptation tests* are inside the test UI layer and attack the application form outside the fpm container using Guzzle.
-That simulate external connections and at the same time it's possible to test the connection with nginx.
+The *aceptation tests* are inside the test `UI` layer and attack the application using Guzzle external connections and making possible to test the integration between fpm & nginx.
 
 ###The Environment
 
@@ -74,4 +72,12 @@ Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compo
 
 ###CI/CD
 
-Follow the gitlab-ci.yml file, it's clear enough.
+Follow the `gitlab-ci.yml` file, it's clear enough and contains a simply workflow to:
+
+- build the isolated environment
+- `docker-comnpose -p` to avoid parallel jobs conflicts
+- provision the environment
+- run the test
+- extract reports
+- Build and store the artifacts (Docker images)
+- Clean the environment
