@@ -47,7 +47,7 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->repository->findByUsername($username);
+        $user = $this->repository->findOneByUsername($username);
 
         if (!$user) {
 

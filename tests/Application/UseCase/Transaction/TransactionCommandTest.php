@@ -30,12 +30,12 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['save', 'get'])->getMock();
 
         $userRepo = self::getMockBuilder(UserRepositoryInterface::class)
-            ->setMethods(['save', 'findById', 'findByUsername']);
+            ->setMethods(['save', 'findOneById', 'findOneByUsername']);
 
         $mock = $userRepo->getMock();
 
         $this->fixture['user'] = UserTest::create();
-        $mock->method('findById')->with((string) $this->fixture['user']->id())->willReturn($this->fixture['user']);
+        $mock->method('findOneById')->with((string) $this->fixture['user']->id())->willReturn($this->fixture['user']);
 
         $walletRepo = self::getMockBuilder(WalletRepositoryInterface::class)
             ->setMethods(['save', 'get', 'findOneById', 'findAll'])->getMock();

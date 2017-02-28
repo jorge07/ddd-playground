@@ -2,10 +2,10 @@
 
 namespace Leos\Infrastructure\UserBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 use Leos\Domain\User\ValueObject\UserId;
-use Leos\Infrastructure\CommonBundle\Doctrine\ORM\Repository\EntityRepository;
 
 /**
  * Class UserRepository
@@ -19,7 +19,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      *
      * @return null|User
      */
-    public function findByUsername(string $username)
+    public function findOneByUsername(string $username)
     {
         return $this->createQueryBuilder('user')
             ->where('user.auth.username = :username')
@@ -34,7 +34,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      * @param UserId $userId
      * @return null|User
      */
-    public function findById(UserId $userId)
+    public function findOneById(UserId $userId)
     {
         return $this->createQueryBuilder('user')
             ->where('user.uuid = :id')

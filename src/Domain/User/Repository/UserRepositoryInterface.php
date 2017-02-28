@@ -16,14 +16,14 @@ interface UserRepositoryInterface
      * @param UserId $userId
      * @return null|User
      */
-    public function findById(UserId $userId);
+    public function findOneById(UserId $userId);
     
     /**
      * @param string $username
      *
      * @return null|User
      */
-    public function findByUsername(string $username);
+    public function findOneByUsername(string $username);
 
     /**
      * @param User $user
