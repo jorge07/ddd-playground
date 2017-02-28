@@ -19,7 +19,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      *
      * @return null|User
      */
-    public function oneByUsername(string $username)
+    public function findOneByUsername(string $username)
     {
         return $this->createQueryBuilder('user')
             ->where('user.auth.username = :username')

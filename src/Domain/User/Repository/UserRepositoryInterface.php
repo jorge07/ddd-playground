@@ -23,7 +23,7 @@ interface UserRepositoryInterface
      *
      * @return null|User
      */
-    public function oneByUsername(string $username);
+    public function findOneByUsername(string $username);
 
     /**
      * @param User $user

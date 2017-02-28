@@ -30,7 +30,7 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['save', 'get'])->getMock();
 
         $userRepo = self::getMockBuilder(UserRepositoryInterface::class)
-            ->setMethods(['save', 'findOneById', 'oneByUsername']);
+            ->setMethods(['save', 'findOneById', 'findOneByUsername']);
 
         $mock = $userRepo->getMock();
 
