@@ -7,6 +7,7 @@ imports:
     - { resource: bundles/doc.yml }
     - { resource: bundles/doctrine.yml }
     - { resource: bundles/redis.yml }
+    - { resource: bundles/jwt.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -46,10 +47,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-lexik_jwt_authentication:
-    private_key_path: "%jwt_private_key_path%"
-    public_key_path:  "%jwt_public_key_path%"
-    pass_phrase:      "%jwt_key_pass_phrase%"
-    token_ttl:        "%jwt_token_ttl%"
-    user_identity_field: username

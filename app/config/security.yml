@@ -22,17 +22,10 @@ security:
             pattern:    ^/api
             stateless: true
             provider: customers
-            lexik_jwt:
-                authorization_header:
-                    enabled: true
-                    prefix:  Bearer
-                    name:    Authorization
-                cookie:
-                    enabled: true
-                    name:    BEARER
-                query_parameter:
-                    enabled: false
-                    name:    bearer
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
         public:
             pattern:  ^/
             stateless: true

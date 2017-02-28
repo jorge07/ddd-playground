@@ -1,0 +1,16 @@
+lexik_jwt_authentication:
+    private_key_path: "%jwt_private_key_path%"
+    public_key_path:  "%jwt_public_key_path%"
+    pass_phrase:      "%jwt_key_pass_phrase%"
+    token_ttl:        "%jwt_token_ttl%"
+    user_identity_field: username
+    token_extractors:
+        authorization_header:
+            enabled: true
+            prefix:  Bearer
+            name:    Authorization
+        cookie:
+            enabled: true
+            name:    BEARER
+        query_parameter:
+            enabled: false

@@ -77,6 +77,11 @@ class User
         return $this->email;
     }
 
+    public function username(): string
+    {
+        return $this->auth->username();
+    }
+
     /**
      * @return AuthUser
      */

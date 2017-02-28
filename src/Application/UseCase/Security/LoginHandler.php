@@ -69,7 +69,7 @@ class LoginHandler
      */
     public function handle(Login $request): string
     {
-        $user = $this->userRepository->findByUsername($request->username());
+        $user = $this->userRepository->oneByUsername($request->username());
 
         if (!$user) {
 
