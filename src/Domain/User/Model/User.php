@@ -115,7 +115,7 @@ class User
 
         foreach ($this->wallets as $wallet) {
 
-            $total = $wallet->real()->amount();
+            $total += $wallet->real()->amount();
         }
 
         return $total;
@@ -130,7 +130,7 @@ class User
 
         foreach ($this->wallets as $wallet) {
 
-            $total = $wallet->bonus()->amount();
+            $total += $wallet->bonus()->amount();
         }
 
         return $total;
