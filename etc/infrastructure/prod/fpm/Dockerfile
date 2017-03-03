@@ -1,4 +1,4 @@
-FROM jorge07/alpine-php:7
+FROM jorge07/alpine-php:7.1
 
 ENV SYMFONY_ENV prod
 

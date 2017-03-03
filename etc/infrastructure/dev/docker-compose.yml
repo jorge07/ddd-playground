@@ -10,7 +10,7 @@ services:
       - fpm
 
   fpm:
-    image: jorge07/alpine-php:7-dev
+    image: jorge07/alpine-php:7.1-dev
     ports:
       - "2244:22"
       - "9000:9000"
