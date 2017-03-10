@@ -2,8 +2,7 @@
 
 namespace Leos\UI\RestBundle\Controller\Rollback;
 
-use League\Tactician\CommandBus;
-use Leos\UI\RestBundle\Controller\AbstractController;
+use Leos\UI\RestBundle\Controller\AbstractBusController;
 
 use Leos\Application\UseCase\Transaction\Request\RollbackDeposit as RollbackDepositRequest;
 use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawal as RollbackWithdrawalRequest;
@@ -25,22 +24,8 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
  *
  * @RouteResource("Rollback", pluralize=false)
  */
-class RollbackController extends AbstractController
+class RollbackController extends AbstractBusController
 {
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
-
-    /**
-     * RollbackController constructor.
-     * @param CommandBus $commandBus
-     */
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-    
     /**
      * @ApiDoc(
      *     resource = true,
@@ -63,7 +48,7 @@ class RollbackController extends AbstractController
      */
     public function postDepositAction(ParamFetcher $fetcher): RollbackDeposit
     {
-        return $this->commandBus->handle(
+        return $this->handle(
             new RollbackDepositRequest($fetcher->get('deposit'))
         );
     }
@@ -90,7 +75,7 @@ class RollbackController extends AbstractController
      */
     public function postWithdrawalAction(ParamFetcher $fetcher): RollbackWithdrawal
     {
-        return $this->commandBus->handle(
+        return $this->handle(
             new RollbackWithdrawalRequest($fetcher->get('withdrawal'))
         );
     }

@@ -2,8 +2,7 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
-use League\Tactician\CommandBus;
-use Leos\UI\RestBundle\Controller\AbstractController;
+use Leos\UI\RestBundle\Controller\AbstractBusController;
 
 use Leos\Application\UseCase\Wallet\Request\Find;
 use Leos\Application\UseCase\Wallet\Request\GetWallet;
@@ -36,23 +35,9 @@ use Symfony\Component\Form\Form;
  *
  * @RouteResource("Wallet", pluralize=false)
  */
-class WalletController extends AbstractController
+class WalletController extends AbstractBusController
 {
     use PagerTrait;
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
-
-    /**
-     * WalletController constructor.
-     * 
-     * @param CommandBus $commandBus
-     */
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
 
     /**
      * @ApiDoc(
@@ -129,7 +114,7 @@ class WalletController extends AbstractController
         $request = new Find($fetcher->all());
 
         return $this->getPagination(
-            $this->commandBus->handle($request),
+            $this->handle($request),
             'cget_wallet',
             [],
             $request->getLimit(),
@@ -157,7 +142,7 @@ class WalletController extends AbstractController
      */
     public function getAction(string $walletId): Wallet
     {
-        return $this->commandBus->handle(new GetWallet($walletId));
+        return $this->handle(new GetWallet($walletId));
     }
 
     /**
@@ -182,7 +167,7 @@ class WalletController extends AbstractController
      */
     public function postAction(ParamFetcher $fetcher)
     {
-        $wallet = $this->commandBus->handle(
+        $wallet = $this->handle(
             new CreateWallet(
                 $fetcher->get('userId'),
                 $fetcher->get('currency')
@@ -218,7 +203,7 @@ class WalletController extends AbstractController
      */
     public function postDepositAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
-        return $this->commandBus->handle(
+        return $this->handle(
             new CreateDeposit(
                 $uid,
                 $fetcher->get('currency'),
@@ -255,7 +240,7 @@ class WalletController extends AbstractController
      */
     public function postWithdrawalAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
     {
-        return $this->commandBus->handle(
+        return $this->handle(
             new Withdrawal(
                 $uid,
                 $fetcher->get('currency'),

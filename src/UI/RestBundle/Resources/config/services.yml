@@ -11,9 +11,7 @@ services:
 
     leos.controller.security:
       class: Leos\UI\RestBundle\Controller\Security\SecurityController
-      parent: leos.abstract.controller
-      arguments:
-        - "@tactician.commandbus"
+      parent: leos.abstract.bus_controller
 
     leos.controller.monitor:
       class: Leos\UI\RestBundle\Controller\Monitor\StatusController
@@ -21,18 +19,13 @@ services:
 
     leos.controller.wallet:
       class: Leos\UI\RestBundle\Controller\Wallet\WalletController
-      parent: leos.abstract.controller
-      arguments:
-        - "@tactician.commandbus"
+      parent: leos.abstract.bus_controller
+
 
     leos.controller.wallet_rollback:
       class: Leos\UI\RestBundle\Controller\Rollback\RollbackController
-      parent: leos.abstract.controller
-      arguments:
-        - "@tactician.commandbus"
+      parent: leos.abstract.bus_controller
 
     leos.controller.user:
       class: Leos\UI\RestBundle\Controller\User\UserController
-      parent: leos.abstract.controller
-      arguments:
-        - "@tactician.commandbus"
+      parent: leos.abstract.bus_controller

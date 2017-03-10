@@ -4,7 +4,7 @@ namespace Leos\UI\RestBundle\Controller\Security;
 
 use Leos\Domain\Security\Exception\AuthenticationException;
 use Leos\Domain\User\ValueObject\UserId;
-use Leos\UI\RestBundle\Controller\AbstractController;
+use Leos\UI\RestBundle\Controller\AbstractBusController;
 
 use Leos\Application\UseCase\User\Request\Register;
 use Leos\Application\UseCase\Security\Request\Login;
@@ -22,8 +22,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
-use League\Tactician\CommandBus;
-
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**
@@ -33,23 +31,8 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
  *
  * @RouteResource("Auth", pluralize=false)
  */
-class SecurityController extends AbstractController
+class SecurityController extends AbstractBusController
 {
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
-
-    /**
-     * SecurityController constructor.
-     *
-     * @param CommandBus $commandBus
-     */
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
     /**
      * @ApiDoc(
      *     resource = true,
@@ -74,7 +57,7 @@ class SecurityController extends AbstractController
     public function postLoginAction(ParamFetcher $fetcher)
     {
         return [
-            'token' => $this->commandBus->handle(
+            'token' => $this->handle(
                 new Login(
                     $fetcher->get('_username'),
                     $fetcher->get('_password')
@@ -112,7 +95,7 @@ class SecurityController extends AbstractController
         try {
 
             /** @var User $user */
-            $user = $this->commandBus->handle(
+            $user = $this->handle(
                 new Register(
                     new UserId(),
                     $fetcher->get('username'),

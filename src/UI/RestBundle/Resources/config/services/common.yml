@@ -3,3 +3,9 @@ services:
         abstract: true
         calls:
           - [ setRequestStack, ["@request_stack"]]
+
+    leos.abstract.bus_controller:
+        abstract: true
+        parent: leos.abstract.controller
+        arguments:
+          - "@tactician.commandbus"
