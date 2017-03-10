@@ -2,6 +2,7 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
+use Leos\Infrastructure\CommonBundle\Exception\Form\FormException;
 use Leos\UI\RestBundle\Controller\AbstractBusController;
 
 use Leos\Application\UseCase\Wallet\Request\Find;
@@ -167,12 +168,17 @@ class WalletController extends AbstractBusController
      */
     public function postAction(ParamFetcher $fetcher)
     {
-        $wallet = $this->handle(
-            new CreateWallet(
-                $fetcher->get('userId'),
-                $fetcher->get('currency')
-            )
-        );
+        try {
+            $wallet = $this->handle(
+                new CreateWallet(
+                    $fetcher->get('userId'),
+                    $fetcher->get('currency')
+                )
+            );
+        } catch (FormException $exception) {
+
+            return $exception->getForm();
+        }
 
         return $this->routeRedirectView('get_wallet', [ 'walletId' => $wallet->id() ]);
     }

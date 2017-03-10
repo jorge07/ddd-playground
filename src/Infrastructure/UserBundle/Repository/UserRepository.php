@@ -14,12 +14,7 @@ use Leos\Domain\User\ValueObject\UserId;
  */
 class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
-    /**
-     * @param string $username
-     *
-     * @return null|User
-     */
-    public function findOneByUsername(string $username)
+    public function findOneByUsername(string $username): ?User
     {
         return $this->createQueryBuilder('user')
             ->where('user.auth.username = :username')
@@ -30,30 +25,20 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         ;
     }
 
-    /**
-     * @param UserId $userId
-     * @return null|User
-     */
-    public function findOneById(UserId $userId)
+    public function findOneById(UserId $userId): ?User
     {
         return $this->createQueryBuilder('user')
             ->where('user.uuid = :id')
             ->setParameter('id', $userId->bytes())
             ->getQuery()
-//            ->useResultCache(true, null, 'user.findByUsername'.$username)
+//            ->useResultCache(true, null, 'user.findOneById'.$username)
             ->getOneOrNullResult()
         ;
     }
 
-    /**
-     * @param User $user
-     * 
-     * @return void
-     */
-    public function save(User $user)
+    public function save(User $user): void
     {
         $this->_em->persist($user);
         $this->_em->flush();
     }
-
 }

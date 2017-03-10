@@ -2,8 +2,6 @@
 
 namespace Leos\Domain\Security\ValueObject;
 
-use Leos\Domain\User\ValueObject\UserId;
-
 /**
  * Class AuthUser
  *
@@ -30,11 +28,6 @@ final class AuthUser
      */
     private $roles = [];
 
-    /**
-     * @param string $username
-     * @param EncodedPasswordInterface $encodedPassword
-     * @param array $roles
-     */
     public function __construct(string $username, EncodedPasswordInterface $encodedPassword, array $roles = [])
     {
         $this->username = $username;
@@ -42,33 +35,16 @@ final class AuthUser
         $this->roles = array_merge(self::DEFAULT_ROLES, $roles);
     }
 
-    /**
-     * @return UserId
-     */
-    public function id(): UserId
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @return string
-     */
     public function username(): string
     {
         return $this->username;
     }
 
-    /**
-     * @return string
-     */
     public function password(): string
     {
         return $this->passwordHash;
     }
 
-    /**
-     * @return array
-     */
     public function roles(): array
     {
         return $this->roles;

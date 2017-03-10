@@ -24,10 +24,11 @@ final class EncodedPassword implements EncodedPasswordInterface
      * EncodedPassword constructor.
      *
      * @param string|null $plainPassword
+     *
      * @throws InvalidPasswordException
      * @throws NullPasswordException
      */
-    public function __construct(string $plainPassword = null)
+    public function __construct(?string $plainPassword = null)
     {
         if (null === $plainPassword) {
 
@@ -39,10 +40,7 @@ final class EncodedPassword implements EncodedPasswordInterface
         $this->setPassword($plainPassword);
     }
 
-    /**
-     * @param string $plainPassword
-     */
-    private function setPassword(string $plainPassword)
+    private function setPassword(string $plainPassword): void
     {
         $encoder = new BCryptPasswordEncoder(12);
         $this->password = $encoder->encodePassword($plainPassword, null);
@@ -52,16 +50,14 @@ final class EncodedPassword implements EncodedPasswordInterface
      * @param string|null $plainPassword
      * @throws InvalidPasswordException
      */
-    private function validate(string $plainPassword = null)
+    private function validate(?string $plainPassword): void
     {
         if (8 > strlen($plainPassword)) {
 
             throw new InvalidPasswordException();
         }
     }
-    /**
-     * @return string
-     */
+
     public function __toString(): string
     {
         return $this->password;

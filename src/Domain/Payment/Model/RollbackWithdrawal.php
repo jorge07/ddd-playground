@@ -13,11 +13,6 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  */
 class RollbackWithdrawal extends AbstractTransaction
 {
-    /**
-     * RollbackWithdrawal constructor.
-     *
-     * @param Withdrawal $withdrawal
-     */
     public function __construct(Withdrawal $withdrawal)
     {
         parent::__construct(

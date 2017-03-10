@@ -31,11 +31,6 @@ abstract class AbstractFactory
      */
     protected $formClass;
 
-    /**
-     * AbstractFactory constructor.
-     *
-     * @param FormFactory $formFactory
-     */
     public function __construct(FormFactory $formFactory)
     {
         $this->formFactory = $formFactory;
@@ -50,7 +45,9 @@ abstract class AbstractFactory
      * @param string $action
      * @param array $data
      * @param null|object $object
+     *
      * @return mixed
+     *
      * @throws FormException
      */
     protected function execute(string $action = self::CREATE, array $data, $object = null)

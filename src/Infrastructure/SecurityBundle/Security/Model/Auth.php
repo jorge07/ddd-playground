@@ -24,19 +24,12 @@ class Auth implements UserInterface, EncoderAwareInterface
      */
     private $authUser;
 
-    /**
-     * @param string $uuid
-     * @param AuthUser $authUser
-     */
     public function __construct(string $uuid, AuthUser $authUser)
     {
         $this->uuid = $uuid;
         $this->authUser = $authUser;
     }
 
-    /**
-     * @return string
-     */
     public function id(): string
     {
         return $this->uuid;

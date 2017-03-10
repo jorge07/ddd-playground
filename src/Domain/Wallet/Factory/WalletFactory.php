@@ -16,10 +16,6 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  */
 class WalletFactory extends AbstractTransaction
 {
-    /**
-     * @param User $user
-     * @param Currency $currency
-     */
     public function __construct(User $user, Currency $currency)
     {
         parent::__construct(TransactionType::CREATE_WALLET, new Wallet($user), new Money(0, $currency), new Money(0, $currency));

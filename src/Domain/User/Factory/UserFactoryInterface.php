@@ -11,11 +11,5 @@ use Leos\Domain\User\Model\User;
  */
 interface UserFactoryInterface
 {
-    /**
-     * @param array $data
-     *
-     * @return User
-     */
     public function register(array $data): User;
-
 }

@@ -18,7 +18,8 @@ interface WalletRepositoryInterface
      * @param array $operators
      * @param array $values
      * @param array $sort
-     * @return mixed
+     *
+     * @return Wallet[]
      */
     public function findAll(array $keys = [], array $operators = [], array $values = [], array $sort = []);
 
@@ -31,11 +32,6 @@ interface WalletRepositoryInterface
      */
     public function get(WalletId $uid): Wallet;
 
-    /**
-     * @param WalletId $uid
-     *
-     * @return null|Wallet
-     */
-    public function findOneById(WalletId $uid);
+    public function findOneById(WalletId $uid): ?Wallet;
 
 }

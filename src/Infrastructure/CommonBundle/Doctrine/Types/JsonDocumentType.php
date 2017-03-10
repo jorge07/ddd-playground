@@ -24,26 +24,17 @@ class JsonDocumentType extends Type
      */
     private $serializer;
 
-    /**
-     * @param mixed $type
-     */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return Serializer
-     */
-    public function getSerializer()
+    public function getSerializer(): Serializer
     {
         return $this->serializer;
     }
 
-    /**
-     * @param mixed $serializer
-     */
-    public function setSerializer($serializer)
+    public function setSerializer(Serializer $serializer): void
     {
         $this->serializer = $serializer;
     }
@@ -79,7 +70,6 @@ class JsonDocumentType extends Type
      * Gets the name of this type.
      *
      * @return string
-     *
      */
     public function getName()
     {

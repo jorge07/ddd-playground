@@ -4,6 +4,7 @@ namespace Leos\UI\RestBundle\Controller;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\ControllerTrait;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -74,7 +75,7 @@ abstract class AbstractController
     /**
      * @return null|\Symfony\Component\HttpFoundation\Request
      */
-    protected function getRequest()
+    protected function getRequest(): ?Request
     {
         return $this->requestStack->getMasterRequest();
     }

@@ -24,11 +24,6 @@ class TransactionType
      */
     private $type;
 
-    /**
-     * TransactionType constructor.
-     *
-     * @param string $type
-     */
     public function __construct(string $type)
     {
         $this->setType($type);
@@ -39,7 +34,7 @@ class TransactionType
      *
      * @throws InvalidTransactionTypeException
      */
-    private function setType(string $type)
+    private function setType(string $type): void
     {
         if (!self::isValid($type)) {
 
@@ -49,9 +44,6 @@ class TransactionType
         $this->type = $type;
     }
 
-    /**
-     * @return array
-     */
     public static function types(): array
     {
         return [
@@ -63,9 +55,6 @@ class TransactionType
         ];
     }
 
-    /**
-     * @return bool
-     */
     public function isCredit(): bool
     {
         return in_array($this->type, [
@@ -74,9 +63,6 @@ class TransactionType
         ]);
     }
 
-    /**
-     * @return bool
-     */
     public function isDebit(): bool
     {
         return in_array($this->type, [
@@ -85,18 +71,11 @@ class TransactionType
         ]);
     }
 
-    /**
-     * @param string $type
-     * @return bool
-     */
     public static function isValid(string $type): bool
     {
         return in_array($type, self::types());
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) $this->type;

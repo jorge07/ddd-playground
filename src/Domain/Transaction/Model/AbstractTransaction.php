@@ -32,7 +32,7 @@ abstract class AbstractTransaction
     /**
      * @var string
      */
-    private $state;
+    private $state = TransactionState::PENDING;
 
     /**
      * @var Credit
@@ -84,14 +84,6 @@ abstract class AbstractTransaction
      */
     protected $updatedAt;
 
-    /**
-     * Transaction constructor.
-     *
-     * @param string $type
-     * @param Wallet $wallet
-     * @param Money $real
-     * @param Money $bonus
-     */
     public function __construct(
         string $type,
         Wallet $wallet,
@@ -102,7 +94,6 @@ abstract class AbstractTransaction
         $this->id = new TransactionId();
         $this->type = new TransactionType($type);
         $this->wallet = $wallet;
-        $this->state = TransactionState::PENDING;
         $this->prevReal = $wallet->real();
         $this->prevBonus = $wallet->bonus();
         $this->currency = $real->currency();
@@ -110,11 +101,7 @@ abstract class AbstractTransaction
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @param Money $real
-     * @param Money $bonus
-     */
-    private function process(Money $real, Money $bonus)
+    private function process(Money $real, Money $bonus): void
     {
         switch (true){
 
@@ -147,44 +134,29 @@ abstract class AbstractTransaction
         $this->operationBonus = $this->wallet->bonus()->diff($this->prevBonus);
     }
 
-    /**
-     * @return Money
-     */
     public function realMoney(): Money
     {
         return (new Credit((int) abs($this->operationReal)))
             ->toMoney($this->currency());
     }
 
-    /**
-     * @return Money
-     */
     public function bonusMoney(): Money
     {
         return (new Credit((int) abs($this->operationBonus)))
             ->toMoney($this->currency());
     }
-    
-    /**
-     * @return string
-     */
+
     public function id(): string
     {
         return (string) $this->id;
     }
 
-    /**
-     * @return TransactionType
-     */
     public function type(): TransactionType
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
-    public function is()
+    public function is(): string
     {
         return $this->state;
     }
@@ -193,6 +165,7 @@ abstract class AbstractTransaction
      * @param string $newState
      *
      * @return AbstractTransaction
+     *
      * @throws InvalidTransactionStateException
      */
     final protected function setState(string $newState): self
@@ -207,66 +180,42 @@ abstract class AbstractTransaction
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function operationReal(): int
     {
         return $this->operationReal;
     }
 
-    /**
-     * @return int
-     */
     public function operationBonus(): int
     {
         return $this->operationBonus;
     }
 
-    /**
-     * @return Credit
-     */
     public function prevReal(): Credit
     {
         return $this->prevReal;
     }
 
-    /**
-     * @return Credit
-     */
     public function prevBonus(): Credit
     {
         return $this->prevBonus;
     }
 
-    /**
-     * @return Wallet
-     */
     public function wallet(): Wallet
     {
         return $this->wallet;
     }
 
-    /**
-     * @return Currency
-     */
     public function currency(): Currency
     {
         return $this->currency;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function createdAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return null|\DateTime
-     */
-    public function updatedAt()
+    public function updatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -277,7 +226,7 @@ abstract class AbstractTransaction
     public abstract function details();
 
     /**
-     * @param $details
+     * @param mixed $details
      * 
      * @return AbstractTransaction
      */
@@ -288,19 +237,11 @@ abstract class AbstractTransaction
         return $this;
     }
 
-    /**
-     * @return null|AbstractTransaction
-     */
-    public function referralTransaction()
+    public function referralTransaction(): ?AbstractTransaction
     {
         return $this->referralTransaction;
     }
 
-    /**
-     * @param AbstractTransaction $referralTransaction
-     *
-     * @return AbstractTransaction
-     */
     protected function setReferralTransaction(AbstractTransaction $referralTransaction): self
     {
         $this->referralTransaction = $referralTransaction;
@@ -310,5 +251,6 @@ abstract class AbstractTransaction
 
     public function rollback()
     {
+        // Implement when need it
     }
 }

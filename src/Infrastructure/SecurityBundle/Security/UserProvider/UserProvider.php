@@ -23,11 +23,6 @@ class UserProvider implements UserProviderInterface
      */
     private $repository;
 
-    /**
-     * UserProvider constructor.
-     *
-     * @param UserRepositoryInterface $repository
-     */
     public function __construct(UserRepositoryInterface $repository)
     {
         $this->repository = $repository;

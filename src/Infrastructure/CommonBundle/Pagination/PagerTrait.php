@@ -1,7 +1,7 @@
 <?php
 namespace Leos\Infrastructure\CommonBundle\Pagination;
 
-use Leos\Application\Request\Common\PaginationDTO;
+use Leos\Application\Request\Common\Pagination;
 
 use Pagerfanta\Pagerfanta;
 use Hateoas\Configuration\Route;
@@ -28,8 +28,8 @@ Trait PagerTrait
         Pagerfanta $pager,
         string $route,
         array $params  = [],
-        int $limit = PaginationDTO::LIMIT, // I dont like have application inside infrastructure... T
-        int $page = PaginationDTO::PAGE): PaginatedRepresentation
+        int $limit = Pagination::LIMIT, // I dont like have application inside infrastructure...
+        int $page = Pagination::PAGE): PaginatedRepresentation
     {
         $pager
             ->setMaxPerPage($limit)

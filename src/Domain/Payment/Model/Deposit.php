@@ -16,13 +16,6 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  */
 class Deposit extends AbstractTransaction
 {
-
-    /**
-     * Deposit constructor.
-     * @param Wallet $wallet
-     * @param Money $real
-     * @param DepositDetails $details
-     */
     public function __construct(Wallet $wallet, Money $real, DepositDetails $details)
     {
         parent::__construct(TransactionType::DEPOSIT, $wallet, $real, new Money(0, $real->currency()));
@@ -30,9 +23,6 @@ class Deposit extends AbstractTransaction
         $this->details = $details;
     }
 
-    /**
-     * @return RollbackDeposit
-     */
     public function rollback(): RollbackDeposit
     {
         $this->setState(TransactionState::REVERTED);
@@ -40,9 +30,6 @@ class Deposit extends AbstractTransaction
         return new RollbackDeposit($this);
     }
 
-    /**
-     * @return DepositDetails
-     */
     public function details(): DepositDetails
     {
         return $this->details;

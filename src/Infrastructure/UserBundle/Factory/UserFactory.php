@@ -15,22 +15,12 @@ use Symfony\Component\Form\FormFactory;
  */
 class UserFactory extends AbstractFactory implements UserFactoryInterface
 {
-    /**
-     * UserFactory constructor.
-     * 
-     * @param FormFactory $factory
-     */
     public function __construct(FormFactory $factory)
     {
         $this->formClass = RegisterType::class;
         parent::__construct($factory);
     }
 
-    /**
-     * @param array $data
-     *
-     * @return User
-     */
     public function register(array $data): User
     {
         return $this->execute(self::CREATE, $data);

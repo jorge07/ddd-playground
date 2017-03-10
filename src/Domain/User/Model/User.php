@@ -46,12 +46,6 @@ class User
      */
     private $updatedAt;
 
-    /**
-     * @param UserId $userId
-     * @param string $username
-     * @param string $email
-     * @param EncodedPasswordInterface $encodedPassword
-     */
     public function __construct(UserId $userId, string $username, string $email, EncodedPasswordInterface $encodedPassword)
     {
         $this->uuid = $userId;
@@ -61,17 +55,11 @@ class User
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @return UserId
-     */
     public function id(): UserId
     {
         return $this->uuid;
     }
 
-    /**
-     * @return string
-     */
     public function email(): string
     {
         return $this->email;
@@ -82,33 +70,23 @@ class User
         return $this->auth->username();
     }
 
-    /**
-     * @return AuthUser
-     */
     public function auth(): AuthUser
     {
         return $this->auth;
     }
 
-    /**
-     * @return \DateTime
-     */
+
     public function createdAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function updatedAt()
+    public function updatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @return int
-     */
+
     public function realBalance(): int
     {
         $total = 0;
@@ -121,9 +99,6 @@ class User
         return $total;
     }
 
-    /**
-     * @return int
-     */
     public function bonusBalance(): int
     {
         $total = 0;

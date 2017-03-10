@@ -12,22 +12,10 @@ use Leos\Domain\User\ValueObject\UserId;
  */
 interface UserRepositoryInterface
 {
-    /**
-     * @param UserId $userId
-     * @return null|User
-     */
-    public function findOneById(UserId $userId);
-    
-    /**
-     * @param string $username
-     *
-     * @return null|User
-     */
-    public function findOneByUsername(string $username);
 
-    /**
-     * @param User $user
-     * @return void
-     */
-    public function save(User $user);
+    public function findOneById(UserId $userId): ?User;
+
+    public function findOneByUsername(string $username): ?User;
+
+    public function save(User $user): void;
 }

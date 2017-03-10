@@ -46,12 +46,7 @@ class WalletRepository extends EntityRepository implements WalletRepositoryInter
         return $wallet;
     }
 
-    /**
-     * @param WalletId $uid
-     *
-     * @return null|Wallet
-     */
-    public function findOneById(WalletId $uid)
+    public function findOneById(WalletId $uid): ?Wallet
     {
         return $this->createQueryBuilder('wallet')
             ->where('wallet.id = :id')

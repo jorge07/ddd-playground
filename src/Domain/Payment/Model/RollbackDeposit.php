@@ -13,11 +13,6 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
  */
 class RollbackDeposit extends AbstractTransaction
 {
-    /**
-     * RollbackDeposit constructor.
-     *
-     * @param Deposit $deposit
-     */
     public function __construct(Deposit $deposit)
     {
         parent::__construct(

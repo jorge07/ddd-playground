@@ -17,15 +17,11 @@ interface TransactionRepositoryInterface
     /**
      * @param TransactionId $transactionId
      *
-     * @return mixed
+     * @return AbstractTransaction
      *
      * @throws TransactionNotFoundException
      */
     public function get(TransactionId $transactionId): AbstractTransaction;
 
-    /**
-     * @param AbstractTransaction $transaction
-     * @return void
-     */
-    public function save(AbstractTransaction $transaction);
+    public function save(AbstractTransaction $transaction): void;
 }

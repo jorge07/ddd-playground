@@ -16,20 +16,12 @@ class DepositDetails
      */
     private $provider;
 
-    /**
-     * DepositDetails constructor.
-     *
-     * @param string $provider
-     */
     public function __construct(string $provider)
     {
         $this->setProvider($provider);
     }
 
-    /**
-     * @param string $provider
-     */
-    private function setProvider(string $provider)
+    private function setProvider(string $provider): void
     {
         if (strlen($provider) < 3) {
             
@@ -39,9 +31,6 @@ class DepositDetails
         $this->provider = $provider;
     }
 
-    /**
-     * @return string
-     */
     public function provider(): string
     {
         return $this->provider;

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leos\Domain\Wallet\Model;
@@ -45,9 +46,6 @@ class Wallet
      */
     private $updatedAt;
 
-    /**
-     * @param User $user
-     */
     public function __construct(User $user)
     {
         $this->id = new WalletId();
@@ -57,11 +55,6 @@ class Wallet
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @param Money $money
-     *
-     * @return Wallet
-     */
     public function addRealMoney(Money $money): self
     {
         $this->real = $this->real->add($money);
@@ -69,11 +62,6 @@ class Wallet
         return $this;
     }
 
-    /**
-     * @param Money $money
-     *
-     * @return Wallet
-     */
     public function removeRealMoney(Money $money): self
     {
         $this->real = $this->real->remove($money);
@@ -81,11 +69,6 @@ class Wallet
         return $this;
     }
 
-    /**
-     * @param Money $money
-     *
-     * @return Wallet
-     */
     public function addBonusMoney(Money $money): self
     {
         $this->bonus = $this->bonus->add($money);
@@ -93,11 +76,6 @@ class Wallet
         return $this;
     }
 
-    /**
-     * @param Money $money
-     *
-     * @return Wallet
-     */
     public function removeBonusMoney(Money $money): self
     {
         $this->bonus = $this->bonus->remove($money);
@@ -105,60 +83,38 @@ class Wallet
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function id(): string
     {
         return $this->id->__toString();
     }
 
-    /**
-     * @return WalletId
-     */
     public function walletId(): WalletId
     {
         return $this->id;
     }
 
-    /**
-     * @return User
-     */
     public function user(): User
     {
         return $this->user;
     }
 
-    /**
-     * @return Credit
-     */
     public function real(): Credit
     {
         return $this->real;
     }
 
-    /**
-     * @return Credit
-     */
     public function bonus(): Credit
     {
         return $this->bonus;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function createdAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function updatedAt()
+    public function updatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
-
 }

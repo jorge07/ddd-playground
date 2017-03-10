@@ -12,12 +12,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
  */
 class JWTCreatedListener
 {
-    /**
-     * @param JWTCreatedEvent $event
-     *
-     * @return void
-     */
-    public function onJWTCreated(JWTCreatedEvent $event)
+    public function onJWTCreated(JWTCreatedEvent $event): void
     {
         $expiration = new \DateTime('+1 day');
 

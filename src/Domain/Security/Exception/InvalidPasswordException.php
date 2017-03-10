@@ -2,7 +2,6 @@
 
 namespace Leos\Domain\Security\Exception;
 
-
 /**
  * Class InvalidPasswordException
  *

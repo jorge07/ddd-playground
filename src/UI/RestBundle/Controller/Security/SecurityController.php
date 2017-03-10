@@ -54,7 +54,7 @@ class SecurityController extends AbstractBusController
      *
      * @return array
      */
-    public function postLoginAction(ParamFetcher $fetcher)
+    public function postLoginAction(ParamFetcher $fetcher): array
     {
         return [
             'token' => $this->handle(
@@ -88,7 +88,7 @@ class SecurityController extends AbstractBusController
      *
      * @param ParamFetcher $fetcher
      *
-     * @return User|\Symfony\Component\Form\FormInterface|\FOS\RestBundle\View\View
+     * @return \Symfony\Component\Form\FormInterface|\FOS\RestBundle\View\View
      */
     public function postRegisterAction(ParamFetcher $fetcher)
     {

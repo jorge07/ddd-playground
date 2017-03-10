@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Leos\Domain\Common\ValueObject;
@@ -20,12 +21,7 @@ abstract class AggregateRootId
      */
     protected $uuid;
 
-    /**
-     * AggregateRootId constructor.
-     *
-     * @param null|string $id
-     */
-    public function __construct(string $id = null)
+    public function __construct(?string $id = null)
     {
         try {
 
@@ -37,44 +33,26 @@ abstract class AggregateRootId
         }
     }
 
-    /**
-     * @param AggregateRootId $aggregateRootId
-     * @return bool
-     */
-    public function equals(AggregateRootId $aggregateRootId)
+    public function equals(AggregateRootId $aggregateRootId): bool
     {
         return $this->uuid === $aggregateRootId->__toString();
     }
 
-    /**
-     * @return string
-     */
     public function bytes(): string
     {
         return Uuid::fromString($this->uuid)->getBytes();
     }
 
-    /**
-     * @param string $bytes
-     * @return AggregateRootId
-     */
     public static function fromBytes(string $bytes): self
     {
         return new static(Uuid::fromBytes($bytes)->toString());
     }
 
-    /**
-     * @param string $uid
-     * @return string
-     */
     public static function toBytes(string $uid): string
     {
         return (new static($uid))->bytes();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) $this->uuid;
