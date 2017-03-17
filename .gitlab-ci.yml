@@ -13,8 +13,8 @@ build:
   stage: build
   script:
     - mkdir -p context-${RELEASE}/build
-    - docker pull jorge07/alpine-php:7
-    - docker pull jorge07/alpine-php:7-dev
+    - docker pull jorge07/alpine-php:7.1
+    - docker pull jorge07/alpine-php:7.1-dev
     - docker-compose -p ${RELEASE} -f build/docker-compose.yml pull
     - docker-compose -p ${RELEASE} -f build/docker-compose.yml build
     - docker-compose -p ${RELEASE} -f build/docker-compose.yml up -d
