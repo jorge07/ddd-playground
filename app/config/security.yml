@@ -19,7 +19,7 @@ security:
             stateless:  true
 
         secured_area:
-            pattern:    ^/api
+            pattern:    ^/api/
             stateless: true
             provider: customers
             guard:
@@ -34,4 +34,4 @@ security:
     access_control:
 
         - { path: ^/,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,  roles: IS_AUTHENTICATED_FULLY       }
+        - { path: ^/api/,  roles: IS_AUTHENTICATED_FULLY       }
