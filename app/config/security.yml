@@ -18,6 +18,11 @@ security:
             security: false
             stateless:  true
 
+        doc_area:
+            pattern:    ^/api/doc
+            stateless: true
+            security: false
+
         secured_area:
             pattern:    ^/api/
             stateless: true
@@ -34,4 +39,6 @@ security:
     access_control:
 
         - { path: ^/,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/doc,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
         - { path: ^/api/,  roles: IS_AUTHENTICATED_FULLY       }
