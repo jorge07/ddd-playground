@@ -40,7 +40,7 @@ trait SecurityTrait
                 '_password' => $password
             ]);
 
-             $response =  $this->client->getResponse();
+            $response =  $this->client->getResponse();
 
             self::assertResponseCode($response, 200);
 
