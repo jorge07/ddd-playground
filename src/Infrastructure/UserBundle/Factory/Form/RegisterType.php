@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Infrastructure\UserBundle\Form;
+namespace Leos\Infrastructure\UserBundle\Factory\Form;
 
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\ValueObject\UserId;
@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
 /**
  * Class RegisterType
  *
- * @package Leos\Infrastructure\UserBundle\Form
+ * @package Leos\Infrastructure\UserBundle\Factory\Form
  */
 class RegisterType extends AbstractType
 {

@@ -5,7 +5,7 @@ namespace Leos\Infrastructure\UserBundle\Factory;
 use Leos\Domain\User\Factory\UserFactoryInterface;
 use Leos\Domain\User\Model\User;
 use Leos\Infrastructure\CommonBundle\Factory\AbstractFactory;
-use Leos\Infrastructure\UserBundle\Form\RegisterType;
+use Leos\Infrastructure\UserBundle\Factory\Form\RegisterType;
 use Symfony\Component\Form\FormFactory;
 
 /**
