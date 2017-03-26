@@ -1,5 +1,7 @@
 DDD Playground
-===
+==============
+
+This repository contains the implementation in DDD with php and symfony with doctrine of a simple Wallet API.
 
 ### Examples in the repo
 
@@ -11,8 +13,8 @@ DDD Playground
    - How to deal with **Json data type** and how to use same column for different doctrine data types. 
    - Code structured in layers as appears in DDD in php book.
    - An example of how to test the api with **behat** and guzzle and accessing to the api via web server, nginx in this case (Acceptance tests). 
-   - Example of how to use phpmatcher with Lakion api test case and Alice for fixtures and how to integrate it with behat. 
-   - Example of Command Bus implementation
+   - Example of how to use phpmatcher with Lakion api test case and Alice for fixtures and how to integrate it with **behat**. 
+   - Example of **Command Bus** implementation
 
 ### Tools
 
