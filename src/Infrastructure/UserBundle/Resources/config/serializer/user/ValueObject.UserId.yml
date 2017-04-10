@@ -3,4 +3,4 @@ Leos\Domain\User\ValueObject\UserId:
     properties:
         uuid:
             expose: true
-            groups: [Basic]
+            groups: [Identifier]

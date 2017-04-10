@@ -2,4 +2,4 @@ Leos\Domain\Common\ValueObject\AggregateRootId:
     properties:
         uuid:
             expose: true
-            groups: [Basic]
+            groups: [Identifier]
