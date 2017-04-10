@@ -2,8 +2,8 @@ fos_rest:
     versioning:
         enabled: true
         resolvers:
-            query: true
-            custom_header: true
+            query:
+              parameter_name: version
             media_type:
                 enabled: true
                 regex: '/(v|version)=(?P<version>[0-9\.]+)/'

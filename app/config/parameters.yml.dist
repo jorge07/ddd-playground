@@ -24,3 +24,5 @@ parameters:
 
     jwt_key_pass_phrase:  'leonardo'
     jwt_token_ttl:        86400
+
+    api_supported_versions: v1|v2
