@@ -16,7 +16,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
  * Class UserController
  *
  * @RouteResource("User", pluralize=false)
-
+ *
  * @package Leos\UI\RestBundle\Controller\User
  */
 class UserController extends AbstractBusController

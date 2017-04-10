@@ -95,9 +95,6 @@ class ApiContext extends JsonApiTestCase implements Context
         $this->httpFoundationFactory = new HttpFoundationFactory();
     }
 
-    /**
-     * @return Http
-     */
     public function http(): Http
     {
         return $this->http;

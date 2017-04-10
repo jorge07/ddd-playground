@@ -3,7 +3,7 @@ Leos\Domain\User\Model\User:
     properties:
         uuid:
             expose: true
-            groups: [Basic]
+            groups: [Basic, Identifier]
             type: Leos\Domain\User\ValueObject\UserId
 
         email:
