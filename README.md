@@ -48,7 +48,7 @@ And for testing proposal:
 - `guzzlehttp/guzzle`
 
 
-###The folder structure 
+### The folder structure 
 
     src
       \
@@ -60,19 +60,19 @@ And for testing proposal:
        |
         \ UI              `User Interface. This use to be inside the Infrastructure layer, but I don't like it.`
 
-###The tests
+### The tests
 
 The tests follow the same structure and the *phpunit* tests are tagged with group tags: *unit* or *functional*.
 
 The *aceptation tests* are inside the test `UI` layer and attack the application using Guzzle external connections and making possible to test the integration between fpm & nginx.
 
-###The Environment
+### The Environment
 
 The environment is in PHP7 and the development containers are on `etc/infrastructure/dev/docker-compose.yml`
 
 Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
 
-###CI/CD
+### CI/CD
 
 Follow the `gitlab-ci.yml` file, it's clear enough and contains a simply workflow to:
 
