@@ -22,11 +22,11 @@ node {
 
        stage 'Unit test'
 
-            sh "docker exec ${shortCommit}_fpm_1 ant unit-and-functional"
+            sh "sudo docker exec ${shortCommit}_fpm_1 ant unit-and-functional"
 
        stage 'Integration test'
 
-            sh "docker exec ${shortCommit}_fpm_1 ant acceptation"
+            sh "sudo docker exec ${shortCommit}_fpm_1 ant acceptation"
 
         stage 'Clean up'
 
