@@ -2,8 +2,6 @@
 
 node {
 
-    shortCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(6)
-
     currentBuild.result = "SUCCESS"
 
     try {
@@ -11,6 +9,8 @@ node {
        stage 'Checkout'
 
             checkout scm
+
+            shortCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(6)
 
        stage 'Build'
 
