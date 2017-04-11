@@ -18,7 +18,7 @@ node {
             sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml pull"
             sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml build"
             sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml up -d"
-            sh "sudo docker run ${shortCommit}_fpm_1 ant build"
+            sh "sudo docker exec ${shortCommit}_fpm_1 ant build"
 
        stage 'Unit test'
 
