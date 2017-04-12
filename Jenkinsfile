@@ -27,14 +27,14 @@ node {
        stage 'Integration test'
 
             sh "sudo docker exec ${shortCommit}_fpm_1 ant acceptation"
-
-        stage 'Clean up'
-
-            sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml down --volumes"
-
     } catch (err) {
 
         currentBuild.result = "FAILURE"
         throw err
+    } finally {
+    
+        stage 'Clean up'
+
+            sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml down --volumes"
     }
 }
