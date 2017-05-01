@@ -1,6 +1,7 @@
 /app/config/parameters.yml
 /build/
 /composer.phar
+/deptrac.phar
 /vendor/
 /web/bundles/
 /var/*

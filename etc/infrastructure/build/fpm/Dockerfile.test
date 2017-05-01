@@ -14,5 +14,6 @@ COPY tests /app/tests
 COPY phpunit.xml.dist /app/phpunit.xml.dist
 COPY behat.yml /app/behat.yml
 COPY build.xml /app/build.xml
+COPY depfile.yml /app
 
 RUN php /app/bin/console c:c
