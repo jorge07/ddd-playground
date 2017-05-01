@@ -1,0 +1,23 @@
+paths:
+  - ./src
+exclude_files:
+layers:
+  - name: Domain
+    collectors:
+      - type: className
+        regex: Leos\\Domain\\.*
+  - name: Application
+    collectors:
+      - type: className
+        regex: Leos\\Application\\.*
+  - name: Infrastructure
+    collectors:
+      - type: className
+        regex: Leos\\Infrastructure\\.*
+ruleset:
+  Domain:
+  Application:
+    - Domain
+  Infrastructure:
+    - Domain
+    - Application

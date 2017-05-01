@@ -5,6 +5,7 @@ COPY var /app/var
 COPY web /app/web
 COPY composer.json /app
 COPY composer.lock /app
+COPY depfile.yml /app
 
 RUN composer install --no-ansi --no-interaction --no-progress --optimize-autoloader
 
