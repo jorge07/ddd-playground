@@ -1,40 +1,66 @@
-#!/usr/bin/env groovy
+pipeline {
 
-node {
+    agent { node { label any } }
 
-    currentBuild.result = "SUCCESS"
+    environment {
+        APP_NAME = 'DDD'
+    }
 
-    try {
+    stages {
 
-       stage 'Checkout'
+        stage("Checkout") {
+            steps {
 
-            checkout scm
+                checkout scm
+                shortCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(6)
+            }
+        }
 
-            shortCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(6)
+        stage("Environment") {
+            steps {
 
-       stage 'Build'
+                sh 'sudo docker pull jorge07/alpine-php:7.1-dev-sf'
+                sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml pull"
+                sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml build"
+                sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml up -d"
+            }
+        }
 
-            sh 'sudo docker pull jorge07/alpine-php:7.1-dev-sf'
-            sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml pull"
-            sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml build"
-            sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml up -d"
-            sh "sudo docker exec ${shortCommit}_fpm_1 ant build"
+        stage("Build") {
+            steps {
 
-       stage 'Unit test'
+                sh "sudo docker exec ${shortCommit}_fpm_1 ant build"
+            }
+        }
 
-            sh "sudo docker exec ${shortCommit}_fpm_1 ant unit-and-functional"
+        stage("Unit test") {
+            steps {
 
-       stage 'Integration test'
+               sh "sudo docker exec ${shortCommit}_fpm_1 ant unit-and-functional"
+            }
+        }
 
-            sh "sudo docker exec ${shortCommit}_fpm_1 ant acceptation"
-    } catch (err) {
+        stage("Integration test") {
+            steps {
 
-        currentBuild.result = "FAILURE"
-        throw err
-    } finally {
-    
-        stage 'Clean up'
+               sh "sudo docker exec ${shortCommit}_fpm_1 ant acceptation"
+            }
+        }
+    }
+
+    post {
+        success {
+
+            slackSend (color: '#43A047', message: "${env.APP_NAME} -> All green. See: (${env.BUILD_URL})")
+        }
+
+        failure {
+
+            slackSend (color: '#CF0000', message: "${env.APP_NAME} -> Ops! Something was wrong... See: (${env.BUILD_URL})")
+        }
+        always {
 
             sh "sudo docker-compose -p ${shortCommit} -f etc/infrastructure/build/docker-compose.yml down --volumes"
+        }
     }
 }
