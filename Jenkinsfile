@@ -1,6 +1,6 @@
 pipeline {
 
-    agent { node { label any } }
+    // agent { node { label any } }
 
     environment {
         APP_NAME = 'DDD'
