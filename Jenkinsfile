@@ -50,11 +50,13 @@ pipeline {
     post {
         success {
 
+            echo 'ok'
             // slackSend (color: '#43A047', message: "${env.APP_NAME} -> All green. See: (${env.BUILD_URL})")
         }
 
         failure {
 
+            echo 'ko'
             // slackSend (color: '#CF0000', message: "${env.APP_NAME} -> Ops! Something was wrong... See: (${env.BUILD_URL})")
         }
         always {
