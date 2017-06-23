@@ -60,8 +60,11 @@ pipeline {
             // slackSend (color: '#CF0000', message: "${env.APP_NAME} -> Ops! Something was wrong... See: (${env.BUILD_URL})")
         }
         always {
-
-            sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml down --volumes"
+            stage("Clean env") {
+                steps {
+                    sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml down --volumes"
+                }
+            }
         }
     }
 }
