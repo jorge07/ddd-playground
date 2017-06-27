@@ -32,17 +32,17 @@ pipeline {
             }
         }
 
-        stage("Unit test") {
-            steps {
-
-               sh "sudo docker exec build_fpm_1 ant unit-and-functional"
-            }
-        }
-
-        stage("Integration test") {
+        stage("Acceptation tests") {
             steps {
 
                sh "sudo docker exec build_fpm_1 ant acceptation"
+            }
+        }
+
+        stage("Unit and functional tests") {
+            steps {
+
+               sh "sudo docker exec build_fpm_1 ant unit-and-functional"
             }
         }
     }
