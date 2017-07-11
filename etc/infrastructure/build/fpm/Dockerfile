@@ -15,4 +15,4 @@ RUN composer install --no-ansi --no-scripts --no-dev --no-interaction --no-progr
 
 COPY src /app/src
 
-RUN php /app/bin/console c:w
+RUN composer run-script post-install-cmd
