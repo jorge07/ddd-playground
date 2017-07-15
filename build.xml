@@ -51,21 +51,21 @@
             <arg value="doctrine:database:drop"/>
             <arg value="--force"/>
             <arg value="--no-interaction"/>
-            <arg value="--env=test"/>
+            <arg value="--env=behat"/>
         </exec>
 
         <exec executable="php" failonerror="true">
             <arg value="${consoledir}/console"/>
             <arg value="doctrine:database:create"/>
             <arg value="--no-interaction"/>
-            <arg value="--env=test"/>
+            <arg value="--env=behat"/>
         </exec>
 
         <exec executable="php" failonerror="true">
             <arg value="${consoledir}/console"/>
             <arg value="doctrine:schema:create"/>
             <arg value="--no-interaction"/>
-            <arg value="--env=test"/>
+            <arg value="--env=behat"/>
         </exec>
 
     </target>
@@ -110,5 +110,5 @@
 
     <target name="build" depends="waitfor, prepare, createdatabase, createdatabase-test" description="Prepare project dependencies"/>
     <target name="unit-and-functional" depends="cachewarm, phpunit" description="Run project unit and functional tests"/>
-    <target name="acceptation" depends="behat" description="Run project acceptation tests"/>
+    <target name="acceptation" depends="cachewarm, behat" description="Run project acceptation tests"/>
 </project>

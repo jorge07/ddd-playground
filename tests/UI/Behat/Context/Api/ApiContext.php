@@ -75,9 +75,9 @@ class ApiContext extends JsonApiTestCase implements Context
      */
     public function __construct(string $path, string $basePath, string $responsesPath = null, string $fixturesPath = null)
     {
-        $_SERVER['KERNEL_DIR'] = $basePath . '/app';
         $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
-
+        $_SERVER['KERNEL_DIR'] = $basePath . '/app';
+        $_SERVER['KERNEL_CLASS'] = 'AppKernel';
         parent::__construct();
 
         $this->http = new Http([
@@ -87,6 +87,8 @@ class ApiContext extends JsonApiTestCase implements Context
             'connect_timeout' => 2.5,
             'content-type' => 'application/json',
         ]);
+
+        $this->bootKernel(['environment' => 'dev']);
 
         $this->dataFixturesPath = $fixturesPath ?: $basePath.self::FIXTURES;
         $this->expectedResponsesPath = $responsesPath ?: $basePath.self::RESPONSES;
@@ -322,4 +324,13 @@ class ApiContext extends JsonApiTestCase implements Context
         }
     }
 
+
+    /**
+     * @beforeClass
+     */
+    public static function createSharedKernel(string $env = 'dev')
+    {
+        static::$sharedKernel = static::createKernel(['debug' => false, 'environment' => $env]);
+        static::$sharedKernel->boot();
+    }
 }

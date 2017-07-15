@@ -17,4 +17,4 @@ swiftmailer:
 
 doctrine:
     dbal:
-        dbname:   "test_%database_name%" # Allow run tests in parallel
+        dbname:   "test_%database_name%" # Allow test

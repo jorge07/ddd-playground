@@ -32,17 +32,19 @@ pipeline {
             }
         }
 
-        stage("Acceptation tests") {
+        stage("Tests") {
             steps {
 
-               sh "sudo docker exec build_fpm_1 ant acceptation"
-            }
-        }
+                parallel(
+                    "Acceptation": {
 
-        stage("Unit and functional tests") {
-            steps {
+                       sh "sudo docker exec build_fpm_1 ant acceptation"
+                    },
+                    "Unit and functional": {
 
-               sh "sudo docker exec build_fpm_1 ant unit-and-functional"
+                       sh "sudo docker exec build_fpm_1 ant unit-and-functional"
+                    }
+                )
             }
         }
     }

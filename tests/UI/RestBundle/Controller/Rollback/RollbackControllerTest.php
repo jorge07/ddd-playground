@@ -18,8 +18,6 @@ class RollbackControllerTest extends JsonApiTestCase
 
     public function setUp()
     {
-        $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
-
         if (!$this->client) {
 
             $this->setUpClient();
@@ -30,9 +28,6 @@ class RollbackControllerTest extends JsonApiTestCase
             $this->setUpDatabase();
             $this->databaseLoaded = true;
         }
-
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/Wallet";
-        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Fixtures";
     }
 
     /**
@@ -124,7 +119,7 @@ class RollbackControllerTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, "withdrawal", 202);
+        self::assertResponse($response, "Wallet/withdrawal", 202);
 
         $this->client->request('POST', '/api/v1/rollback/withdrawal.json', [
             'withdrawal' => json_decode($response->getContent(), true)['id']
@@ -162,7 +157,7 @@ class RollbackControllerTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, "withdrawal", 202);
+        self::assertResponse($response, "Wallet/withdrawal", 202);
 
         $this->client->request('POST', '/api/v1/rollback/deposit.json', [
             'deposit' => json_decode($response->getContent(), true)['id']
