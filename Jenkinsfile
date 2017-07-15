@@ -38,6 +38,7 @@ pipeline {
                 parallel(
                     "Acceptation": {
 
+                       sh "sudo docker exec build_fpm_1 curl nginx"
                        sh "sudo docker exec build_fpm_1 ant acceptation"
                     },
                     "Unit and functional": {

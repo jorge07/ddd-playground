@@ -51,21 +51,21 @@
             <arg value="doctrine:database:drop"/>
             <arg value="--force"/>
             <arg value="--no-interaction"/>
-            <arg value="--env=behat"/>
+            <arg value="--env=test"/>
         </exec>
 
         <exec executable="php" failonerror="true">
             <arg value="${consoledir}/console"/>
             <arg value="doctrine:database:create"/>
             <arg value="--no-interaction"/>
-            <arg value="--env=behat"/>
+            <arg value="--env=test"/>
         </exec>
 
         <exec executable="php" failonerror="true">
             <arg value="${consoledir}/console"/>
             <arg value="doctrine:schema:create"/>
             <arg value="--no-interaction"/>
-            <arg value="--env=behat"/>
+            <arg value="--env=test"/>
         </exec>
 
     </target>
