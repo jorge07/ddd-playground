@@ -64,12 +64,7 @@ pipeline {
         }
         always {
 
-            stage("Clean environment") {
-                steps {
-
-                    sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml down --volumes"
-                }
-            }
+            sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml down --volumes"
         }
     }
 }
