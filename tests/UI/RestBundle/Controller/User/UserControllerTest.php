@@ -48,7 +48,7 @@ class UserControllerTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertEquals(201, $response->getStatusCode());
+        self::assertResponse($response, "new_user", 201);
 
         $this->loginClient('paco', 'qweqwe1234567890');
 

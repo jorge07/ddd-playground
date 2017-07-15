@@ -1,7 +1,5 @@
 {
-  "uuid":{
-    "uuid": "@string@"
-  },
+  "uuid": "@string@",
   "email": "@string@",
   "auth": {
     "username": "@string@",

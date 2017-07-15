@@ -59,6 +59,13 @@ abstract class AbstractFactory
             throw new FormException($form);
         }
 
+        if (is_object($object)
+            && in_array($action, [self::UPDATE, self::REPLACE])
+            && method_exists($object, 'setUpdate')) {
+
+            $object->setUpdate(new \DateTimeImmutable());
+        }
+
         return $form->getData();
     }
 
