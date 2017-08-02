@@ -60,6 +60,11 @@ class User
         return $this->uuid;
     }
 
+    public function uuid(): string
+    {
+        return $this->uuid->__toString();
+    }
+
     public function email(): string
     {
         return $this->email;

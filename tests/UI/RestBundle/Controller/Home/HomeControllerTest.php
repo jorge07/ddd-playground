@@ -9,7 +9,6 @@ class HomeControllerTest extends JsonApiTestCase
     public function setUp()
     {
         $this->setUpClient();
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/Home";
     }
 
     /**
@@ -19,6 +18,6 @@ class HomeControllerTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/');
 
-        self::assertResponse($this->client->getResponse(), "home");
+        self::assertResponse($this->client->getResponse(), "Home/home");
     }
 }

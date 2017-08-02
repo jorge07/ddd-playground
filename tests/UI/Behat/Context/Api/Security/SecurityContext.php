@@ -16,7 +16,7 @@ class SecurityContext extends ApiContext
      */
     public function aListOfWalletsPersisted()
     {
-        static::createSharedKernel();
+        $this->createSharedKernel('dev');
         $this->setUpDatabase();
         $this->loadFixturesFromDirectory('user');
     }

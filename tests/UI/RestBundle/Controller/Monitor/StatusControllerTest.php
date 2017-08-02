@@ -14,7 +14,6 @@ class StatusControllerTest extends JsonApiTestCase
     public function setUp()
     {
         $this->setUpClient();
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/Monitor";
     }
 
     /**
@@ -24,6 +23,6 @@ class StatusControllerTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/monitor/ping.json');
 
-        self::assertResponse($this->client->getResponse(), "ping");
+        self::assertResponse($this->client->getResponse(), "Monitor/ping");
     }
 }
