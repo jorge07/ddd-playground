@@ -20,15 +20,11 @@ class GetUserHandler
      */
     private $repository;
 
-    /**
-     * GetUserHandler constructor.
-     * @param UserRepositoryInterface $repository
-     */
     public function __construct(UserRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
-    
+
     /**
      * @param GetUser $request
      * @return User
@@ -36,13 +32,6 @@ class GetUserHandler
      */
     public function handle(GetUser $request): User
     {
-        $user = $this->repository->findOneById($request->uuid());
-
-        if (!$user) {
-
-            throw new UserNotFoundException();
-        }
-
-        return $user;
+        return $this->repository->getOneById($request->uuid());
     }
 }

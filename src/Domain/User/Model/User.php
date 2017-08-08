@@ -4,6 +4,8 @@ namespace Leos\Domain\User\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Leos\Domain\Common\ValueObject\AggregateRoot;
+use Leos\Domain\User\Event\UserWasCreated;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\Security\ValueObject\AuthUser;
@@ -14,7 +16,7 @@ use Leos\Domain\Security\ValueObject\EncodedPasswordInterface;
  *
  * @package Leos\Domain\User\Model
  */
-class User
+class User extends AggregateRoot
 {
     /**
      * @var UserId
@@ -53,6 +55,10 @@ class User
         $this->email = $email;
         $this->wallets = new ArrayCollection();
         $this->createdAt = new \DateTime();
+
+        $this->raise(
+            new UserWasCreated($userId, $username, $email)
+        );
     }
 
     public function id(): UserId

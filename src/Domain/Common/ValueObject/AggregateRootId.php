@@ -25,7 +25,7 @@ abstract class AggregateRootId
     {
         try {
 
-            $this->uuid = Uuid::fromString($id ?: Uuid::uuid4())->toString();
+            $this->uuid = Uuid::fromString($id ?: (string) Uuid::uuid4())->toString();
 
         } catch (\InvalidArgumentException $e) {
 
