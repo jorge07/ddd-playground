@@ -66,7 +66,7 @@ Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compo
 Follow the `Jenkinsfile` or the `gitlab-ci.yml` file, it's clear enough and contains a simply workflow to:
 
 - build the isolated environment
-- `docker-comnpose -p` to avoid parallel jobs conflicts
+- `docker-compose -p` to avoid parallel jobs conflicts
 - provision the environment
 - run the test
 - extract reports
