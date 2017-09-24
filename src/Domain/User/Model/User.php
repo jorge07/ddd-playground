@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Leos\Domain\Common\ValueObject\AggregateRoot;
 use Leos\Domain\User\Event\UserPasswordWasChanged;
 use Leos\Domain\User\Event\UserWasCreated;
-use Leos\Domain\User\Exception\UserPasswordsAreNotEquals;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\Security\ValueObject\AuthUser;
@@ -82,11 +81,6 @@ class User extends AggregateRoot
         $this->raise(
             new UserPasswordWasChanged($this->uuid())
         );
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid->__toString();
     }
 
     public function email(): string

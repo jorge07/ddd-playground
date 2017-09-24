@@ -19,6 +19,6 @@ class SerializerIntegrationTest extends ApiTestCase
         $serializedUser = $serializer->toArray(UserTest::create());
 
         self::assertNotNull($serializedUser['uuid']);
-        self::assertArrayNotHasKey('passwordHash', $serializedUser['auth']);
+        self::assertArrayNotHasKey('auth', $serializedUser);
     }
 }

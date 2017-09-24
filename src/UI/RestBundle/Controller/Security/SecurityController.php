@@ -108,7 +108,7 @@ class SecurityController extends AbstractBusController
                 ->routeRedirectView(
                     'get_user',
                     [
-                        'uuid' => $user->uuid()->__toString(
+                        'uuid' => $user->uuid()->__toString()
                     ]
                 )
                 ->setData($user)

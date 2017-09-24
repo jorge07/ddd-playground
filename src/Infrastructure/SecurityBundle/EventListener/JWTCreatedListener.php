@@ -21,6 +21,7 @@ class JWTCreatedListener
         $payload          = $event->getData();
         $payload['uid']   = $user->id();
         $payload['exp']   = $expiration->getTimestamp();
+        $payload['username'] = $user->getUsername();
         $payload['roles'] = $user->getRoles();
 
         $event->setData($payload);
