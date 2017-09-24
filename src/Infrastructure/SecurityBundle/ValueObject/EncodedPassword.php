@@ -7,6 +7,7 @@ use Leos\Domain\Security\Exception\NullPasswordException;
 use Leos\Domain\Security\ValueObject\EncodedPasswordInterface;
 
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * Class EncodedPassword
@@ -15,11 +16,25 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
  */
 final class EncodedPassword implements EncodedPasswordInterface
 {
+    const
+        COST = 12
+    ;
+
     /**
      * @var string
      */
     private $password;
 
+    /**
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
+     * @var BCryptPasswordEncoder
+     */
+    private $encoder;
+    
     /**
      * EncodedPassword constructor.
      *
@@ -35,6 +50,8 @@ final class EncodedPassword implements EncodedPasswordInterface
             throw new NullPasswordException();
         }
 
+        $this->encoder = new BCryptPasswordEncoder(static::COST);
+
         $this->validate($plainPassword);
 
         $this->setPassword($plainPassword);
@@ -42,8 +59,14 @@ final class EncodedPassword implements EncodedPasswordInterface
 
     private function setPassword(string $plainPassword): void
     {
-        $encoder = new BCryptPasswordEncoder(12);
-        $this->password = $encoder->encodePassword($plainPassword, null);
+        $this->plainPassword = $plainPassword;
+
+        $this->password = $this->encoder->encodePassword($plainPassword, null);
+    }
+
+    public function matchHash(string $encodedPassword): bool
+    {
+        return password_verify($this->plainPassword, $encodedPassword);
     }
 
     /**

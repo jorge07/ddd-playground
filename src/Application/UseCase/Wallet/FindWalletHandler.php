@@ -34,6 +34,11 @@ final class FindWalletHandler
      */
     public function handle(Pagination $request): Pagerfanta
     {
-        return $this->repository->findAll($request->getFilters(), $request->getOperators(), $request->getValues(), $request->getSort());
+        return $this->repository->findAll(
+            $request->getFilters(),
+            $request->getOperators(),
+            $request->getValues(),
+            $request->getSort()
+        );
     }
 }

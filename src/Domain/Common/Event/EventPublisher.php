@@ -19,7 +19,7 @@ final class EventPublisher
 
     public static function boot(EventDispatcherInterface $dispatcher): void
     {
-        if (!static::$instance){
+        if (!static::$instance) {
 
             static::$instance = new self($dispatcher);
         }
@@ -27,6 +27,11 @@ final class EventPublisher
 
     public static function dispatch(EventInterface $event): void
     {
+        if (!static::$instance) {
+
+            throw new \LogicException('EventPublisher needs to be booted before invoke dispatch.');
+        }
+
         static::$instance->dispatcher->dispatch($event);
     }
 }

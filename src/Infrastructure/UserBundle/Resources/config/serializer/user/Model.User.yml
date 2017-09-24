@@ -1,11 +1,6 @@
 Leos\Domain\User\Model\User:
     exclusion_policy: ALL
     properties:
-        uuid:
-            expose: true
-            groups: [Identifier]
-            type: Leos\Domain\User\ValueObject\UserId
-
         email:
             expose: true
             groups: [Basic]

@@ -18,8 +18,6 @@ class UserControllerTest extends JsonApiTestCase
 
     public function setUp()
     {
-        $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
-
         if (!$this->client) {
 
             $this->setUpClient();
@@ -30,9 +28,6 @@ class UserControllerTest extends JsonApiTestCase
             $this->setUpDatabase();
             $this->databaseLoaded = true;
         }
-
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/User";
-        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Fixtures";
     }
 
     /**
@@ -56,7 +51,7 @@ class UserControllerTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, "new_user", 200);
+        self::assertResponse($response, "User/new_user", 200);
     }
 
     /**

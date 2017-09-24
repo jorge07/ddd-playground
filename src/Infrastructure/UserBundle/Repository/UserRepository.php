@@ -26,7 +26,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         ;
     }
 
-    public function findOneById(UserId $userId): ?User
+    public function findOneByUuid(UserId $userId): ?User
     {
         return $this->createQueryBuilder('user')
             ->where('user.uuid = :id')
@@ -37,9 +37,9 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         ;
     }
 
-    public function getOneById(UserId $userId): User
+    public function getOneByUuid(UserId $userId): User
     {
-        $user = $this->findOneById($userId);
+        $user = $this->findOneByUuid($userId);
 
         if (!$user) {
 

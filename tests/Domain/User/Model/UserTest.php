@@ -2,6 +2,8 @@
 
 namespace Tests\Leos\Domain\User\Model;
 
+use Leos\Domain\Security\Exception\InvalidPasswordException;
+use Leos\Domain\Security\Exception\NullPasswordException;
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Infrastructure\SecurityBundle\ValueObject\EncodedPassword;
@@ -25,7 +27,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
             new EncodedPassword($password = 'iyoquease')
         );
 
-        self::assertNotNull($user->id());
+        self::assertNotNull($user->uuid());
         self::assertNotNull($user->createdAt());
         self::assertNull($user->updatedAt());
         self::assertEquals($username, $user->auth()->username());
@@ -35,11 +37,11 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group unit
-     *
-     * @expectedException Leos\Domain\Security\Exception\InvalidPasswordException
      */
     public function testMinPasswordLength()
     {
+        self::expectException(InvalidPasswordException::class);
+
         new User(
             new UserId,
             'jorge',
@@ -50,11 +52,11 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group unit
-     *
-     * @expectedException Leos\Domain\Security\Exception\NullPasswordException
      */
     public function testNullPassword()
     {
+        self::expectException(NullPasswordException::class);
+
         new User(
             new UserId,
             'jorge',

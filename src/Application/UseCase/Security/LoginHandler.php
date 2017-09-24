@@ -5,6 +5,7 @@ namespace Leos\Application\UseCase\Security;
 use Leos\Application\UseCase\Security\Request\Login;
 
 use Leos\Domain\Security\Exception\AuthenticationException;
+use Leos\Domain\User\Model\User;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 
 use Leos\Infrastructure\SecurityBundle\Security\Model\Auth;
@@ -69,6 +70,7 @@ class LoginHandler
      */
     public function handle(Login $request): string
     {
+        /** @var User $user */
         $user = $this->userRepository->findOneByUsername($request->username());
 
         if (!$user) {
@@ -76,7 +78,10 @@ class LoginHandler
             throw new AuthenticationException();
         }
 
-        $authUser = new Auth($user->id()->__toString(), $user->auth());
+        $authUser = new Auth(
+            (string) $user->uuid(),
+            $user->auth()
+        );
 
         $encoder = $this->encoderFactory->getEncoder($authUser);
 

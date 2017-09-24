@@ -75,11 +75,11 @@ class RegisterType extends AbstractType
             'csrf_protection' => false,
             'empty_data' => function (FormInterface $form) {
 
-                return new User(
-                    $form->get('uuid')->getData() ?: new UserId(),
-                    $form->get('username')->getData() ?: '',
-                    $form->get('email')->getData() ?: '',
-                    new EncodedPassword($form->get('password')->getData() ?: '')
+                return User::create(
+                    $form->get('uuid')->getData(),
+                    (string) $form->get('username')->getData(),
+                    (string) $form->get('email')->getData(),
+                    new EncodedPassword((string) $form->get('password')->getData())
                 );
             }
         ]);

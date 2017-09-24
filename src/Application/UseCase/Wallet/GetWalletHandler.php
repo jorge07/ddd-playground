@@ -19,19 +19,11 @@ final class GetWalletHandler
      */
     private $repository;
 
-    /**
-     * GetWalletHandler constructor.
-     * @param WalletRepositoryInterface $repository
-     */
     public function __construct(WalletRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param GetWallet $request
-     * @return Wallet
-     */
     public function handle(GetWallet $request): Wallet
     {
         return $this->repository->get($request->uuid());

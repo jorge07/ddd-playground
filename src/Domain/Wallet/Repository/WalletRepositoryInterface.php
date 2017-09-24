@@ -19,7 +19,7 @@ interface WalletRepositoryInterface
      * @param array $values
      * @param array $sort
      *
-     * @return Wallet[]
+     * @return Wallet[]|\Pagerfanta\Pagerfanta
      */
     public function findAll(array $keys = [], array $operators = [], array $values = [], array $sort = []);
 

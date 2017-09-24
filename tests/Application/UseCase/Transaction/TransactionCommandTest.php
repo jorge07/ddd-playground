@@ -30,12 +30,12 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['save', 'get'])->getMock();
 
         $userRepo = self::getMockBuilder(UserRepositoryInterface::class)
-            ->setMethods(['save', 'findOneById', 'findOneByUsername']);
+            ->setMethods(['save', 'getOneByUuid', 'findOneByUuid', 'findOneByUsername']);
 
         $mock = $userRepo->getMock();
 
         $this->fixture['user'] = UserTest::create();
-        $mock->method('findOneById')->with((string) $this->fixture['user']->id())->willReturn($this->fixture['user']);
+        $mock->method('findOneByUuid')->with((string) $this->fixture['user']->uuid())->willReturn($this->fixture['user']);
 
         $walletRepo = self::getMockBuilder(WalletRepositoryInterface::class)
             ->setMethods(['save', 'get', 'findOneById', 'findAll'])->getMock();
@@ -58,10 +58,10 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
     {
         /** @var User $user */
         $user = $this->fixture['user'];
-        $result = $this->command->handle(new CreateWallet((string) $user->id(), 'EUR'));
+        $result = $this->command->handle(new CreateWallet((string) $user->uuid(), 'EUR'));
 
         self::assertInstanceOf(Wallet::class, $result);
-        self::assertTrue($result->user()->id()->equals($user->id()));
+        self::assertTrue($result->user()->uuid()->equals($user->uuid()));
         self::assertEquals(0, $result->real()->amount());
         self::assertEquals(0, $result->bonus()->amount());
     }

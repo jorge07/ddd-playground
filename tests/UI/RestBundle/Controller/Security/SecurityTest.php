@@ -15,8 +15,6 @@ class SecurityTest extends JsonApiTestCase
 
     public function setUp()
     {
-        $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
-
         if (!$this->client) {
 
             $this->setUpClient();
@@ -27,9 +25,6 @@ class SecurityTest extends JsonApiTestCase
             $this->setUpDatabase();
             $this->databaseLoaded = true;
         }
-
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/Security";
-        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Fixtures";
     }
 
     /**
@@ -46,7 +41,7 @@ class SecurityTest extends JsonApiTestCase
 
         $response =  $this->client->getResponse();
 
-        self::assertResponse($response, 'login_ok', 200);
+        self::assertResponse($response, 'Security/login_ok', 200);
     }
     
     /**

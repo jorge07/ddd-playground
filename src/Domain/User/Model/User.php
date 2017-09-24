@@ -5,7 +5,9 @@ namespace Leos\Domain\User\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Leos\Domain\Common\ValueObject\AggregateRoot;
+use Leos\Domain\User\Event\UserPasswordWasChanged;
 use Leos\Domain\User\Event\UserWasCreated;
+use Leos\Domain\User\Exception\UserPasswordsAreNotEquals;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Domain\Security\ValueObject\AuthUser;
@@ -18,11 +20,6 @@ use Leos\Domain\Security\ValueObject\EncodedPasswordInterface;
  */
 class User extends AggregateRoot
 {
-    /**
-     * @var UserId
-     */
-    private $uuid;
-
     /**
      * @var string
      */
@@ -48,22 +45,43 @@ class User extends AggregateRoot
      */
     private $updatedAt;
 
-    public function __construct(UserId $userId, string $username, string $email, EncodedPasswordInterface $encodedPassword)
-    {
-        $this->uuid = $userId;
+    public function __construct(
+        UserId $userId,
+        string $username,
+        string $email,
+        EncodedPasswordInterface $encodedPassword
+    ) {
+        parent::__construct($userId);
+
         $this->auth = new AuthUser($username, $encodedPassword);
         $this->email = $email;
         $this->wallets = new ArrayCollection();
         $this->createdAt = new \DateTime();
-
-        $this->raise(
-            new UserWasCreated($userId, $username, $email)
-        );
     }
 
-    public function id(): UserId
+    public static function create(
+        UserId $userId,
+        string $username,
+        string $email,
+        EncodedPasswordInterface $encodedPassword
+    ): User {
+
+        $user = new self($userId, $username, $email, $encodedPassword);
+
+        $user->raise(
+            new UserWasCreated($userId, $username, $email)
+        );
+
+        return $user;
+    }
+
+    public function changePassword(EncodedPasswordInterface $oldPassword, EncodedPasswordInterface $newPassword)
     {
-        return $this->uuid;
+        $this->auth->changePassword($oldPassword, $newPassword);
+
+        $this->raise(
+            new UserPasswordWasChanged($this->uuid())
+        );
     }
 
     public function email(): string
@@ -81,7 +99,6 @@ class User extends AggregateRoot
         return $this->auth;
     }
 
-
     public function createdAt(): \DateTime
     {
         return $this->createdAt;
@@ -91,7 +108,6 @@ class User extends AggregateRoot
     {
         return $this->updatedAt;
     }
-
 
     public function realBalance(): int
     {

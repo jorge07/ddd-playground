@@ -18,8 +18,6 @@ class WalletControllerTest extends JsonApiTestCase
 
     public function setUp()
     {
-        $_SERVER['IS_DOCTRINE_ORM_SUPPORTED'] = true;
-
         if (!$this->client) {
 
             $this->setUpClient();
@@ -30,9 +28,6 @@ class WalletControllerTest extends JsonApiTestCase
             $this->setUpDatabase();
             $this->databaseLoaded = true;
         }
-
-        $this->expectedResponsesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Responses/Wallet";
-        $this->dataFixturesPath = $this->client->getContainer()->getParameter('kernel.root_dir') . "/../tests/UI/Fixtures";
     }
 
     /**
@@ -42,7 +37,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId
@@ -52,7 +47,7 @@ class WalletControllerTest extends JsonApiTestCase
 
         self::assertEquals($response->getStatusCode(), 201);
 
-        $this->redirect($response->headers->get('Location'), 'get_wallet', 200);
+        $this->redirect($response->headers->get('Location'), 'Wallet/get_wallet', 200);
     }
 
     /**
@@ -62,7 +57,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId,
@@ -92,7 +87,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId
@@ -107,7 +102,7 @@ class WalletControllerTest extends JsonApiTestCase
         ]);
 
         $response = $this->client->getResponse();
-        self::assertResponse($response, "deposit", 202);
+        self::assertResponse($response, "Wallet/deposit", 202);
     }
 
     /**
@@ -151,7 +146,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId
@@ -170,7 +165,7 @@ class WalletControllerTest extends JsonApiTestCase
             'provider' => 'paypal'
         ]);
 
-        self::assertResponse($this->client->getResponse(), "withdrawal", 202);
+        self::assertResponse($this->client->getResponse(), "Wallet/withdrawal", 202);
     }
 
     /**
@@ -180,7 +175,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId
@@ -210,7 +205,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId
@@ -238,7 +233,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId
@@ -300,7 +295,7 @@ class WalletControllerTest extends JsonApiTestCase
     {
         $this->loginClient('jorge', 'iyoque123');
 
-        $userId = $this->users['jorge']->id()->__toString();
+        $userId = $this->users['jorge']->uuid()->__toString();
 
         $this->client->request('POST', '/api/v1/wallet.json', [
             'userId' => $userId
@@ -361,7 +356,7 @@ class WalletControllerTest extends JsonApiTestCase
 
         $this->client->request('GET',  '/api/v1/wallet.json');
 
-        self::assertResponse($this->client->getResponse(), "cget_wallet", 200);
+        self::assertResponse($this->client->getResponse(), "Wallet/cget_wallet", 200);
     }
 
     /**
@@ -375,7 +370,7 @@ class WalletControllerTest extends JsonApiTestCase
 
         $this->client->request('GET',  '/api/v1/wallet.json?filterParam[]=real.amount&filterOp[]=eq&filterValue[]=50');
 
-        self::assertResponse($this->client->getResponse(), "cget_wallet_filter_50", 200);
+        self::assertResponse($this->client->getResponse(), "Wallet/cget_wallet_filter_50", 200);
     }
 
     /**

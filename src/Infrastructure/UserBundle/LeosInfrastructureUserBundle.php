@@ -2,7 +2,6 @@
 
 namespace Leos\Infrastructure\UserBundle;
 
-use Doctrine\DBAL\Types\Type;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**

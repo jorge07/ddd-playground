@@ -20,8 +20,8 @@ class LeosInfrastructurePaymentBundle extends Bundle
 {
     public function boot()
     {
-        $this->addDbalType('deposit_details', DepositDetails::class);
-        $this->addDbalType('withdrawal_details', WithdrawalDetails::class);
+        $this->addDBALType('deposit_details', DepositDetails::class);
+        $this->addDBALType('withdrawal_details', WithdrawalDetails::class);
     }
 
     /**
@@ -30,7 +30,7 @@ class LeosInfrastructurePaymentBundle extends Bundle
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function addDbalType(string $type, string $object)
+    private function addDBALType(string $type, string $object): void
     {
         if (!Type::hasType($type)) {
 

@@ -1,0 +1,7 @@
+Leos\Domain\Common\ValueObject\AggregateRoot:
+    exclusion_policy: ALL
+    properties:
+        uuid:
+            expose: true
+            type: Leos\Domain\User\ValueObject\UserId
+            inline: true

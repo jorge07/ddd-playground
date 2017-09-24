@@ -46,7 +46,7 @@ class CreateWalletHandler
     public function handle(CreateWallet $request): Wallet
     {
         $transaction = new WalletFactory(
-            $this->userRepository->findOneById($request->userId()),
+            $this->userRepository->findOneByUuid($request->userId()),
             $request->currency()
         );
 

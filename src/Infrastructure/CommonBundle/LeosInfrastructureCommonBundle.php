@@ -8,6 +8,9 @@ class LeosInfrastructureCommonBundle extends Bundle
 {
     public function boot()
     {
-        $eventDispatcher = $this->container->get('event_dispatcher');
+        parent::boot();
+
+        // Initialize Event Publisher
+        $this->container->get('leos.event.dispatcher');
     }
 }

@@ -8,3 +8,9 @@ services:
     leos.abstract.form_factory:
         abstract: true
         arguments: ["@form.factory"]
+
+    leos.event.dispatcher:
+        class: Leos\Infrastructure\CommonBundle\Event\EventDispatcher
+        public: true
+        arguments:
+          - "@event_dispatcher"

@@ -32,6 +32,6 @@ class GetUserHandler
      */
     public function handle(GetUser $request): User
     {
-        return $this->repository->getOneById($request->uuid());
+        return $this->repository->getOneByUuid($request->uuid());
     }
 }

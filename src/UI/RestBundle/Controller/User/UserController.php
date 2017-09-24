@@ -33,7 +33,7 @@ class UserController extends AbstractBusController
      *     }
      * )
      *
-     * @View(statusCode=200, serializerGroups={"Identifier", "Basic", "Auth"})
+     * @View(statusCode=200)
      *
      * @param string $uuid
      * @return User
