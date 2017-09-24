@@ -3,6 +3,7 @@
 namespace Tests\Leos\UI\Behat\Context\Api\Wallet;
 
 use GuzzleHttp\RequestOptions;
+use Leos\Domain\User\Model\User;
 use Tests\Leos\UI\Behat\Context\Api\ApiContext;
 
 /**
@@ -24,9 +25,10 @@ class WalletContext extends ApiContext
     {
         static::createSharedKernel();
         $this->setUpDatabase();
+        /** @var User[]|mixed $fixtures */
         $fixtures = $this->loadFixturesFromDirectory('wallet');
 
-        $this->addPlaceHolder('userId', $fixtures['jorge']->id()->__toString());
+        $this->addPlaceHolder('userId', $fixtures['jorge']->uuid()->__toString());
     }
 
     /**
