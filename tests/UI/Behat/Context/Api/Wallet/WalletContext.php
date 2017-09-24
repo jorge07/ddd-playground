@@ -23,7 +23,7 @@ class WalletContext extends ApiContext
      */
     public function aListOfWalletsPersisted()
     {
-        static::createSharedKernel();
+        $this->createSharedKernel('dev');
         $this->setUpDatabase();
         /** @var User[]|mixed $fixtures */
         $fixtures = $this->loadFixturesFromDirectory('wallet');

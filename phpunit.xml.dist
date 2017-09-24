@@ -10,7 +10,6 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="KERNEL_DIR" value="app/" />
-        <server name="KERNEL_DIR" value="app/" />
         <server name="KERNEL_CLASS" value="AppKernel" />
         <server name="FIXTURES_DIR" value="../tests/UI/Fixtures" />
         <server name="EXPECTED_RESPONSE_DIR" value="../tests/UI/Responses" />
@@ -24,7 +23,6 @@
     </testsuites>
     <logging>
         <log type="coverage-html" target="report/report" lowUpperBound="35" highLowerBound="70"/>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
     <filter>
         <whitelist>

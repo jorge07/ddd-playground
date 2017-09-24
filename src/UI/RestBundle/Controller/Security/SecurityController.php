@@ -104,8 +104,15 @@ class SecurityController extends AbstractBusController
                 )
             );
 
-            return $this->routeRedirectView('get_user', ['uuid' => $user->uuid()->__toString()]);
-
+            return $this
+                ->routeRedirectView(
+                    'get_user',
+                    [
+                        'uuid' => $user->uuid()->__toString(
+                    ]
+                )
+                ->setData($user)
+            ;
         } catch (FormException $e) {
 
             return $e->getForm();

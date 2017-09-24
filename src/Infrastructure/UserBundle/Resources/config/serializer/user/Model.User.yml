@@ -17,3 +17,10 @@ Leos\Domain\User\Model\User:
         updatedAt:
             expose: true
             groups: [Basic]
+
+    virtual_properties:
+        uuid:
+            serialized_name: uuid
+            expose: true
+            groups: [Identifier]
+            type: string

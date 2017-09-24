@@ -18,6 +18,7 @@ class UserControllerTest extends JsonApiTestCase
 
     public function setUp()
     {
+
         if (!$this->client) {
 
             $this->setUpClient();
@@ -43,7 +44,7 @@ class UserControllerTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertEquals(201, $response->getStatusCode());
+        self::assertResponse($response, "User/new_user", 201);
 
         $this->loginClient('paco', 'qweqwe1234567890');
 

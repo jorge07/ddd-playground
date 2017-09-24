@@ -84,6 +84,11 @@ class User extends AggregateRoot
         );
     }
 
+    public function uuid(): string
+    {
+        return $this->uuid->__toString();
+    }
+
     public function email(): string
     {
         return $this->email;
