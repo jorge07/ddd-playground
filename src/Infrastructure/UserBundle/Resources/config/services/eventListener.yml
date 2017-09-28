@@ -1,0 +1,6 @@
+services:
+    leos.event.listener.on_user_was_created:
+        class: Leos\Domain\User\Event\Handler\OnUserWasCreated
+        public: true
+        tags:
+            - { name: kernel.event_listener, event: UserWasCreated, method: __invoke }

@@ -31,5 +31,6 @@ services:
       - MYSQL_DATABASE=ddd
     volumes:
       - db_data:/var/lib/mysql
+
 volumes:
   db_data:

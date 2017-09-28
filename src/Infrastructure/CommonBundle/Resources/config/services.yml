@@ -12,5 +12,12 @@ services:
     leos.event.dispatcher:
         class: Leos\Infrastructure\CommonBundle\Event\EventDispatcher
         public: true
-        arguments:
-          - "@event_dispatcher"
+        autowire: true
+
+    leos.event.collector:
+        class: Leos\Infrastructure\CommonBundle\Event\EventCollector
+        public: true
+
+    leos.event.bus.middleware.publisher:
+        class: Leos\Infrastructure\CommonBundle\Bus\Middleware\EventDispatcherMiddleware
+        autowire: true

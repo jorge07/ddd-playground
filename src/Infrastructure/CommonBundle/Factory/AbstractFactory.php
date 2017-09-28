@@ -59,22 +59,22 @@ abstract class AbstractFactory
             throw new FormException($form);
         }
 
-        if (is_object($object)
-            && in_array($action, [self::UPDATE, self::REPLACE])
-            && method_exists($object, 'setUpdate')) {
-
-            $object->setUpdate(new \DateTimeImmutable());
-        }
+        $this->setTimestamp($action, $object);
 
         return $form->getData();
     }
 
-    /**
-     * @param string $action
-     * @param null|object $object
-     *
-     * @return FormInterface
-     */
+    private function setTimestamp(string $action, $object): void
+    {
+        if (is_object($object)
+            && in_array($action, [ self::UPDATE, self::REPLACE ])
+            && method_exists($object, 'setUpdate')
+        ) {
+
+            $object->setUpdate(new \DateTimeImmutable());
+        }
+    }
+
     private function createForm(string $action = self::CREATE, $object = null): FormInterface
     {
         return $this->formFactory->create($this->formClass, $object, [

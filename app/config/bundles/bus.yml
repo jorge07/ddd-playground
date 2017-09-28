@@ -1,0 +1,6 @@
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - leos.event.bus.middleware.publisher
+                - tactician.middleware.command_handler

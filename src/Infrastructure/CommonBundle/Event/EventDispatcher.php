@@ -14,11 +14,17 @@ class EventDispatcher implements EventDispatcherInterface
      */
     private $dispatcher;
 
-    public function __construct(InfrastructureDispatcher $dispatcher)
+    /**
+     * @var EventCollector
+     */
+    private $collector;
+
+    public function __construct(InfrastructureDispatcher $dispatcher, EventCollector $collector)
     {
         $this->dispatcher = $dispatcher;
 
         $this->boot();
+        $this->collector = $collector;
     }
 
     private function boot(): void
@@ -26,12 +32,20 @@ class EventDispatcher implements EventDispatcherInterface
         EventPublisher::boot($this);
     }
 
-    public function dispatch(EventInterface $event): void
+    public function raise(EventInterface $event): void
     {
-        /** @var EventAware $symfonyEvent */
-        $symfonyEvent = new EventAware($event);
-
-        $this->dispatcher->dispatch($symfonyEvent->eventShortName(), $symfonyEvent);
+        $this->collector->collect($event);
     }
 
+    public function dispatch(): void
+    {
+        foreach ($this->collector->events() as $event) {
+
+            /** @var EventAware $symfonyEvent */
+            $symfonyEvent = new EventAware($event);
+            $this->dispatcher->dispatch($symfonyEvent->eventShortName(), $symfonyEvent);
+        }
+
+        $this->collector->flush();
+    }
 }

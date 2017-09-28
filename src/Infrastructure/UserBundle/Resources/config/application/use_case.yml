@@ -2,15 +2,13 @@ services:
 
     leos.use_case.user_command:
         class: Leos\Application\UseCase\User\RegisterUserHandler
+        autowire: true
         tags:
           - { name: tactician.handler, command: Leos\Application\UseCase\User\Request\Register }
-        arguments:
-          - "@leos.repository.user"
-          - "@leos.factory.user"
 
     leos.use_case.user_query:
         class: Leos\Application\UseCase\User\GetUserHandler
+        autowire: true
         tags:
           - { name: tactician.handler, command: Leos\Application\UseCase\User\Request\GetUser }
-        arguments:
-          - "@leos.repository.user"
+

@@ -25,13 +25,13 @@ final class EventPublisher
         }
     }
 
-    public static function dispatch(EventInterface $event): void
+    public static function raise(EventInterface $event): void
     {
         if (!static::$instance) {
 
-            throw new \LogicException('EventPublisher needs to be booted before invoke dispatch.');
+            throw new \LogicException('EventPublisher needs to be booted before invoke raise.');
         }
 
-        static::$instance->dispatcher->dispatch($event);
+        static::$instance->dispatcher->raise($event);
     }
 }

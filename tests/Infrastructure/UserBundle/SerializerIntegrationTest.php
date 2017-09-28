@@ -3,10 +3,10 @@
 namespace Tests\Leos\Infrastructure\UserBundle;
 
 use JMS\Serializer\Serializer;
-use Lakion\ApiTestCase\ApiTestCase;
+use Lakion\ApiTestCase\JsonApiTestCase;
 use Tests\Leos\Domain\User\Model\UserTest;
 
-class SerializerIntegrationTest extends ApiTestCase
+class SerializerIntegrationTest extends JsonApiTestCase
 {
 
     public function testUserSerialization()

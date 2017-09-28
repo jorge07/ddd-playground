@@ -29,7 +29,7 @@ abstract class AggregateRoot
 
     final protected function raise(EventInterface $event): void
     {
-        EventPublisher::dispatch($event);
+        EventPublisher::raise($event);
     }
 
     public function __toString(): string

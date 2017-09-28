@@ -2,12 +2,12 @@
 
 namespace Tests\Leos\Infrastructure\UserBundle\Factory\Form;
 
-use Lakion\ApiTestCase\ApiTestCase;
+use Lakion\ApiTestCase\JsonApiTestCase;
 use Leos\Domain\User\Model\User;
 use Leos\Infrastructure\UserBundle\Factory\Form\ChangePasswordType;
 use Tests\Leos\Domain\User\Model\UserTest;
 
-class ChangePasswordTypeTest extends ApiTestCase
+class ChangePasswordTypeTest extends JsonApiTestCase
 {
 
     public function setUp()
