@@ -15,8 +15,7 @@ services:
         autowire: true
 
     leos.event.collector:
-        class: Leos\Infrastructure\CommonBundle\Event\EventCollector
-        public: true
+        factory: Leos\Infrastructure\CommonBundle\Event\EventCollector:instance
 
     leos.event.bus.middleware.publisher:
         class: Leos\Infrastructure\CommonBundle\Bus\Middleware\EventDispatcherMiddleware

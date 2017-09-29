@@ -32,6 +32,6 @@ final class EventPublisher
             throw new \LogicException('EventPublisher needs to be booted before invoke raise.');
         }
 
-        static::$instance->dispatcher->raise($event);
+        static::$instance->dispatcher->record($event);
     }
 }

@@ -22,30 +22,29 @@ class EventDispatcher implements EventDispatcherInterface
     public function __construct(InfrastructureDispatcher $dispatcher, EventCollector $collector)
     {
         $this->dispatcher = $dispatcher;
-
-        $this->boot();
         $this->collector = $collector;
+        $this->bootPublisher();
     }
 
-    private function boot(): void
+    private function bootPublisher(): void
     {
         EventPublisher::boot($this);
     }
 
-    public function raise(EventInterface $event): void
+    public function record(EventInterface $event): void
     {
         $this->collector->collect($event);
     }
 
     public function dispatch(): void
     {
-        foreach ($this->collector->events() as $event) {
+        foreach ($this->collector->events() as $key => $event) {
 
             /** @var EventAware $symfonyEvent */
             $symfonyEvent = new EventAware($event);
             $this->dispatcher->dispatch($symfonyEvent->eventShortName(), $symfonyEvent);
-        }
 
-        $this->collector->flush();
+            $this->collector->remove($key);
+        }
     }
 }
