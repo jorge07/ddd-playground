@@ -2,6 +2,7 @@
 
 namespace Leos\Infrastructure\CommonBundle\Event;
 
+use Leos\Domain\Common\Event\EventCollector;
 use Leos\Domain\Common\Event\EventDispatcherInterface;
 use Leos\Domain\Common\Event\EventInterface;
 use Leos\Domain\Common\Event\EventPublisher;

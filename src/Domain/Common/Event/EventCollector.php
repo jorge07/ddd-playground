@@ -1,8 +1,6 @@
 <?php
 
-namespace Leos\Infrastructure\CommonBundle\Event;
-
-use Leos\Domain\Common\Event\EventInterface;
+namespace Leos\Domain\Common\Event;
 
 class EventCollector
 {
