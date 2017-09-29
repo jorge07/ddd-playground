@@ -18,7 +18,7 @@ class EventCollector
     {
     }
 
-    private static function instance(): self
+    public static function instance(): self
     {
         if (null === self::$instance) {
 

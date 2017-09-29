@@ -16,7 +16,7 @@ services:
 
     leos.event.collector:
         class: Leos\Domain\Common\Event\EventCollector
-        factory: Leos\Domain\Common\Event\EventCollector:instance
+        factory: ["Leos\\Domain\\Common\\Event\\EventCollector", "instance"]
         public: true
 
     leos.event.bus.middleware.publisher:
