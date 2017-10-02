@@ -3,6 +3,7 @@
 namespace Tests\Leos\Application\Request\Wallet;
 
 use Leos\Application\UseCase\Transaction\Request\CreateWallet;
+use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 
@@ -11,7 +12,7 @@ use Ramsey\Uuid\Uuid;
  *
  * @package Tests\Leos\Application\DTO\Wallet
  */
-class CreateWalletDTOTest extends \PHPUnit_Framework_TestCase
+class CreateWalletDTOTest extends TestCase
 {
     /**
      * @group unit

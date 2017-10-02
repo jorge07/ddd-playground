@@ -10,6 +10,7 @@ use Leos\Domain\Transaction\ValueObject\TransactionType;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Wallet\ValueObject\Credit;
 use Leos\Domain\Wallet\ValueObject\WalletId;
+use PHPUnit\Framework\TestCase;
 use Tests\Leos\Domain\Wallet\Model\WalletTest;
 
 /**
@@ -17,7 +18,7 @@ use Tests\Leos\Domain\Wallet\Model\WalletTest;
  *
  * @package Leos\Domain\Transaction\Model
  */
-class TransactionTest extends \PHPUnit_Framework_TestCase
+class TransactionTest extends TestCase
 {
     /**
      * @group unit
@@ -34,7 +35,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
             new DepositDetails('paypal')
         );
 
-        self::assertTrue(null !== $transaction->id());
+        self::assertTrue(null !== $transaction->uuid());
         self::assertEquals($wallet, $transaction->wallet());
         self::assertEquals(TransactionType::DEPOSIT, (string) $transaction->type());
         self::assertEquals(0, $transaction->prevReal()->amount());

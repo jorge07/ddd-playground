@@ -2,6 +2,7 @@
 
 namespace Leos\UI\RestBundle\Controller\Wallet;
 
+use Leos\Domain\Payment\Model\Deposit;
 use Leos\Infrastructure\CommonBundle\Exception\Form\FormException;
 use Leos\UI\RestBundle\Controller\AbstractBusController;
 
@@ -13,8 +14,7 @@ use Leos\Application\UseCase\Transaction\Request\CreateWallet;
 
 
 use Leos\Domain\Wallet\Model\Wallet;
-use Leos\Domain\Transaction\Model\AbstractTransaction;
-
+use Leos\Domain\Payment\Model\Withdrawal as WithdrawalModel;
 use Leos\Infrastructure\CommonBundle\Pagination\PagerTrait;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -169,6 +169,7 @@ class WalletController extends AbstractBusController
     public function postAction(ParamFetcher $fetcher)
     {
         try {
+            /** @var Wallet $wallet */
             $wallet = $this->handle(
                 new CreateWallet(
                     $fetcher->get('userId'),
@@ -205,9 +206,9 @@ class WalletController extends AbstractBusController
      * @param string $uid
      * @param ParamFetcher $fetcher
      *
-     * @return AbstractTransaction
+     * @return Deposit
      */
-    public function postDepositAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
+    public function postDepositAction(string $uid, ParamFetcher $fetcher): Deposit
     {
         return $this->handle(
             new CreateDeposit(
@@ -242,9 +243,9 @@ class WalletController extends AbstractBusController
      * @param string $uid
      * @param ParamFetcher $fetcher
      *
-     * @return AbstractTransaction
+     * @return WithdrawalModel
      */
-    public function postWithdrawalAction(string $uid, ParamFetcher $fetcher): AbstractTransaction
+    public function postWithdrawalAction(string $uid, ParamFetcher $fetcher): WithdrawalModel
     {
         return $this->handle(
             new Withdrawal(

@@ -4,13 +4,14 @@ namespace Tests\Leos\Domain\Money\ValueObject;
 
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Money\Exception\CurrencyWrongCodeException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CurrencyTest
  *
  * @package Tests\Leos\Domain\Money\ValueObject
  */
-class CurrencyTest extends \PHPUnit_Framework_TestCase
+class CurrencyTest extends TestCase
 {
     /**
      * @group unit

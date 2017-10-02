@@ -17,7 +17,7 @@ abstract class AggregateRoot
         $this->uuid = $aggregateRootId;
     }
 
-    final public function uuid(): AggregateRootId
+    public function uuid(): AggregateRootId
     {
         return $this->uuid;
     }

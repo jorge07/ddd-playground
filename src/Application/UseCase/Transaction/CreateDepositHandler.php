@@ -57,8 +57,10 @@ class CreateDepositHandler
      */
     public function handle(CreateDeposit $request): Deposit
     {
-        $transaction = new Deposit(
-            $this->walletQuery->handle(new GetWallet($request->walletId())),
+        $wallet = $this->walletQuery->handle(new GetWallet($request->walletId()));
+
+        $transaction = Deposit::create(
+            $wallet,
             $request->real(),
             new DepositDetails($request->provider())
         );

@@ -54,7 +54,7 @@ class RollbackControllerTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->client->request('POST', '/api/v1/rollback/deposit.json', [
-            'deposit' => json_decode($response->getContent(), true)['id']
+            'deposit' => json_decode($response->getContent(), true)['uuid']
         ]);
 
         $response = $this->client->getResponse();
@@ -122,7 +122,7 @@ class RollbackControllerTest extends JsonApiTestCase
         self::assertResponse($response, "Wallet/withdrawal", 202);
 
         $this->client->request('POST', '/api/v1/rollback/withdrawal.json', [
-            'withdrawal' => json_decode($response->getContent(), true)['id']
+            'withdrawal' => json_decode($response->getContent(), true)['uuid']
         ]);
 
         $response = $this->client->getResponse();
@@ -160,7 +160,7 @@ class RollbackControllerTest extends JsonApiTestCase
         self::assertResponse($response, "Wallet/withdrawal", 202);
 
         $this->client->request('POST', '/api/v1/rollback/deposit.json', [
-            'deposit' => json_decode($response->getContent(), true)['id']
+            'deposit' => json_decode($response->getContent(), true)['uuid']
         ]);
 
         $response = $this->client->getResponse();

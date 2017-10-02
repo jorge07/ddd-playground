@@ -12,9 +12,16 @@ class EventAware extends Event
      */
     private $event;
 
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $createdAt;
+
     public function __construct(EventInterface $event)
     {
         $this->event = $event;
+
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function eventShortName(): string
@@ -27,5 +34,10 @@ class EventAware extends Event
     public function event(): EventInterface
     {
         return $this->event;
+    }
+
+    public function createdAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }

@@ -40,7 +40,7 @@ class LeosInfrastructurePaymentBundle extends Bundle
             $type = Type::getType($type);
 
             $type->setSerializer(
-                $this->container->get('serializer')
+                $this->container->get('jms_serializer')
             );
 
             $type->setType($object);

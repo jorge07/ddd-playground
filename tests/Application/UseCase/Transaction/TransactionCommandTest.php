@@ -2,7 +2,7 @@
 
 namespace Tests\Leos\Application\UseCase\Transaction;
 
-use Leos\Application\UseCase\Transaction\CreateWalletHandler;
+use Lakion\ApiTestCase\JsonApiTestCase;
 use Leos\Application\UseCase\Transaction\Request\CreateWallet;
 use Leos\Domain\Transaction\Repository\TransactionRepositoryInterface;
 use Leos\Domain\User\Model\User;
@@ -15,17 +15,14 @@ use Tests\Leos\Domain\User\Model\UserTest;
 /**
  * Class TransactionCommandTest
  */
-class TransactionCommandTest extends \PHPUnit_Framework_TestCase 
+class TransactionCommandTest extends JsonApiTestCase
 {
-    /**
-     * @var CreateWalletHandler
-     */
-    private $command;
-
     private $fixture = [];
 
     public function setUp()
     {
+        $this->setUpClient();
+
         $repo = self::getMockBuilder(TransactionRepositoryInterface::class)
             ->setMethods(['save', 'get'])->getMock();
 
@@ -35,20 +32,17 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
         $mock = $userRepo->getMock();
 
         $this->fixture['user'] = UserTest::create();
+
         $mock->method('findOneByUuid')->with((string) $this->fixture['user']->uuid())->willReturn($this->fixture['user']);
 
         $walletRepo = self::getMockBuilder(WalletRepositoryInterface::class)
             ->setMethods(['save', 'get', 'findOneById', 'findAll'])->getMock();
 
-        $this->command = new CreateWalletHandler(
-            $repo,
-            $mock
-        );
-    }
+        $container = $this->client->getContainer();
 
-    public function tearDown()
-    {
-        unset($this->command);
+        $container->set('Leos\Domain\Wallet\Repository\WalletRepositoryInterface', $walletRepo);
+        $container->set('Leos\Domain\Transaction\Repository\TransactionRepositoryInterface', $repo);
+        $container->set('Leos\Domain\User\Repository\UserRepositoryInterface', $mock);
     }
 
     /**
@@ -58,7 +52,7 @@ class TransactionCommandTest extends \PHPUnit_Framework_TestCase
     {
         /** @var User $user */
         $user = $this->fixture['user'];
-        $result = $this->command->handle(new CreateWallet((string) $user->uuid(), 'EUR'));
+        $result = $this->get('tactician.commandbus')->handle(new CreateWallet((string) $user->uuid(), 'EUR'));
 
         self::assertInstanceOf(Wallet::class, $result);
         self::assertTrue($result->user()->uuid()->equals($user->uuid()));

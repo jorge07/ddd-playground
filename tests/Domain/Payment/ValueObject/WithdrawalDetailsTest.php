@@ -2,14 +2,16 @@
 
 namespace Tests\Leos\Domain\Payment\ValueObject;
 
+use Leos\Domain\Payment\Exception\InvalidProviderException;
 use Leos\Domain\Payment\ValueObject\WithdrawalDetails;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class WithdrawalDetailsTest
  *
  * @package Tests\Leos\Domain\Payment\ValueObject
  */
-class WithdrawalDetailsTest extends \PHPUnit_Framework_TestCase
+class WithdrawalDetailsTest extends TestCase
 {
     /**
      * @group unit
@@ -23,11 +25,11 @@ class WithdrawalDetailsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group unit
-     *
-     * @expectedException Leos\Domain\Payment\Exception\InvalidProviderException
      */
     public function testInvalidProvider()
     {
+        self::expectException(InvalidProviderException::class);
+
         new WithdrawalDetails('as');
     }
 }

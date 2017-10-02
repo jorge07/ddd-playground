@@ -1,11 +1,8 @@
 services:
 
-    leos.use_case.security_command:
-        class: Leos\Application\UseCase\Security\LoginHandler
+    Leos\Application\UseCase\Security\LoginHandler:
+        public: true
+        autowire: true
         tags:
           - { name: tactician.handler, command: Leos\Application\UseCase\Security\Request\Login }
-        arguments:
-          - "@security.authentication_utils"
-          - "@leos.repository.user"
-          - "@security.encoder_factory"
-          - "@lexik_jwt_authentication.jwt_manager"
+

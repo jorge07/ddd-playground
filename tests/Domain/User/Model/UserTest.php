@@ -7,13 +7,14 @@ use Leos\Domain\Security\Exception\NullPasswordException;
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\ValueObject\UserId;
 use Leos\Infrastructure\SecurityBundle\ValueObject\EncodedPassword;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class UserTest
  *
  * @package Tests\Leos\Domain\User\Model
  */
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
     /**
      * @group unit

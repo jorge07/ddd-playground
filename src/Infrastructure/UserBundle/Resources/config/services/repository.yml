@@ -1,5 +1,5 @@
 services:
-    leos.repository.user:
+    Leos\Domain\User\Repository\UserRepositoryInterface:
         parent: leos.abstract.repository
         class: Leos\Infrastructure\UserBundle\Repository\UserRepository
         arguments:

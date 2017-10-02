@@ -12,9 +12,7 @@ class ChangePasswordTypeTest extends JsonApiTestCase
 
     public function setUp()
     {
-        parent::setUp();
-
-        self::createClient();
+        self::setUpClient();
     }
 
     public function testChangePassword()

@@ -9,6 +9,7 @@ use Leos\Domain\Payment\Model\RollbackWithdrawal;
 use Leos\Domain\Payment\Model\Withdrawal;
 use Leos\Domain\Transaction\Model\AbstractTransaction;
 use Leos\Domain\Payment\ValueObject\WithdrawalDetails;
+use PHPUnit\Framework\TestCase;
 use Tests\Leos\Domain\Wallet\Model\WalletTest;
 
 /**
@@ -16,7 +17,7 @@ use Tests\Leos\Domain\Wallet\Model\WalletTest;
  *
  * @package Tests\Leos\Domain\Payment\Model
  */
-class WithdrawalTest extends \PHPUnit_Framework_TestCase
+class WithdrawalTest extends TestCase
 {
     /**
      * @group unit

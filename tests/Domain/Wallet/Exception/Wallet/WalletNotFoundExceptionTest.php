@@ -3,13 +3,14 @@
 namespace Tests\Leos\Domain\Wallet\Exception\Wallet;
 
 use Leos\Domain\Wallet\Exception\Wallet\WalletNotFoundException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class WalletNotFoundExceptionTest
  *
  * @package Tests\Leos\Domain\Wallet\Exception\Wallet
  */
-class WalletNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
+class WalletNotFoundExceptionTest extends TestCase
 {
     /**
      * @group unit

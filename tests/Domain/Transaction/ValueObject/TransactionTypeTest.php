@@ -3,13 +3,14 @@
 namespace Tests\Leos\Domain\Transaction\ValueObject;
 
 use Leos\Domain\Transaction\ValueObject\TransactionType;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class TransactionTypeTest
  *
  * @package Tests\Leos\Domain\Transaction\Model
  */
-class TransactionTypeTest extends \PHPUnit_Framework_TestCase
+class TransactionTypeTest extends TestCase
 {
     /**
      * @group unit

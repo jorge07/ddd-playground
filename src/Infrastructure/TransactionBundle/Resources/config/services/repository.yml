@@ -1,5 +1,5 @@
 services:
-    leos.repository.transaction:
+    Leos\Domain\Transaction\Repository\TransactionRepositoryInterface:
         parent: leos.abstract.repository
         class: Leos\Infrastructure\TransactionBundle\Repository\TransactionRepository
         arguments:

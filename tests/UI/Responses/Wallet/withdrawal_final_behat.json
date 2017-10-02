@@ -1,5 +1,5 @@
 {
-  "id":"@string@",
+  "uuid":"@string@",
   "type":"withdrawal",
   "prev_real": {
     "amount": 10900,

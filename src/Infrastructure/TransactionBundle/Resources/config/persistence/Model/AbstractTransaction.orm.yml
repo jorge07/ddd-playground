@@ -15,8 +15,9 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
     repositoryClass: Leos\Infrastructure\TransactionBundle\Repository\TransactionRepository
 
     id:
-      id:
+      uuid:
         id: true
+        column: id
         type: transactionId
         generator:
           strategy: UUID

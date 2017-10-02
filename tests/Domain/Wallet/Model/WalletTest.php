@@ -9,6 +9,7 @@ use Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException;
 
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Money\ValueObject\Currency;
+use PHPUnit\Framework\TestCase;
 use Tests\Leos\Domain\User\Model\UserTest;
 
 /**
@@ -16,7 +17,7 @@ use Tests\Leos\Domain\User\Model\UserTest;
  *
  * @package Leos\Domain\Wallet\Model
  */
-class WalletTest extends \PHPUnit_Framework_TestCase
+class WalletTest extends TestCase
 {
 
     /**

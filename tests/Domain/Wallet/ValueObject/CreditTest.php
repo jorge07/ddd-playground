@@ -3,12 +3,13 @@
 namespace Tests\Leos\Domain\Wallet\ValueObject;
 
 use Leos\Domain\Wallet\ValueObject\Credit;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CreditTest
  * @package Leos\Domain\Wallet\Model
  */
-class CreditTest extends \PHPUnit_Framework_TestCase
+class CreditTest extends TestCase
 {
     /**
      * @group unit

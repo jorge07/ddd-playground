@@ -23,6 +23,15 @@ class Deposit extends AbstractTransaction
         $this->details = $details;
     }
 
+    public static function create(Wallet $wallet, Money $real, DepositDetails $details): self
+    {
+        $deposit = new self($wallet, $real, $details);
+
+        $deposit->raiseEvent();
+
+        return $deposit;
+    }
+
     public function rollback(): RollbackDeposit
     {
         $this->setState(TransactionState::REVERTED);

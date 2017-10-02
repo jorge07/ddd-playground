@@ -3,5 +3,4 @@ Leos\Domain\Common\ValueObject\AggregateRoot:
     properties:
         uuid:
             expose: true
-            type: Leos\Domain\User\ValueObject\UserId
-            inline: true
+            groups: ['Identifier']

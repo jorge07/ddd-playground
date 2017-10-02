@@ -14,7 +14,7 @@ class SerializerIntegrationTest extends JsonApiTestCase
         $this->setUpClient();
 
         /** @var Serializer $serializer */
-        $serializer = $this->client->getContainer()->get('serializer');
+        $serializer = $this->client->getContainer()->get('jms_serializer');
 
         $serializedUser = $serializer->toArray(UserTest::create());
 

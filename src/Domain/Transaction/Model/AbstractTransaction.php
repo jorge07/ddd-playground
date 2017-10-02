@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Leos\Domain\Transaction\Model;
 
+use Leos\Domain\Common\ValueObject\AggregateRoot;
+use Leos\Domain\Transaction\Event\TransactionWasCreated;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;
 use Leos\Domain\Wallet\ValueObject\Credit;
@@ -17,13 +19,8 @@ use Leos\Domain\Transaction\Exception\InvalidTransactionStateException;
  *
  * @package Leos\Domain\Transaction\Model
  */
-abstract class AbstractTransaction
+abstract class AbstractTransaction extends AggregateRoot
 {
-    /**
-     * @var TransactionId
-     */
-    protected $id;
-
     /**
      * @var TransactionType
      */
@@ -91,7 +88,8 @@ abstract class AbstractTransaction
         Money $bonus
     )
     {
-        $this->id = new TransactionId();
+        parent::__construct(new TransactionId());
+
         $this->type = new TransactionType($type);
         $this->wallet = $wallet;
         $this->prevReal = $wallet->real();
@@ -99,6 +97,22 @@ abstract class AbstractTransaction
         $this->currency = $real->currency();
         $this->process($real, $bonus);
         $this->createdAt = new \DateTime();
+    }
+
+    protected function raiseEvent(): void
+    {
+        $this->raise(
+            new TransactionWasCreated(
+                $this->uuid(),
+                $this->type()->__toString(),
+                $this->wallet->walletId(),
+                $this->wallet->user()->uuid(),
+                $this->operationReal(),
+                $this->operationBonus(),
+                $this->currency(),
+                $this->createdAt()
+            )
+        );
     }
 
     private function process(Money $real, Money $bonus): void
@@ -144,11 +158,6 @@ abstract class AbstractTransaction
     {
         return (new Credit((int) abs($this->operationBonus)))
             ->toMoney($this->currency());
-    }
-
-    public function id(): string
-    {
-        return (string) $this->id;
     }
 
     public function type(): TransactionType

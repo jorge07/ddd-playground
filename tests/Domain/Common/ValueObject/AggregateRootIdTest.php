@@ -3,13 +3,14 @@
 namespace Tests\Leos\Domain\Common\ValueObject;
 
 use Leos\Domain\User\ValueObject\UserId;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class AggregateRootIdTest
  *
  * @package Leos\Domain\Common\ValueObject
  */
-class AggregateRootIdTest extends \PHPUnit_Framework_TestCase
+class AggregateRootIdTest extends TestCase
 {
     /**
      * @group unit
