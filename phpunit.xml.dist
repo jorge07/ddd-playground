@@ -10,6 +10,7 @@
 >
     <php>
         <ini name="error_reporting" value="-1" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
         <server name="KERNEL_DIR" value="app/" />
         <server name="KERNEL_CLASS" value="AppKernel" />
         <server name="FIXTURES_DIR" value="../tests/UI/Fixtures" />
