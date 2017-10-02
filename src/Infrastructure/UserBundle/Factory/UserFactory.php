@@ -6,7 +6,7 @@ use Leos\Domain\User\Factory\UserFactoryInterface;
 use Leos\Domain\User\Model\User;
 use Leos\Infrastructure\CommonBundle\Factory\AbstractFactory;
 use Leos\Infrastructure\UserBundle\Factory\Form\RegisterType;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 
 /**
  * Class UserFactory
@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormFactory;
  */
 class UserFactory extends AbstractFactory implements UserFactoryInterface
 {
-    public function __construct(FormFactory $factory)
+    public function __construct(FormFactoryInterface $factory)
     {
         $this->formClass = RegisterType::class;
         parent::__construct($factory);

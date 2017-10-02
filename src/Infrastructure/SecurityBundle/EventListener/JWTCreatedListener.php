@@ -2,7 +2,7 @@
 
 namespace Leos\Infrastructure\SecurityBundle\EventListener;
 
-use JMS\Serializer\Serializer;
+use JMS\Serializer\ArrayTransformerInterface;
 use Leos\Infrastructure\SecurityBundle\Security\Model\Auth;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 
@@ -14,11 +14,11 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 class JWTCreatedListener
 {
     /**
-     * @var Serializer
+     * @var ArrayTransformerInterface
      */
     private $serializer;
 
-    public function __construct(Serializer $serializer)
+    public function __construct(ArrayTransformerInterface $serializer)
     {
         $this->serializer = $serializer;
     }

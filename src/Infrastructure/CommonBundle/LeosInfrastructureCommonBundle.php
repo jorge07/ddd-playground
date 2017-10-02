@@ -11,6 +11,6 @@ class LeosInfrastructureCommonBundle extends Bundle
         parent::boot();
 
         // Initialize Event Publisher
-        $this->container->get('leos.event.dispatcher');
+        $this->container->get('Leos\Domain\Common\Event\EventDispatcherInterface');
     }
 }

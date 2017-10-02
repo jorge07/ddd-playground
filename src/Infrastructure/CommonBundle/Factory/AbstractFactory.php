@@ -2,7 +2,7 @@
 
 namespace Leos\Infrastructure\CommonBundle\Factory;
 
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
 use Leos\Infrastructure\CommonBundle\Exception\Form\FormException;
@@ -22,7 +22,7 @@ abstract class AbstractFactory
     ;
 
     /**
-     * @var FormFactory
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -31,7 +31,7 @@ abstract class AbstractFactory
      */
     protected $formClass;
 
-    public function __construct(FormFactory $formFactory)
+    public function __construct(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;
         

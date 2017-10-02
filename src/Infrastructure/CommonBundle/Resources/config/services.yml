@@ -4,13 +4,12 @@ services:
         abstract: true
         factory: ["@doctrine.orm.entity_manager", "getRepository"]
 
-    leos.event.dispatcher:
+    Leos\Domain\Common\Event\EventDispatcherInterface:
         class: Leos\Infrastructure\CommonBundle\Event\EventDispatcher
         public: true
         autowire: true
 
-    leos.event.collector:
-        class: Leos\Domain\Common\Event\EventCollector
+    Leos\Domain\Common\Event\EventCollector:
         factory: ["Leos\\Domain\\Common\\Event\\EventCollector", "instance"]
         public: true
 

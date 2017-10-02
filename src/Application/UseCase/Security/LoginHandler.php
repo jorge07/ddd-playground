@@ -10,9 +10,8 @@ use Leos\Domain\User\Repository\UserRepositoryInterface;
 
 use Leos\Infrastructure\SecurityBundle\Security\Model\Auth;
 
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
-
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -33,12 +32,12 @@ class LoginHandler
     private $userRepository;
 
     /**
-     * @var EncoderFactory
+     * @var EncoderFactoryInterface
      */
     private $encoderFactory;
 
     /**
-     * @var JWTManager
+     * @var JWTTokenManagerInterface
      */
     private $JWTManager;
 
@@ -47,14 +46,14 @@ class LoginHandler
      *
      * @param AuthenticationUtils $authenticationUtils
      * @param UserRepositoryInterface $userRepository
-     * @param EncoderFactory $encoderFactory
-     * @param JWTManager $JWTManager
+     * @param EncoderFactoryInterface $encoderFactory
+     * @param JWTTokenManagerInterface $JWTManager
      */
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         UserRepositoryInterface $userRepository,
-        EncoderFactory $encoderFactory,
-        JWTManager $JWTManager
+        EncoderFactoryInterface $encoderFactory,
+        JWTTokenManagerInterface $JWTManager
     )
     {
         $this->authenticationUtils = $authenticationUtils;
