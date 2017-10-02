@@ -47,7 +47,7 @@ class UserTest extends TestCase
             new UserId,
             'jorge',
             'jorge.arcoma@gmail.com',
-            new EncodedPassword($password = 'iyoque')
+            new EncodedPassword('iyoque')
         );
     }
 
@@ -62,7 +62,7 @@ class UserTest extends TestCase
             new UserId,
             'jorge',
             'jorge.arcoma@gmail.com',
-            new EncodedPassword($password = null)
+            new EncodedPassword(null)
         );
     }
 

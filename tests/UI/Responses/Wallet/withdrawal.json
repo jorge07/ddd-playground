@@ -12,9 +12,7 @@
   "operation_real": -500,
   "operation_bonus": 0,
   "wallet": {
-    "id": {
-      "uuid": "@string@"
-    },
+    "uuid": "@string@",
     "real": {
       "amount": 4500,
       "generated_at":"@string@.isDateTime()"

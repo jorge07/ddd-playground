@@ -60,7 +60,7 @@ class WalletContext extends ApiContext
      */
     public function iStoreTheTransaction()
     {
-        $this->transaction = json_decode((string) $this->response->getBody(), true)['id'];
+        $this->transaction = json_decode((string) $this->response->getBody(), true)['uuid'];
     }
 
 }
