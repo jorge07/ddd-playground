@@ -7,7 +7,6 @@ use Leos\Domain\Security\Exception\NullPasswordException;
 use Leos\Domain\Security\ValueObject\EncodedPasswordInterface;
 
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * Class EncodedPassword

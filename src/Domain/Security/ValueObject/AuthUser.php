@@ -52,7 +52,6 @@ final class AuthUser
         return $this->roles;
     }
 
-
     public function changePassword(EncodedPasswordInterface $oldPassword, EncodedPasswordInterface $newPassword): void
     {
         if (!$oldPassword->matchHash($this->passwordHash)) {

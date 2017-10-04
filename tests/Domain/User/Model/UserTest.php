@@ -27,7 +27,7 @@ class UserTest extends TestCase
             $email = 'jorge.arcoma@gmail.com',
             new EncodedPassword($password = 'iyoquease')
         );
-
+        
         self::assertNotNull($user->uuid());
         self::assertNotNull($user->createdAt());
         self::assertNull($user->updatedAt());

@@ -33,6 +33,7 @@ class RegisterUserHandler
 
     public function handle(Register $request): User
     {
+        /** @var User $user */
         $user = $this->factory->register($request->toForm());
         
         $this->repository->save($user);

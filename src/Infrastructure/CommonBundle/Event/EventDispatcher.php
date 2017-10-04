@@ -43,7 +43,7 @@ class EventDispatcher implements EventDispatcherInterface
 
             /** @var EventAware $symfonyEvent */
             $symfonyEvent = new EventAware($event);
-            $this->dispatcher->dispatch($symfonyEvent->eventShortName(), $symfonyEvent);
+            $this->dispatcher->dispatch($symfonyEvent->type(), $symfonyEvent);
 
             $this->collector->remove($key);
         }

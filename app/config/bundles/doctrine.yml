@@ -14,6 +14,7 @@ doctrine:
             walletId: Leos\Infrastructure\WalletBundle\Doctrine\Types\WalletIdType
             transactionId: Leos\Infrastructure\TransactionBundle\Doctrine\Types\TransactionIdType
             userId: Leos\Infrastructure\UserBundle\Doctrine\Types\UserIdType
+            eventAwareId: Leos\Infrastructure\CommonBundle\Doctrine\Types\EventAwareIdType
 
         mapping_types:
             json: string
@@ -77,4 +78,10 @@ doctrine:
                 type: yml
                 prefix: Leos\Domain\Security\ValueObject
                 dir: '%kernel.root_dir%/../src/Infrastructure/SecurityBundle/Resources/config/persistence/ValueObject'
+                is_bundle: false
+
+            Common:
+                type: yml
+                prefix: Leos\Infrastructure\CommonBundle\Event
+                dir: '%kernel.root_dir%/../src/Infrastructure/CommonBundle/Resources/config/persistence'
                 is_bundle: false

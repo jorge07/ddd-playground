@@ -1,0 +1,17 @@
+Leos\Infrastructure\CommonBundle\Event\EventAware:
+    exclusion_policy: ALL
+    properties:
+        uuid:
+            expose: true
+            type: Leos\Domain\Common\ValueObject\AggregateRootId
+            groups: ['Identifier']
+            inline: true
+
+        createdAt:
+            expose: true
+
+        event:
+            expose: true
+
+        type:
+            expose: true

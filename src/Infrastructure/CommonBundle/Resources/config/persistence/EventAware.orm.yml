@@ -1,0 +1,25 @@
+Leos\Infrastructure\CommonBundle\Event\EventAware:
+    type: entity
+    table: events
+    repositoryClass: Leos\Infrastructure\CommonBundle\Repository\EventStoreRepository
+    id:
+      uuid:
+        type: eventAwareId
+        nullable: false
+    indexes:
+      type_index:
+        columns: [ type ]
+
+    fields:
+      type:
+        type: string
+        length: 255
+        nullable: false
+
+      event:
+        type: event
+
+      createdAt:
+        type: datetime
+
+    lifecycleCallbacks: {  }

@@ -12,8 +12,8 @@ use Leos\Domain\User\ValueObject\UserId;
  */
 interface UserRepositoryInterface
 {
-
     public function getOneByUuid(UserId $userId): User;
+
     public function findOneByUuid(UserId $userId): ?User;
 
     public function findOneByUsername(string $username): ?User;

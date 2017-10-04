@@ -40,9 +40,6 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
         return $transaction;
     }
 
-    /**
-     * @param AbstractTransaction $transaction
-     */
     public function save(AbstractTransaction $transaction): void
     {
         $this->_em->persist($transaction);

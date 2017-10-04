@@ -3,4 +3,5 @@ tactician:
         default:
             middleware:
                 - leos.event.bus.middleware.publisher
+                - leos.event.bus.middleware.event_store
                 - tactician.middleware.command_handler

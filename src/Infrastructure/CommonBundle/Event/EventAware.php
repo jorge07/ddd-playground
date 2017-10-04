@@ -8,6 +8,11 @@ use Symfony\Component\EventDispatcher\Event;
 class EventAware extends Event
 {
     /**
+     * @var EventAwareId
+     */
+    private $uuid;
+
+    /**
      * @var EventInterface
      */
     private $event;
@@ -17,19 +22,37 @@ class EventAware extends Event
      */
     private $createdAt;
 
+    /**
+     * @var string
+     */
+    private $type;
+
     public function __construct(EventInterface $event)
     {
+        $this->uuid = new EventAwareId();
         $this->event = $event;
 
+        $this->setType();
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    public function eventShortName(): string
+    private function setType(): void
     {
         $path = explode('\\', get_class($this->event));
 
-        return array_pop($path);
+        $this->type = array_pop($path);
     }
+
+    public function type(): string
+    {
+        return $this->type;
+    }
+
+    public function uuid(): EventAwareId
+    {
+        return $this->uuid;
+    }
+
 
     public function event(): EventInterface
     {
