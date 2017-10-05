@@ -19,10 +19,20 @@ services:
         factory: ["Leos\\Domain\\Common\\Event\\EventCollector", "instance"]
         public: true
 
+    leos.evens.async.consumer.events:
+        class: Leos\Infrastructure\CommonBundle\Event\AsyncEventConsumer
+
     leos.event.bus.middleware.event_store:
         class: Leos\Infrastructure\CommonBundle\Bus\Middleware\EventStoreMiddleware
         autowire: true
 
-    leos.event.bus.middleware.publisher:
+    leos.event.bus.middleware.event_publisher:
+        class: Leos\Infrastructure\CommonBundle\Bus\Middleware\EventPublisherMiddleware
+        arguments:
+          - '@old_sound_rabbit_mq.events_producer'
+          - '@Leos\Domain\Common\Event\EventCollector'
+          - '@jms_serializer.serializer'
+
+    leos.event.bus.middleware.dispatcher:
         class: Leos\Infrastructure\CommonBundle\Bus\Middleware\EventDispatcherMiddleware
         autowire: true

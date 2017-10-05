@@ -9,6 +9,7 @@ Leos\Infrastructure\CommonBundle\Event\EventAware:
 
         createdAt:
             expose: true
+            type: DateTimeImmutable
 
         event:
             expose: true
