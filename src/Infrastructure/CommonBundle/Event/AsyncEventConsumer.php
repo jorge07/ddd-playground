@@ -14,8 +14,8 @@ class AsyncEventConsumer implements ConsumerInterface
      */
     public function execute(AMQPMessage $msg)
     {
-        echo $msg->getBody();
-
         var_dump($msg->getBody());
+
+        return self::MSG_ACK;
     }
 }

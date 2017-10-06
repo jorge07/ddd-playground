@@ -1,10 +1,10 @@
 old_sound_rabbit_mq:
     connections:
         default:
-            host:     'rmq'
-            port:     5672
-            user:     'guest'
-            password: 'guest'
+            host:     "%rmq_host%"
+            port:     "%rmq_port%"
+            user:     "%rmq_user%"
+            password: "%rmq_pass%"
             vhost:    '/'
             lazy:     false
             connection_timeout: 3
@@ -29,4 +29,4 @@ old_sound_rabbit_mq:
               name: events
               routing_keys:
                   - 'UserWasCreated'
-            callback:         leos.evens.async.consumer.events
+            callback: leos.evens.async.consumer.events
