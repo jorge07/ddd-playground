@@ -20,6 +20,7 @@ class EventPublisherMiddleware implements Middleware
      * @var EventCollector
      */
     private $eventCollector;
+
     /**
      * @var SerializerInterface
      */

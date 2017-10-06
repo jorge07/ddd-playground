@@ -6,7 +6,7 @@ old_sound_rabbit_mq:
             user:     "%rmq_user%"
             password: "%rmq_pass%"
             vhost:    '/'
-            lazy:     false
+            lazy:     true
             connection_timeout: 3
             read_write_timeout: 3
 
