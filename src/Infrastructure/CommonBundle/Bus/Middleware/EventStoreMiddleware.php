@@ -31,13 +31,11 @@ class EventStoreMiddleware implements Middleware
 
         $events = $this->eventCollector->events();
 
-        $this->eventStoreRepository->transactional(function () use ($events) {
-            foreach ($events as $event) {
+        foreach ($events as $event) {
 
-                $symfonyEvent = new EventAware($event);
-                $this->eventStoreRepository->store($symfonyEvent);
-            }
-        });
+            $symfonyEvent = new EventAware($event);
+            $this->eventStoreRepository->store($symfonyEvent);
+        }
 
         return $returnValue;
     }

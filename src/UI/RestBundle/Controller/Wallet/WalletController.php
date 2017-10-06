@@ -115,7 +115,7 @@ class WalletController extends AbstractBusController
         $request = new Find($fetcher->all());
 
         return $this->getPagination(
-            $this->handle($request),
+            $this->ask($request),
             'cget_wallet',
             [],
             $request->getLimit(),
@@ -143,7 +143,7 @@ class WalletController extends AbstractBusController
      */
     public function getAction(string $walletId): Wallet
     {
-        return $this->handle(new GetWallet($walletId));
+        return $this->ask(new GetWallet($walletId));
     }
 
     /**

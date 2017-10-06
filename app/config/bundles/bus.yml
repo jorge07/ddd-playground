@@ -3,6 +3,10 @@ tactician:
         default:
             middleware:
                 - leos.event.bus.middleware.dispatcher
+                - tactician.middleware.doctrine
                 - leos.event.bus.middleware.event_publisher
                 - leos.event.bus.middleware.event_store
+                - tactician.middleware.command_handler
+        query:
+            middleware:
                 - tactician.middleware.command_handler

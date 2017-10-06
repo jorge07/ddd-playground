@@ -41,7 +41,8 @@
         "lexik/jwt-authentication-bundle": "^2.4",
         "ramsey/uuid-doctrine": "^1.4",
         "league/tactician-bundle": "1.0",
-        "php-amqplib/rabbitmq-bundle": "^1.13"
+        "php-amqplib/rabbitmq-bundle": "^1.13",
+        "league/tactician-doctrine": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -11,9 +11,15 @@ abstract class AbstractBusController extends AbstractController
      */
     private $bus;
 
-    public function __construct(CommandBus $bus)
+    /**
+     * @var CommandBus
+     */
+    private $queryBus;
+
+    public function __construct(CommandBus $bus, CommandBus $queryBus)
     {
         $this->bus = $bus;
+        $this->queryBus = $queryBus;
     }
 
     /**
@@ -23,5 +29,14 @@ abstract class AbstractBusController extends AbstractController
     public function handle($commandRequest)
     {
         return $this->bus->handle($commandRequest);
+    }
+
+    /**
+     * @param object $commandRequest
+     * @return mixed
+     */
+    public function ask($commandRequest)
+    {
+        return $this->queryBus->handle($commandRequest);
     }
 }

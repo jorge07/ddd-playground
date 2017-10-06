@@ -40,6 +40,6 @@ class UserController extends AbstractBusController
      */
     public function getAction(string $uuid): User
     {
-        return $this->handle(new GetUser($uuid));
+        return $this->ask(new GetUser($uuid));
     }
 }

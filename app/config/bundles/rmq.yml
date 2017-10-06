@@ -21,12 +21,22 @@ old_sound_rabbit_mq:
             connection:       default
             exchange_options: { name: 'events', type: topic }
 
-    consumers:
+
+    multiple_consumers:
         events:
             connection:       default
             exchange_options: { name: 'events', type: topic }
-            queue_options:
-              name: events
-              routing_keys:
-                  - 'UserWasCreated'
-            callback: leos.evens.async.consumer.events
+            queues:
+                user:
+                    name:     user
+                    callback: leos.evens.async.consumer.events
+                    routing_keys:
+                        - 'UserWasCreated'
+                transactions:
+                    name:     transactions
+                    callback: leos.evens.async.consumer.events
+                    routing_keys:
+                        - 'TransactionWasCreated'
+                events:
+                    name:     events
+                    callback: leos.evens.async.consumer.events

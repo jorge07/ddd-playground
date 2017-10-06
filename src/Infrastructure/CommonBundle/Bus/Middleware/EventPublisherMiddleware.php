@@ -49,6 +49,7 @@ class EventPublisherMiddleware implements Middleware
 
             $this->producer->publish($serializedEvent, $symfonyEvent->type());
         }
-
-        return $returnValue;    }
+        
+        return $returnValue;
+    }
 }
