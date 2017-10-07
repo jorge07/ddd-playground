@@ -66,6 +66,8 @@ The environment is in PHP7.1 and the development containers are on `etc/infrastr
 
 Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
 
+Start **async** listeners: `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm bin/console rabbitmq:multiple-consumer events`
+
 - Rabbit Management: `:15672`
 ![Rabbit](https://i.imgur.com/Wx881tI.png)
 
