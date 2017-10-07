@@ -52,6 +52,5 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     public function save(User $user): void
     {
         $this->_em->persist($user);
-        $this->_em->flush();
     }
 }
