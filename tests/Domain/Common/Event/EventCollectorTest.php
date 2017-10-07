@@ -9,6 +9,12 @@ use PHPUnit\Framework\TestCase;
 
 class EventCollectorTest extends TestCase
 {
+    public function setUp()
+    {
+        $this->tearDown();
+        EventCollector::instance()->flush();
+    }
+
     public function testEventIsStored()
     {
         $collector = $this->userCreated();
@@ -36,5 +42,10 @@ class EventCollectorTest extends TestCase
         $collector->collect(new UserWasCreated(new UserId(), 'paco', 'paso@pas.com'));
 
         return $collector;
+    }
+
+    public function tearDown()
+    {
+        EventCollector::instance()->shutdown();
     }
 }

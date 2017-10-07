@@ -30,7 +30,7 @@ class EventCollector
 
     private function addEvent(EventInterface $event): void
     {
-        $this->events[] = $event;
+        self::instance()->events[] = $event;
     }
 
     public function collect(EventInterface $event): void
@@ -40,7 +40,9 @@ class EventCollector
 
     public function flush(): void
     {
-        $this->events = [];
+        self::instance()->events = [];
+
+        reset(self::instance()->events);
     }
 
     /**
@@ -53,9 +55,14 @@ class EventCollector
 
     public function remove(int $key): void
     {
-        if (true === array_key_exists($key, $this->events)) {
+        if (true === array_key_exists($key, self::instance()->events)) {
 
-            unset($this->events[$key]);
+            unset(self::instance()->events[$key]);
         }
+    }
+
+    public function shutdown()
+    {
+        self::$instance = null;
     }
 }
