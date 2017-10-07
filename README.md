@@ -67,10 +67,10 @@ The environment is in PHP7.1 and the development containers are on `etc/infrastr
 Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
 
 - Rabbit Management: `:15672`
-[Rabbit](https://imgur.com/a/Q9zeQ)
+![Rabbit](https://i.imgur.com/Wx881tI.png)
 
 - Kibana Management: `:5601`
-[Kibana](https://imgur.com/a/wq9VG)
+![Kibana](https://i.imgur.com/AKsVA0t.png)
 
 ### CI/CD
 
