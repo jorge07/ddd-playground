@@ -43,5 +43,17 @@ services:
       - "15672:15672"
       - "5672:5672"
 
+  kibana:
+    image: kibana:5.5
+    ports:
+      - 5601:5601
+    volumes:
+      - "$PWD/etc/infrastructure/dev/kibana/config:/usr/share/kibana/config"
+
+  elasticsearch:
+    image: elasticsearch:5.5
+    ports:
+      - 9200:9200
+
 volumes:
   db_data:

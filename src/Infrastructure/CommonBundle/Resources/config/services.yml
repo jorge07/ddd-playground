@@ -22,6 +22,11 @@ services:
     leos.evens.async.consumer.events:
         class: Leos\Infrastructure\CommonBundle\Event\AsyncEventConsumer
 
+    leos.evens.async.store.events:
+        class: Leos\Infrastructure\CommonBundle\Event\AsyncElasticEventStore
+        arguments:
+          - '@fos_elastica.index.events.events'
+
     leos.event.bus.middleware.event_store:
         class: Leos\Infrastructure\CommonBundle\Bus\Middleware\EventStoreMiddleware
         autowire: true

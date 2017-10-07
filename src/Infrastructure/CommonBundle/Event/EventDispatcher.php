@@ -41,9 +41,7 @@ class EventDispatcher implements EventDispatcherInterface
     {
         foreach ($this->collector->events() as $key => $event) {
 
-            /** @var EventAware $symfonyEvent */
-            $symfonyEvent = new EventAware($event);
-            $this->dispatcher->dispatch($symfonyEvent->type(), $symfonyEvent);
+            $this->dispatcher->dispatch($event->type(), new EventAware($event));
 
             $this->collector->remove($key);
         }

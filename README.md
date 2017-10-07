@@ -15,8 +15,10 @@ DDD Playground
    - [x] Test for api in **behat** accessing via web server (*Acceptance tests*). 
    - [x] Integration test with **Lakion api test case** and **Alice** for fixtures and how to integrate it with **behat**. 
    - [x] **Command Bus** implementation
-   - [ ] DomainEvents
-
+   - [x] DomainEvents
+   - [x] Events to RabbitMQ
+   - [x] Events stored in ElasticSearch and Kibana for reading in `:5601`
+   
 ### Tools
 
 This repo its a RESTful API built following *more or less* DDD and using few useful packages like:
@@ -29,6 +31,9 @@ This repo its a RESTful API built following *more or less* DDD and using few use
 - `willdurand/hateoas-bundle`
 - `jms/serializer-bundle`
 - `league/tactician-bundle`
+- `php-amqplib/rabbitmq-bundle`
+- `league/tactician-doctrine`
+- `friendsofsymfony/elastica-bundle`
 
 And for testing proposal:
 
@@ -60,6 +65,10 @@ The *aceptation tests* are inside the test `UI` layer and attack the application
 The environment is in PHP7.1 and the development containers are on `etc/infrastructure/dev/docker-compose.yml`
 
 Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
+
+- Rabbit Management: `:15672`
+- Kibana Management: `:5601`
+
 
 ### CI/CD
 

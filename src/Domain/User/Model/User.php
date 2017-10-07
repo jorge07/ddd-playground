@@ -20,6 +20,11 @@ use Leos\Domain\Security\ValueObject\EncodedPasswordInterface;
 class User extends AggregateRoot
 {
     /**
+     * @var UserId
+     */
+    protected $uuid;
+
+    /**
      * @var string
      */
     private $email;
@@ -53,7 +58,7 @@ class User extends AggregateRoot
         parent::__construct($userId);
 
         $this->auth = new AuthUser($username, $encodedPassword);
-        $this->email = $email;
+        $this->setEmail($email);
         $this->wallets = new ArrayCollection();
         $this->createdAt = new \DateTime();
     }
@@ -79,8 +84,18 @@ class User extends AggregateRoot
         $this->auth->changePassword($oldPassword, $newPassword);
 
         $this->raise(
-            new UserPasswordWasChanged($this->uuid())
+            new UserPasswordWasChanged($this->uuid)
         );
+    }
+
+    private function setEmail(string $email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+            throw new \InvalidArgumentException("Invalid email $email");
+        }
+
+        $this->email = $email;
     }
 
     public function email(): string

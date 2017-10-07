@@ -42,7 +42,8 @@
         "ramsey/uuid-doctrine": "^1.4",
         "league/tactician-bundle": "1.0",
         "php-amqplib/rabbitmq-bundle": "^1.13",
-        "league/tactician-doctrine": "^1.1"
+        "league/tactician-doctrine": "^1.1",
+        "friendsofsymfony/elastica-bundle": "^4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

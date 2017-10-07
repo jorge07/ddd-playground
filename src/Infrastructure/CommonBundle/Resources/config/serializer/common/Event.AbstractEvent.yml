@@ -1,5 +1,4 @@
-Leos\Infrastructure\CommonBundle\Event\EventAware:
-    exclusion_policy: ALL
+Leos\Domain\Common\Event\AbstractEvent:
     properties:
         uuid:
             expose: true
@@ -10,9 +9,6 @@ Leos\Infrastructure\CommonBundle\Event\EventAware:
         createdAt:
             expose: true
             type: DateTimeImmutable
-
-        event:
-            expose: true
 
         type:
             expose: true

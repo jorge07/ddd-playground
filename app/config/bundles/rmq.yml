@@ -37,6 +37,8 @@ old_sound_rabbit_mq:
                     callback: leos.evens.async.consumer.events
                     routing_keys:
                         - 'TransactionWasCreated'
-                events:
-                    name:     events
-                    callback: leos.evens.async.consumer.events
+                elastic:
+                    name:     elastic
+                    routing_keys:
+                        - '*'
+                    callback: leos.evens.async.store.events

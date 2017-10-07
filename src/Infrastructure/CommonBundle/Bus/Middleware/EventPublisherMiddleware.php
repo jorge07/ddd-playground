@@ -43,13 +43,11 @@ class EventPublisherMiddleware implements Middleware
 
         foreach ($events as $event) {
 
-            $symfonyEvent = new EventAware($event);
+            $serializedEvent = $this->serializer->serialize($event, 'json');
 
-            $serializedEvent = $this->serializer->serialize($symfonyEvent, 'json');
-
-            $this->producer->publish($serializedEvent, $symfonyEvent->type());
+            $this->producer->publish($serializedEvent, $event->type());
         }
-        
+
         return $returnValue;
     }
 }

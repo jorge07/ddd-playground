@@ -43,6 +43,9 @@ class EventCollector
         $this->events = [];
     }
 
+    /**
+     * @return EventInterface[]
+     */
     public function events(): array
     {
         return self::instance()->events;

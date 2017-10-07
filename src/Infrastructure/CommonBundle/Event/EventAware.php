@@ -29,18 +29,10 @@ class EventAware extends Event
 
     public function __construct(EventInterface $event)
     {
-        $this->uuid = new EventAwareId();
+        $this->uuid = new EventAwareId((string) $event->uuid());
         $this->event = $event;
-
-        $this->setType();
-        $this->createdAt = new \DateTimeImmutable();
-    }
-
-    private function setType(): void
-    {
-        $path = explode('\\', get_class($this->event));
-
-        $this->type = array_pop($path);
+        $this->type = $event->type();
+        $this->createdAt = $event->createdAt();
     }
 
     public function type(): string
@@ -52,7 +44,6 @@ class EventAware extends Event
     {
         return $this->uuid;
     }
-
 
     public function event(): EventInterface
     {

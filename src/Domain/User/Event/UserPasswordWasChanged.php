@@ -2,22 +2,23 @@
 
 namespace Leos\Domain\User\Event;
 
-use Leos\Domain\Common\Event\EventInterface;
-use Leos\Domain\Common\ValueObject\AggregateRootId;
+use Leos\Domain\Common\Event\AbstractEvent;
+use Leos\Domain\User\ValueObject\UserId;
 
-class UserPasswordWasChanged implements EventInterface
+class UserPasswordWasChanged extends AbstractEvent
 {
     /**
-     * @var AggregateRootId
+     * @var string
      */
     private $userId;
 
-    public function __construct(AggregateRootId $userId)
+    public function __construct(UserId $userId)
     {
-        $this->userId = $userId;
+        parent::__construct();
+        $this->userId = (string) $userId;
     }
 
-    public function getUserId(): AggregateRootId
+    public function getUserId(): string
     {
         return $this->userId;
     }
