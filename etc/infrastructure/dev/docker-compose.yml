@@ -12,7 +12,7 @@ services:
   fpm:
     image: jorge07/alpine-php:7.1-dev-sf
     ports:
-      - "2244:22"
+      - "2323:22"
       - "9000:9000"
     volumes:
       - "$PWD:/app"
@@ -31,5 +31,29 @@ services:
       - MYSQL_DATABASE=ddd
     volumes:
       - db_data:/var/lib/mysql
+
+  rmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  kibana:
+    image: kibana:5.5
+    ports:
+      - 5601:5601
+    volumes:
+      - "$PWD/etc/infrastructure/dev/kibana/config:/usr/share/kibana/config"
+
+  elasticsearch:
+    image: elasticsearch:5.5
+    ports:
+      - 9200:9200
+
 volumes:
   db_data:

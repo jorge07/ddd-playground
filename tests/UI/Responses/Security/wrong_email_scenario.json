@@ -1,16 +1,4 @@
 {
   "code":400,
-  "message": "Validation Failed",
-  "errors": {
-    "children": {
-      "uuid": {},
-      "email": {
-        "errors":[
-          "user.exception.email.not_valid"
-        ]
-      },
-      "username":{},
-      "password":{}
-    }
-  }
+  "message": "Invalid email paco"
 }

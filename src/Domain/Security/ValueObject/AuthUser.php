@@ -2,6 +2,8 @@
 
 namespace Leos\Domain\Security\ValueObject;
 
+use Leos\Domain\User\Exception\UserPasswordsAreNotEquals;
+
 /**
  * Class AuthUser
  *
@@ -50,4 +52,13 @@ final class AuthUser
         return $this->roles;
     }
 
+    public function changePassword(EncodedPasswordInterface $oldPassword, EncodedPasswordInterface $newPassword): void
+    {
+        if (!$oldPassword->matchHash($this->passwordHash)) {
+
+            throw new UserPasswordsAreNotEquals();
+        }
+
+        $this->passwordHash = (string) $newPassword;
+    }
 }

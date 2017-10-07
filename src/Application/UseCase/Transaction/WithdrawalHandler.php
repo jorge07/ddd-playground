@@ -57,13 +57,15 @@ class WithdrawalHandler
      */
     public function handle(WithdrawalRequest $request): Withdrawal
     {
-        $this->repository->save(
-            $transaction = new Withdrawal(
-                $this->walletQuery->handle(new GetWallet($request->walletId())),
-                $request->real(),
-                new WithdrawalDetails($request->provider())
-            )
+        $wallet = $this->walletQuery->handle(new GetWallet($request->walletId()));
+
+        $transaction = Withdrawal::create(
+            $wallet,
+            $request->real(),
+            new WithdrawalDetails($request->provider())
         );
+
+        $this->repository->save($transaction);
 
         return $transaction;
     }

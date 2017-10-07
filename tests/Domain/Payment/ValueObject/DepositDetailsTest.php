@@ -2,14 +2,16 @@
 
 namespace Tests\Leos\Domain\Payment\ValueObject;
 
+use Leos\Domain\Payment\Exception\InvalidProviderException;
 use Leos\Domain\Payment\ValueObject\DepositDetails;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DepositDetailsTest
  * 
  * @package Tests\Leos\Domain\Payment\ValueObject
  */
-class DepositDetailsTest extends \PHPUnit_Framework_TestCase
+class DepositDetailsTest extends TestCase
 {
 
     /**
@@ -25,11 +27,11 @@ class DepositDetailsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @group unit
-     *
-     * @expectedException Leos\Domain\Payment\Exception\InvalidProviderException
      */
     public function testInvalidProvider()
     {
+        self::expectException(InvalidProviderException::class);
+
         new DepositDetails('as');
     }
 }

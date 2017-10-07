@@ -2,3 +2,4 @@ imports:
     - { resource: services/factory.yml }
     - { resource: services/repository.yml }
     - { resource: application/use_case.yml }
+    - { resource: services/eventListener.yml }

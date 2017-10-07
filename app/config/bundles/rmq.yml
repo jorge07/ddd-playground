@@ -1,0 +1,42 @@
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     "%rmq_host%"
+            port:     "%rmq_port%"
+            user:     "%rmq_user%"
+            password: "%rmq_pass%"
+            vhost:    '/'
+            lazy:     true
+            connection_timeout: 3
+            read_write_timeout: 3
+
+            keepalive: false
+
+            heartbeat: 0
+
+    producers:
+        events:
+            connection:       default
+            exchange_options: { name: 'events', type: topic }
+
+
+    multiple_consumers:
+        events:
+            connection:       default
+            exchange_options: { name: 'events', type: topic }
+            queues:
+                user:
+                    name:     user
+                    callback: leos.evens.async.consumer.events
+                    routing_keys:
+                        - 'UserWasCreated'
+                transactions:
+                    name:     transactions
+                    callback: leos.evens.async.consumer.events
+                    routing_keys:
+                        - 'TransactionWasCreated'
+                elastic:
+                    name:     elastic
+                    routing_keys:
+                        - '*'
+                    callback: leos.evens.async.store.events

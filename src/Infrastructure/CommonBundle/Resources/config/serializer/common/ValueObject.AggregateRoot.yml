@@ -1,0 +1,6 @@
+Leos\Domain\Common\ValueObject\AggregateRoot:
+    exclusion_policy: ALL
+    properties:
+        uuid:
+            expose: true
+            groups: ['Identifier']

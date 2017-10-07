@@ -10,10 +10,6 @@ Leos\Domain\Transaction\Model\AbstractTransaction:
         create_wallet: Leos\Domain\Wallet\Factory\WalletFactory
 
     properties:
-        id:
-            expose: true
-            groups: [Identifier]
-
         type:
             expose: true
             groups: [Basic]

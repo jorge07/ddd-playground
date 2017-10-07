@@ -26,3 +26,11 @@ parameters:
     jwt_token_ttl:        86400
 
     api_supported_versions: v1|v2
+
+    rmq_host: rmq
+    rmq_port: 5672
+    rmq_user: guest
+    rmq_pass: guest
+
+    elastic_host: elasticsearch
+    elastic_port: 9200

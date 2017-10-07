@@ -25,19 +25,12 @@ class Register
      * @var string
      */
     private $plainPassword;
+
     /**
      * @var UserId
      */
     private $userId;
 
-    /**
-     * Register constructor.
-     *
-     * @param UserId $userId
-     * @param string $username
-     * @param string $email
-     * @param string $plainPassword
-     */
     public function __construct(UserId $userId, string $username, string $email, string $plainPassword)
     {
         $this->username = $username;
@@ -46,16 +39,13 @@ class Register
         $this->userId = $userId;
     }
 
-    /**
-     * @return array
-     */
     public function toForm(): array
     {
         return [
-            'uuid' => $this->userId,
-            'username' =>   $this->username,
-            'email' =>      $this->email,
-            'password' =>   $this->plainPassword
+            'uuid'      => $this->userId,
+            'username'  => $this->username,
+            'email'     => $this->email,
+            'password'  => $this->plainPassword
         ];
     }
 }

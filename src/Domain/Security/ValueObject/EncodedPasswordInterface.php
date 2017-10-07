@@ -11,5 +11,7 @@ interface EncodedPasswordInterface
 {
     public function __construct(string $plainPassword);
 
+    public function matchHash(string $hash): bool;
+
     public function __toString(): string;
 }

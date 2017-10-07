@@ -33,13 +33,13 @@ class UserController extends AbstractBusController
      *     }
      * )
      *
-     * @View(statusCode=200, serializerGroups={"Identifier", "Basic", "Auth"})
+     * @View(statusCode=200)
      *
      * @param string $uuid
      * @return User
      */
     public function getAction(string $uuid): User
     {
-        return $this->handle(new GetUser($uuid));
+        return $this->ask(new GetUser($uuid));
     }
 }

@@ -1,0 +1,12 @@
+fos_elastica:
+  clients:
+    default: { host: '%elastic_host%', port: '%elastic_port%' }
+  indexes:
+    events:
+      types:
+        events:
+          properties:
+            type: ~
+            uuid: ~
+            event: ~
+            createdAt: ~

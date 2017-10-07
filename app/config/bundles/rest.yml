@@ -32,7 +32,7 @@ fos_rest:
     exception:
         enabled: true
         codes:
-            '\InvalidArgumentException': 400
+            'InvalidArgumentException': 400
             'Doctrine\ORM\OptimisticLockException': 409
             'Doctrine\DBAL\Exception\UniqueConstraintViolationException': 409
 
@@ -44,7 +44,7 @@ fos_rest:
             'Leos\Domain\Transaction\Exception\InvalidTransactionStateException': 409
 
         messages:
-            '\InvalidArgumentException': true
+            'InvalidArgumentException': true
             'Leos\Domain\Common\Exception\NotFoundException': true
             'Leos\Domain\Security\Exception\AuthenticationException': true
             'Leos\Domain\Wallet\Exception\Credit\CreditNotEnoughException': true

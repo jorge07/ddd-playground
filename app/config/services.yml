@@ -1,1 +1,11 @@
 services:
+    _defaults:
+        public: false
+        autowire: true
+
+    JMS\Serializer\SerializerInterface: "@jms_serializer"
+    Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface: "@lexik_jwt_authentication.jwt_manager"
+    Symfony\Component\Form\FormFactoryInterface: "@form.factory"
+    Symfony\Component\Security\Http\Authentication\AuthenticationUtils: "@security.authentication_utils"
+    Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface: "@security.encoder_factory.generic"
+    Psr\Log\LoggerInterface: "@monolog.logger"

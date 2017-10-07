@@ -25,10 +25,10 @@ class WalletContext extends ApiContext
     {
         $this->createSharedKernel('dev');
         $this->setUpDatabase();
-        /** @var User[] $fixtures */
+        /** @var User[]|mixed $fixtures */
         $fixtures = $this->loadFixturesFromDirectory('wallet');
 
-        $this->addPlaceHolder('userId', $fixtures['jorge']->id()->__toString());
+        $this->addPlaceHolder('userId', $fixtures['jorge']->uuid()->__toString());
     }
 
     /**
@@ -60,7 +60,7 @@ class WalletContext extends ApiContext
      */
     public function iStoreTheTransaction()
     {
-        $this->transaction = json_decode((string) $this->response->getBody(), true)['id'];
+        $this->transaction = json_decode((string) $this->response->getBody(), true)['uuid'];
     }
 
 }

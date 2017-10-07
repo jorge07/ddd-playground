@@ -3,13 +3,14 @@
 namespace Tests\Leos\Infrastructure\WalletBundle\Doctrine\Types;
 
 use Doctrine\DBAL\Types\Type;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class WalletItTypeTest
  *
  * @package Leos\Infrastructure\WalletBundle\Doctrine\Types
  */
-class WalletItTypeTest extends \PHPUnit_Framework_TestCase
+class WalletItTypeTest extends TestCase
 {
     /**
      * @group unit

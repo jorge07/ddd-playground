@@ -5,11 +5,6 @@ Leos\Domain\User\Model\User:
             expose: true
             groups: [Basic]
 
-        auth:
-            expose: true
-            groups: [Auth]
-            type: Leos\Domain\Security\ValueObject\AuthUser
-
         createdAt:
             expose: true
             groups: [Basic]

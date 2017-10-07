@@ -1,5 +1,5 @@
 {
-  "id":"@string@",
+  "uuid":"@string@",
   "type":"rollback_withdrawal",
   "prev_real": {
     "amount":0,
@@ -12,9 +12,7 @@
   "operation_real": 5000,
   "operation_bonus": 0,
   "wallet": {
-    "id": {
-      "uuid": "@string@"
-    },
+    "uuid": "@string@",
     "real": {
       "amount":5000,
       "generated_at":"@string@.isDateTime()"

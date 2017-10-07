@@ -2,7 +2,7 @@
 
 namespace Leos\Infrastructure\CommonBundle\Factory;
 
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
 use Leos\Infrastructure\CommonBundle\Exception\Form\FormException;
@@ -22,7 +22,7 @@ abstract class AbstractFactory
     ;
 
     /**
-     * @var FormFactory
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -31,7 +31,7 @@ abstract class AbstractFactory
      */
     protected $formClass;
 
-    public function __construct(FormFactory $formFactory)
+    public function __construct(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;
         
@@ -59,22 +59,22 @@ abstract class AbstractFactory
             throw new FormException($form);
         }
 
-        if (is_object($object)
-            && in_array($action, [self::UPDATE, self::REPLACE])
-            && method_exists($object, 'setUpdate')) {
-
-            $object->setUpdate(new \DateTimeImmutable());
-        }
+        $this->setTimestamp($action, $object);
 
         return $form->getData();
     }
 
-    /**
-     * @param string $action
-     * @param null|object $object
-     *
-     * @return FormInterface
-     */
+    private function setTimestamp(string $action, $object): void
+    {
+        if (is_object($object)
+            && in_array($action, [ self::UPDATE, self::REPLACE ])
+            && method_exists($object, 'setUpdate')
+        ) {
+
+            $object->setUpdate(new \DateTimeImmutable());
+        }
+    }
+
     private function createForm(string $action = self::CREATE, $object = null): FormInterface
     {
         return $this->formFactory->create($this->formClass, $object, [

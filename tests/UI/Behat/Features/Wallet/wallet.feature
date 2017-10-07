@@ -64,7 +64,7 @@ Feature: Wallet endpoint
     And the response should match with code "202" and body:
     """
     {
-      "id":"@string@",
+      "uuid":"@string@",
       "type":"deposit",
       "prev_real": {
         "amount":0,
@@ -77,9 +77,7 @@ Feature: Wallet endpoint
       "operation_real": 10000,
       "operation_bonus": 0,
       "wallet": {
-        "id": {
-          "uuid": "@string@"
-        },
+        "uuid": "@string@",
         "real": {
           "amount":10000,
           "generated_at":"@string@.isDateTime()"

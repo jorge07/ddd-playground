@@ -25,24 +25,15 @@ class RegisterUserHandler
      */
     private $factory;
 
-    /**
-     * RegisterUserHandler constructor.
-     * 
-     * @param UserRepositoryInterface $repository
-     * @param UserFactoryInterface $factory
-     */
     public function __construct(UserRepositoryInterface $repository, UserFactoryInterface $factory)
     {
         $this->repository = $repository;
         $this->factory = $factory;
     }
 
-    /**
-     * @param Register $request
-     * @return User
-     */
     public function handle(Register $request): User
     {
+        /** @var User $user */
         $user = $this->factory->register($request->toForm());
         
         $this->repository->save($user);

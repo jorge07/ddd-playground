@@ -24,10 +24,6 @@ class HomeController extends AbstractController
      */
     private $router;
 
-    /**
-     * HomeController constructor.
-     * @param Router $router
-     */
     public function __construct(Router $router)
     {
         $this->router = $router;
@@ -48,8 +44,19 @@ class HomeController extends AbstractController
     public function getAction(): array
     {
         return [
-            'wallet' =>  $this->router->generate('post_wallet', ['version' => $this->getVersion()], UrlGeneratorInterface::ABSOLUTE_URL)
+            'wallet' => $this->route('cget_wallet')
         ];
+    }
+
+    private function route(string $routeName): string
+    {
+        return  $this->router->generate(
+            $routeName,
+            [
+                'version' => $this->getVersion()
+            ],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
     }
 
 }

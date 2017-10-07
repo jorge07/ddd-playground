@@ -9,3 +9,4 @@ services:
         parent: leos.abstract.controller
         arguments:
           - "@tactician.commandbus"
+          - "@tactician.commandbus.query"

@@ -23,6 +23,15 @@ class Withdrawal extends AbstractTransaction
         $this->details = $details;
     }
 
+    public static function create(Wallet $wallet, Money $real, WithdrawalDetails $details): self
+    {
+        $withdrawal = new self($wallet, $real, $details);
+
+        $withdrawal->raiseEvent();
+
+        return $withdrawal;
+    }
+
     public function rollback(): RollbackWithdrawal
     {
         $this->setState(TransactionState::REVERTED);

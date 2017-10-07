@@ -3,6 +3,7 @@
 namespace Leos\Infrastructure\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Leos\Domain\User\Exception\UserNotFoundException;
 use Leos\Domain\User\Model\User;
 use Leos\Domain\User\Repository\UserRepositoryInterface;
 use Leos\Domain\User\ValueObject\UserId;
@@ -25,7 +26,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         ;
     }
 
-    public function findOneById(UserId $userId): ?User
+    public function findOneByUuid(UserId $userId): ?User
     {
         return $this->createQueryBuilder('user')
             ->where('user.uuid = :id')
@@ -34,6 +35,18 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
 //            ->useResultCache(true, null, 'user.findOneById'.$username)
             ->getOneOrNullResult()
         ;
+    }
+
+    public function getOneByUuid(UserId $userId): User
+    {
+        $user = $this->findOneByUuid($userId);
+
+        if (!$user) {
+
+            throw new UserNotFoundException();
+        }
+
+        return $user;
     }
 
     public function save(User $user): void

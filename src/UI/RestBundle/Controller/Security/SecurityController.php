@@ -84,7 +84,7 @@ class SecurityController extends AbstractBusController
      * @RequestParam(name="email", strict=false, default="", description="Unique email")
      * @RequestParam(name="password", strict=false, default="", description="Plain password")
      *
-     * @View(statusCode=202, serializerGroups={"Identifier", "Basic", "Auth"})
+     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
      * @param ParamFetcher $fetcher
      *
@@ -108,7 +108,7 @@ class SecurityController extends AbstractBusController
                 ->routeRedirectView(
                     'get_user',
                     [
-                        'uuid' => $user->id()
+                        'uuid' => $user->uuid()->__toString()
                     ]
                 )
                 ->setData($user)

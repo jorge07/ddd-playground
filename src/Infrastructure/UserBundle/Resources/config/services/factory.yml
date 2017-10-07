@@ -1,4 +1,4 @@
 services:
-    leos.factory.user:
+    Leos\Domain\User\Factory\UserFactoryInterface:
         class: Leos\Infrastructure\UserBundle\Factory\UserFactory
-        parent: leos.abstract.form_factory
+        autowire: true

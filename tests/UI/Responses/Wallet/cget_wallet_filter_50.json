@@ -17,9 +17,7 @@
     "_embedded": {
         "items": [
             {
-                "id": {
-                    "uuid": "@string@"
-                },
+                "uuid": "@string@",
                 "real": {
                     "amount": 50,
                     "generated_at": "@string@.isDateTime()"

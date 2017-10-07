@@ -20,11 +20,10 @@ class WalletRepository extends EntityRepository implements WalletRepositoryInter
      * @param array $operators
      * @param array $values
      * @param array $sort
-     * @return \Pagerfanta\Pagerfanta
+     * @return \Pagerfanta\Pagerfanta|Wallet[]
      */
     public function findAll(array $filters = [], array $operators = [], array $values = [], array $sort = [])
     {
-
         $queryBuilder = $this->createQueryBuilder($alias = 'wallet');
 
         return $this->createOperatorPaginator($queryBuilder, $alias, $filters, $operators, $values, $sort);

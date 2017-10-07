@@ -26,7 +26,7 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
     public function get(TransactionId $transactionId): AbstractTransaction
     {
         $transaction = $this->createQueryBuilder('transaction')
-            ->where('transaction.id = :id')
+            ->where('transaction.uuid = :id')
             ->setParameter('id', $transactionId->bytes())
             ->getQuery()
             ->getOneOrNullResult()
@@ -40,9 +40,6 @@ class TransactionRepository extends EntityRepository implements TransactionRepos
         return $transaction;
     }
 
-    /**
-     * @param AbstractTransaction $transaction
-     */
     public function save(AbstractTransaction $transaction): void
     {
         $this->_em->persist($transaction);

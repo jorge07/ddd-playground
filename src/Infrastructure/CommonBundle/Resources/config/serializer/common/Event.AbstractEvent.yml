@@ -1,0 +1,14 @@
+Leos\Domain\Common\Event\AbstractEvent:
+    properties:
+        uuid:
+            expose: true
+            type: Leos\Domain\Common\ValueObject\AggregateRootId
+            groups: ['Identifier']
+            inline: true
+
+        createdAt:
+            expose: true
+            type: DateTimeImmutable
+
+        type:
+            expose: true
