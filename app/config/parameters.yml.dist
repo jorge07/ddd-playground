@@ -31,3 +31,6 @@ parameters:
     rmq_port: 5672
     rmq_user: guest
     rmq_pass: guest
+
+    elastic_host: elasticsearch
+    elastic_port: 9200

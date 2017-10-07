@@ -1,6 +1,6 @@
 fos_elastica:
   clients:
-    default: { host: elasticsearch, port: 9200 }
+    default: { host: '%elastic_host%', port: '%elastic_port%' }
   indexes:
     events:
       types:
