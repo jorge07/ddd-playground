@@ -71,7 +71,7 @@ Start **async** listeners: `docker-compose -f etc/infrastructure/dev/docker-comp
 - Rabbit Management: `:15672`
 ![Rabbit](https://i.imgur.com/Wx881tI.png)
 
-- Kibana Management: `:5601`
+- Kibana: `:5601`
 ![Kibana](https://i.imgur.com/AKsVA0t.png)
 
 ### CI/CD
