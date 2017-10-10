@@ -18,29 +18,8 @@ DDD Playground
    - [x] DomainEvents
    - [x] Events to RabbitMQ
    - [x] Events stored in ElasticSearch and Kibana for reading in `:5601`
-   
-### Tools
+   
 
-This repo its a RESTful API built following *more or less* DDD and using few useful packages like:
-
-- `ramsey/uuid`
-- `snc/redis-bundle`
-- `nelmio/api-doc-bundle` 
-- `friendsofsymfony/rest-bundle`
-- `white-october/pagerfanta-bundle`
-- `willdurand/hateoas-bundle`
-- `jms/serializer-bundle`
-- `league/tactician-bundle`
-- `php-amqplib/rabbitmq-bundle`
-- `league/tactician-doctrine`
-- `friendsofsymfony/elastica-bundle`
-
-And for testing proposal:
-
-- `lakion/api-test-case`
-- `behat/symfony2-extension`
-- `behat/behat`
-- `guzzlehttp/guzzle`
 
 ### The folder structure 
 
