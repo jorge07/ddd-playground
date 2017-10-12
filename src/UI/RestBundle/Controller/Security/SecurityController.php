@@ -84,7 +84,7 @@ class SecurityController extends AbstractBusController
      * @RequestParam(name="email", strict=false, default="", description="Unique email")
      * @RequestParam(name="password", strict=false, default="", description="Plain password")
      *
-     * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
+     * @View(statusCode=201, serializerGroups={"Identifier", "Basic"})
      *
      * @param ParamFetcher $fetcher
      *

@@ -32,7 +32,7 @@ class RollbackController extends AbstractBusController
      *     section="Rollback",
      *     description = "Rollback the given deposit",
      *     statusCodes = {
-     *       200 = "Returned when successful",
+     *       202 = "Returned when successful",
      *       400 = "Returned when Bad request",
      *       404 = "Returned when not found"
      *     }
@@ -43,7 +43,7 @@ class RollbackController extends AbstractBusController
      * @View(statusCode=202, serializerGroups={"Identifier", "Basic"})
      *
      * @param ParamFetcher $fetcher
-     * 
+     *
      * @return RollbackDeposit
      */
     public function postDepositAction(ParamFetcher $fetcher): RollbackDeposit
@@ -59,7 +59,7 @@ class RollbackController extends AbstractBusController
      *     section="Rollback",
      *     description = "Rollback the given withdrawal",
      *     statusCodes = {
-     *       200 = "Returned when successful",
+     *       202 = "Returned when successful",
      *       400 = "Returned when Bad request",
      *       404 = "Returned when not found"
      *     }
