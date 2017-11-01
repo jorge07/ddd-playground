@@ -1,7 +1,7 @@
 DDD Playground
 ==============
 
-**Wallet API** in Symfony following DDD (Domain Driver Design). *Still a wip*. 
+**Wallet API** in Symfony following DDD (Domain Driver Design). *Work in progress*. 
 
 ### Examples in the repo
 
