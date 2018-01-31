@@ -39,13 +39,15 @@ The tests follow the same structure and the *phpunit* tests are tagged with grou
 
 The *aceptation tests* are inside the test `UI` layer and attack the application from outside using Guzzle.
 
-### The Environment
+### The Environment setup
 
 The environment is in PHP7.1 and the development containers are on `etc/infrastructure/dev/docker-compose.yml`
 
-Run the environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
+Up environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
 
-Start **async** listeners: `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm bin/console rabbitmq:multiple-consumer events`
+Setup database, etc with : `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'ant build'`
+
+Start **async** listeners: `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'bin/console rabbitmq:multiple-consumer events'`
 
 - Rabbit Management: `:15672`
 ![Rabbit](https://i.imgur.com/Wx881tI.png)
