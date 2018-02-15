@@ -1,7 +1,9 @@
 DDD Playground
 ==============
 
-**Wallet API** in Symfony following DDD (Domain Driver Design). *Work in progress*. 
+> For a more acurated DDD, CQRS and Event Sourcing implementation [see here](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate)
+
+**Wallet API** in Symfony following DDD (Domain Driver Design). 
 
 ### Examples in the repo
 
