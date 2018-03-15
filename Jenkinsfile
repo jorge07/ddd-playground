@@ -18,17 +18,17 @@ pipeline {
         stage("Environment") {
             steps {
 
-                sh 'sudo docker pull jorge07/alpine-php:7.1-dev-sf'
-                sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml pull"
-                sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml build"
-                sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml up -d"
+                sh 'docker pull jorge07/alpine-php:7.1-dev-sf'
+                sh "docker-compose -f etc/infrastructure/build/docker-compose.yml pull"
+                sh "docker-compose -f etc/infrastructure/build/docker-compose.yml build"
+                sh "docker-compose -f etc/infrastructure/build/docker-compose.yml up -d"
             }
         }
 
         stage("Build") {
             steps {
 
-                sh "sudo docker exec build_fpm_1 ant build"
+                sh "docker exec build_fpm_1 ant build"
             }
         }
 
@@ -38,12 +38,12 @@ pipeline {
                 parallel(
                     "Acceptation": {
 
-                       sh "sudo docker exec build_fpm_1 curl nginx"
-                       sh "sudo docker exec build_fpm_1 ant acceptation"
+                       sh "docker exec build_fpm_1 curl nginx"
+                       sh "docker exec build_fpm_1 ant acceptation"
                     },
                     "Unit and functional": {
 
-                       sh "sudo docker exec build_fpm_1 ant unit-and-functional"
+                       sh "docker exec build_fpm_1 ant unit-and-functional"
                     }
                 )
             }
@@ -64,7 +64,7 @@ pipeline {
         }
         always {
 
-            sh "sudo docker-compose -f etc/infrastructure/build/docker-compose.yml down --volumes"
+            sh "docker-compose -f etc/infrastructure/build/docker-compose.yml down --volumes"
         }
     }
 }
