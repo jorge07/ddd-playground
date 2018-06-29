@@ -47,6 +47,8 @@ The environment is in PHP7.1 and the development containers are on `etc/infrastr
 
 Up environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
 
+Install dependencies: `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'composer install'`
+
 Setup database, etc with : `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'ant build'`
 
 Start **async** listeners: `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'bin/console rabbitmq:multiple-consumer events'`
