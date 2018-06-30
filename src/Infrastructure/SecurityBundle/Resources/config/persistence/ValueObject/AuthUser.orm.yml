@@ -9,3 +9,7 @@ Leos\Domain\Security\ValueObject\AuthUser:
     passwordHash:
       type: string
       nullable: false
+
+    roles:
+      type: json_array
+      nullable: false
