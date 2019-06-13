@@ -10,7 +10,8 @@ use Leos\Application\UseCase\Transaction\Request\RollbackWithdrawal as RollbackW
 use Leos\Domain\Payment\Model\RollbackDeposit;
 use Leos\Domain\Payment\Model\RollbackWithdrawal;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Swagger\Annotations as SWG;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -27,16 +28,30 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 class RollbackController extends AbstractBusController
 {
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Rollback",
-     *     description = "Rollback the given deposit",
-     *     statusCodes = {
-     *       202 = "Returned when successful",
-     *       400 = "Returned when Bad request",
-     *       404 = "Returned when not found"
-     *     }
+     * @Operation(
+     *     tags={"Rollback"},
+     *     summary="Rollback the given deposit",
+     *     @SWG\Parameter(
+     *         name="deposit",
+     *         in="formData",
+     *         description="Deposit identifier",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response="202",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when Bad request"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @RequestParam(name="deposit", description="Deposit identifier")
      *
@@ -54,16 +69,30 @@ class RollbackController extends AbstractBusController
     }
 
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Rollback",
-     *     description = "Rollback the given withdrawal",
-     *     statusCodes = {
-     *       202 = "Returned when successful",
-     *       400 = "Returned when Bad request",
-     *       404 = "Returned when not found"
-     *     }
+     * @Operation(
+     *     tags={"Rollback"},
+     *     summary="Rollback the given withdrawal",
+     *     @SWG\Parameter(
+     *         name="withdrawal",
+     *         in="formData",
+     *         description="Withdrawal identifier",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response="202",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when Bad request"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @RequestParam(name="withdrawal", description="Withdrawal identifier")
      *

@@ -1,6 +1,6 @@
 <?php
 
-namespace Leos\Domain\Common\ValueObject;
+namespace Leos\Domain\Common;
 
 use Leos\Domain\Common\Event\EventInterface;
 use Leos\Domain\Common\Event\EventPublisher;

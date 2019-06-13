@@ -17,8 +17,8 @@
         }
     },
     "require": {
-        "php": ">=7.0.1",
-        "symfony/symfony": "3.3.*",
+        "php": "7.3.5",
+        "symfony/symfony": "3.4.*",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
@@ -29,19 +29,19 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
 
-        "ramsey/uuid": "^3.5",
-        "snc/redis-bundle": "2.x-dev",
-        "predis/predis": "^1.0",
+        "ramsey/uuid": "^3.8",
+        "snc/redis-bundle": "2.1.9",
+        "predis/predis": "^1.1",
 
-        "nelmio/api-doc-bundle": "^2.13",
-        "friendsofsymfony/rest-bundle": "^2.2",
-        "jms/serializer-bundle": "^2.2",
-        "white-october/pagerfanta-bundle": "^1.0",
-        "willdurand/hateoas-bundle": "^1.3",
-        "lexik/jwt-authentication-bundle": "^2.4",
+        "nelmio/api-doc-bundle": "^3.4",
+        "friendsofsymfony/rest-bundle": "^2.5",
+        "jms/serializer-bundle": "^3.3",
+        "white-october/pagerfanta-bundle": "^1.2",
+        "willdurand/hateoas-bundle": "^2.0",
+        "lexik/jwt-authentication-bundle": "^2.6",
         "ramsey/uuid-doctrine": "^1.4",
-        "league/tactician-bundle": "1.0",
-        "php-amqplib/rabbitmq-bundle": "^1.13",
+        "league/tactician-bundle": "1.1",
+        "php-amqplib/rabbitmq-bundle": "^1.14",
         "league/tactician-doctrine": "^1.1",
         "friendsofsymfony/elastica-bundle": "^4.0"
     },
@@ -76,7 +76,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.0.9"
+            "php": "7.3.5"
         }
     },
     "extra": {

@@ -3,7 +3,7 @@
 namespace Leos\Domain\Transaction\Event;
 
 use Leos\Domain\Common\Event\AbstractEvent;
-use Leos\Domain\Common\ValueObject\AggregateRootId;
+use Leos\Domain\Common\AggregateRootId;
 use Leos\Domain\Money\ValueObject\Currency;
 use Leos\Domain\Wallet\ValueObject\WalletId;
 

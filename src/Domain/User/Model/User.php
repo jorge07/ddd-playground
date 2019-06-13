@@ -4,7 +4,7 @@ namespace Leos\Domain\User\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Leos\Domain\Common\ValueObject\AggregateRoot;
+use Leos\Domain\Common\AggregateRoot;
 use Leos\Domain\User\Event\UserPasswordWasChanged;
 use Leos\Domain\User\Event\UserWasCreated;
 use Leos\Domain\Wallet\Model\Wallet;

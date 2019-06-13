@@ -2,7 +2,7 @@
 
 namespace Leos\Domain\Transaction\ValueObject;
 
-use Leos\Domain\Common\ValueObject\AggregateRootId;
+use Leos\Domain\Common\AggregateRootId;
 
 /**
  * Class TransactionId

@@ -17,7 +17,9 @@ use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Payment\Model\Withdrawal as WithdrawalModel;
 use Leos\Infrastructure\CommonBundle\Pagination\PagerTrait;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 
 use Hateoas\Representation\PaginatedRepresentation;
 
@@ -41,17 +43,72 @@ class WalletController extends AbstractBusController
     use PagerTrait;
 
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Wallet",
-     *     description = "List wallet collection",
-     *     output = "Leos\Domain\Wallet\Model\Wallet",
-     *     statusCodes = {
-     *       201 = "Returned when successful",
-     *       400 = "Returned when Bad Request",
-     *       404 = "Returned when page not found"
-     *     }
+     * @Operation(
+     *     tags={"Wallet"},
+     *     summary="List wallet collection",
+     *     @SWG\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="Page Number",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         description="Items per page",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="orderParameter",
+     *         in="query",
+     *         description="Order Parameter",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="orderValue",
+     *         in="query",
+     *         description="Order Value",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="filterParam",
+     *         in="query",
+     *         description="Keys to filter",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="filterOp",
+     *         in="query",
+     *         description="Operators to filter",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="filterValue",
+     *         in="query",
+     *         description="Values to filter",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when Bad Request"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when page not found"
+     *     )
      * )
+     *
      *
      * @QueryParam(
      *     name="page",
@@ -124,16 +181,19 @@ class WalletController extends AbstractBusController
     }
 
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Wallet",
-     *     description = "Gets a wallet for the given identifier",
-     *     output = "Leos\Domain\Wallet\Model\Wallet",
-     *     statusCodes = {
-     *       200 = "Returned when successful",
-     *       404 = "Returned when not found"
-     *     }
+     * @Operation(
+     *     tags={"Wallet"},
+     *     summary="Gets a wallet for the given identifier",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @View(statusCode=200, serializerGroups={"Identifier", "Basic"})
      *
@@ -147,15 +207,29 @@ class WalletController extends AbstractBusController
     }
 
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Wallet",
-     *     description = "Create a new Wallet",
-     *     output = "Leos\Domain\Wallet\Model\Wallet",
-     *     statusCodes = {
-     *       201 = "Returned when successful"
-     *     }
+     * @Operation(
+     *     tags={"Wallet"},
+     *     summary="Create a new Wallet",
+     *     @SWG\Parameter(
+     *         name="userId",
+     *         in="formData",
+     *         description="The user identifier",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="currency",
+     *         in="formData",
+     *         description="The currency of the wallet",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Returned when successful"
+     *     )
      * )
+     *
      *
      * @RequestParam(name="userId",   default="none", description="The user identifier")
      * @RequestParam(name="currency", default="EUR",  description="The currency of the wallet")
@@ -185,17 +259,44 @@ class WalletController extends AbstractBusController
     }
 
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Wallet",
-     *     description = "Generate a positive insertion on the given Wallet",
-     *     output = "Leos\Domain\Debit\Model\Debit",
-     *     statusCodes = {
-     *       202 = "Returned when successful",
-     *       400 = "Returned when bad request",
-     *       404 = "Returned when wallet not found"
-     *     }
+     * @Operation(
+     *     tags={"Wallet"},
+     *     summary="Generate a positive insertion on the given Wallet",
+     *     @SWG\Parameter(
+     *         name="real",
+     *         in="formData",
+     *         description="Deposit amount",
+     *         required=false,
+     *         type="integer"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="currency",
+     *         in="formData",
+     *         description="Currency",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="provider",
+     *         in="formData",
+     *         description="Payment provider",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response="202",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when bad request"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when wallet not found"
+     *     )
      * )
+     *
      *
      * @RequestParam(name="real",     default="0",   description="Deposit amount")
      * @RequestParam(name="currency", default="EUR", description="Currency")
@@ -221,18 +322,48 @@ class WalletController extends AbstractBusController
     }
 
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Wallet",
-     *     description = "Generate a negative insertion on the given Wallet",
-     *     output = "Leos\Domain\Payment\Model\Withdrawal",
-     *     statusCodes = {
-     *       202 = "Returned when successful",
-     *       400 = "Returned when bad request",
-     *       404 = "Returned when wallet not found",
-     *       409 = "Returned when not enough founds"
-     *     }
+     * @Operation(
+     *     tags={"Wallet"},
+     *     summary="Generate a negative insertion on the given Wallet",
+     *     @SWG\Parameter(
+     *         name="real",
+     *         in="formData",
+     *         description="Withdrawal amount",
+     *         required=false,
+     *         type="number"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="currency",
+     *         in="formData",
+     *         description="Currency",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="provider",
+     *         in="formData",
+     *         description="Payment provider",
+     *         required=false,
+     *         type="string"
+     *     ),
+     *     @SWG\Response(
+     *         response="202",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when bad request"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when wallet not found"
+     *     ),
+     *     @SWG\Response(
+     *         response="409",
+     *         description="Returned when not enough founds"
+     *     )
      * )
+     *
      *
      * @RequestParam(name="real",     default="0",  description="Withdrawal amount")
      * @RequestParam(name="currency", default="EUR", description="Currency")
