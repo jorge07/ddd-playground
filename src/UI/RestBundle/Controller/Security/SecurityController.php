@@ -18,7 +18,9 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
@@ -34,14 +36,29 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 class SecurityController extends AbstractBusController
 {
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Public",
-     *     description = "Login a user on the system",
-     *     statusCodes = {
-     *       200 = "Returned when successful"
-     *     }
+     * @Operation(
+     *     tags={"Public"},
+     *     summary="Login a user on the system",
+     *     @SWG\Parameter(
+     *         name="_username",
+     *         in="formData",
+     *         description="Unique username identifier",
+     *         required=false,
+     *         type=""
+     *     ),
+     *     @SWG\Parameter(
+     *         name="_password",
+     *         in="formData",
+     *         description="User plain password",
+     *         required=false,
+     *         type=""
+     *     ),
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     )
      * )
+     *
      *
      * @RequestParam(name="_username", description="Unique username identifier")
      * @RequestParam(name="_password", description="User plain password")
@@ -68,17 +85,44 @@ class SecurityController extends AbstractBusController
 
 
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Public",
-     *     description = "Register a user on the system",
-     *     output = "Leos\Domain\User\Model\User",
-     *     statusCodes = {
-     *       201 = "Returned when successful",
-     *       400 = "Returned when bad request",
-     *       409 = "Returned when already exist"
-     *     }
+     * @Operation(
+     *     tags={"Public"},
+     *     summary="Register a user on the system",
+     *     @SWG\Parameter(
+     *         name="username",
+     *         in="formData",
+     *         description="Unique username",
+     *         required=false,
+     *         type=""
+     *     ),
+     *     @SWG\Parameter(
+     *         name="email",
+     *         in="formData",
+     *         description="Unique email",
+     *         required=false,
+     *         type=""
+     *     ),
+     *     @SWG\Parameter(
+     *         name="password",
+     *         in="formData",
+     *         description="Plain password",
+     *         required=false,
+     *         type=""
+     *     ),
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when bad request"
+     *     ),
+     *     @SWG\Response(
+     *         response="409",
+     *         description="Returned when already exist"
+     *     )
      * )
+     *
      *
      * @RequestParam(name="username", strict=false, default="", description="Unique username")
      * @RequestParam(name="email", strict=false, default="", description="Unique email")

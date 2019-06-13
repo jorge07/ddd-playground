@@ -2,7 +2,9 @@
 
 namespace Leos\UI\RestBundle\Controller\Home;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Leos\UI\RestBundle\Controller\AbstractController;
@@ -30,14 +32,15 @@ class HomeController extends AbstractController
     }
     
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Home",
-     *     description = "Home",
-     *     statusCodes = {
-     *       200 = "Returned when successful"
-     *     }
+     * @Operation(
+     *     tags={"Home"},
+     *     summary="Home",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     )
      * )
+     *
      *
      * @return array
      */

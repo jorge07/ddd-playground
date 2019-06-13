@@ -47,7 +47,7 @@ The environment is in PHP7.1 and the development containers are on `etc/infrastr
 
 Up environment with: `docker-compose -f etc/infrastructure/dev/docker-compose.yml up -d`
 
-Install dependencies: `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'composer install'`
+Install dependencies: `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'COMPOSER_MEMORY_LIMIT=-1 composer install'`
 
 Setup database, etc with : `docker-compose -f etc/infrastructure/dev/docker-compose.yml exec fpm sh -lc 'ant build'`
 

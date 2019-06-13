@@ -2,13 +2,8 @@
 
 namespace Leos\Domain\User\ValueObject;
 
-use Leos\Domain\Common\ValueObject\AggregateRootId;
+use Leos\Domain\Common\AggregateRootId;
 
-/**
- * Class UserId
- *
- * @package Leos\Domain\User\ValueObject
- */
 class UserId extends AggregateRootId
 {
     /** @var  string */

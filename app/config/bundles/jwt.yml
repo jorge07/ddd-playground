@@ -1,6 +1,6 @@
 lexik_jwt_authentication:
-    private_key_path: "%jwt_private_key_path%"
-    public_key_path:  "%jwt_public_key_path%"
+    secret_key: "%jwt_private_key_path%"
+    public_key:  "%jwt_public_key_path%"
     pass_phrase:      "%jwt_key_pass_phrase%"
     token_ttl:        "%jwt_token_ttl%"
     user_identity_field: username

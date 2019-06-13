@@ -4,7 +4,9 @@ namespace Leos\UI\RestBundle\Controller\Monitor;
 
 use Leos\UI\RestBundle\Controller\AbstractController;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 /**
@@ -17,14 +19,15 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 class StatusController extends AbstractController
 {
     /**
-     * @ApiDoc(
-     *     resource = true,
-     *     section="Monitor",
-     *     description = "Ping status",
-     *     statusCodes = {
-     *       200 = "Returned when successful"
-     *     }
+     * @Operation(
+     *     tags={"Monitor"},
+     *     summary="Ping status",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     )
      * )
+     *
      *
      * @return string
      */

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Leos\Domain\Transaction\Model;
 
-use Leos\Domain\Common\ValueObject\AggregateRoot;
+use Leos\Domain\Common\AggregateRoot;
 use Leos\Domain\Transaction\Event\TransactionWasCreated;
 use Leos\Domain\Wallet\Model\Wallet;
 use Leos\Domain\Money\ValueObject\Money;

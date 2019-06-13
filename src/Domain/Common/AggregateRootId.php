@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Leos\Domain\Common\ValueObject;
+namespace Leos\Domain\Common;
 
 use Leos\Domain\Common\Exception\InvalidUUIDException;
 use Ramsey\Uuid\Uuid;
@@ -27,7 +27,7 @@ abstract class AggregateRootId
 
             $this->uuid = Uuid::fromString($id ?: (string) Uuid::uuid4())->toString();
 
-        } catch (\InvalidArgumentException $e) {
+        } catch (\Throwable $e) {
 
             throw new InvalidUUIDException();
         }
