@@ -21,7 +21,7 @@ class Money
      */
     private $currency;
 
-    public function __construct(float $amount = 0.00, Currency $currency)
+    public function __construct(Currency $currency, float $amount = 0.00)
     {
         $this->amount = $amount;
         $this->currency = $currency;
